@@ -1,7 +1,7 @@
 <script lang="ts">
 
-import {defineComponent} from "vue";
 import {DBResponse, Exercise, Feedback} from "../types";
+import {defineComponent} from "vue";
 import {useExStore} from "../stores/ex_store";
 import {useAppStore} from "../stores/app_store";
 
@@ -21,7 +21,6 @@ export default defineComponent({
   data() {
     return {
       userCode: "",
-      currentStepID: "",
     }
   },
 
@@ -61,8 +60,6 @@ export default defineComponent({
     } catch (error) {
       console.log(`Произошла ошибка при генерации примера ${error}`)
     }
-
-    this.currentStepID = this.currentStep.id;
 
   },
 

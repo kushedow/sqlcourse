@@ -1,9 +1,8 @@
 <script lang="ts">
 
-import {defineComponent} from "vue";
 import {Exercise} from "../types";
+import {defineComponent} from "vue";
 import {useAppStore} from "../stores/app_store";
-import {ExerciseManager} from "../classes/exercise_manager.class";
 
 export default defineComponent({
 

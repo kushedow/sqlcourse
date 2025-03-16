@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import {defineStore} from 'pinia';
 import {Exercise} from "../types";
 import {useExStore} from "./ex_store";
 
@@ -7,11 +7,9 @@ export const useAppStore = defineStore('main', {
 
     state: () => ({
 
-        steps: [],
-        currentStepID: 0,
-        userEditorInput: "",
-        databaseOutput: {},
-        status: "loading",
+        steps: [],             // все шаги
+        currentStepID: 0,      // стартовый / текущий шаг
+        status: "loading",     // Cостояние приложения (loading / ready / error)
 
     }),
 
@@ -23,19 +21,20 @@ export const useAppStore = defineStore('main', {
 
         currentStep: (state) => {
             const currentID: number = state.currentStepID;
-            const step =  state.steps.find(ex => ex.id == currentID)
-            return step
+            return state.steps.find(ex => ex.id == currentID)
         },
 
     },
 
     actions: {
 
-        setSteps(allSteps: Exercise[]):void {
+        // Вгружаем все шаги после загрузки.
+        setSteps(allSteps: Exercise[]): void {
             this.steps = allSteps;
             console.log("Шаги загружены")
         },
 
+        // Меням статус: loading / ready / error
         setStatus(value: string): void {
             this.status = value;
         },
@@ -53,7 +52,7 @@ export const useAppStore = defineStore('main', {
         },
 
         // Перейти к следующему заданию, если оно есть
-        nextStep():void {
+        nextStep(): void {
             const nextStepID = this.currentStepID + 1
             this.setCurrentStep(nextStepID)
         }

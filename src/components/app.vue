@@ -1,11 +1,11 @@
 <script lang="ts">
 
+import { Exercise} from "../types";
 import {defineComponent} from 'vue';
 import {useAppStore} from '../stores/app_store.ts';
 
 import {ExerciseManager} from "../classes/exercise_manager.class.js"
 
-import {DBResponse, Exercise, Feedback} from "../types";
 import Navigation from "./navigation.vue";
 import Practice from "./practice.vue";
 import Theory from "./theory.vue";
@@ -23,11 +23,10 @@ export default defineComponent({
 
   data() {
     return {
-      userCode: '',
-      example: {},
-      output: {},
-      checklist: [],
-      errors: [],
+      example: {},    // Результат выполнения кода примера-образца
+      output: {},     // Результат выполнения кода ученика
+      checklist: [],  // Результат проверки по списку
+      errors: [],     // Ошибки при выполнении
     };
   },
 
@@ -98,6 +97,7 @@ export default defineComponent({
 
   </div><!--/container -->
 
+  <!-- Компонент навигации по всем шагам  -->
   <div v-if="status == 'ready'">
     <navigation></navigation>
   </div>
