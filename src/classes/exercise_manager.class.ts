@@ -1,4 +1,4 @@
-import {Exercise} from "./types";
+import {Exercise} from "../types";
 
 const APIURL = "https://functions.yandexcloud.net/d4e426vjguftonb368aj"
 

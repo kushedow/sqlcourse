@@ -10,6 +10,7 @@ export interface Exercise {
     id: number;
     lesson: string;
     title: string;
+    type: string;
     instruction: string;
     structure: string;
     records: string;

@@ -1,4 +1,4 @@
-import {Feedback, DBResponse} from "./types";
+import {Feedback, DBResponse} from "../types";
 
 export class Checker {
 

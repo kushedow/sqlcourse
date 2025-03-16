@@ -2,15 +2,13 @@ import {PGlite} from "@electric-sql/pglite";
 
 export class SQLRunner{
 
-    private db: PGlite;
+    public db: PGlite;
 
     constructor(options={}) {
-
-        this.reset()
-
+        // this.reset()
     }
 
-    reset(){
+    public reset(){
         this.db = new PGlite()
     }
 
@@ -28,12 +26,5 @@ export class SQLRunner{
 
     }
 
-    fill(query){
-
-    }
-
-    check(preSQL="", attemptSQL="", postSQL=""){
-
-    }
 
 }

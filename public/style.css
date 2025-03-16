@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+.step_instruction p{
+
+    margin: 16px 0;
+
+}
