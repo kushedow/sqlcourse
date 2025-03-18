@@ -51,6 +51,7 @@ export default defineComponent({
     try {
       const allSteps = await this.manager.load()
       this.store.setSteps(allSteps);
+      this.store.setCurrentStep(0);
       this.store.setStatus("ready")
     } catch (error) {
       console.log(`Произошла ошибка при загрузке ${error}`)

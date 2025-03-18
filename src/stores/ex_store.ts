@@ -59,24 +59,30 @@ export const useExStore = defineStore('exercise', {
         async runExample(): Promise<void>{
 
             const runner = new SQLRunner()
-
             runner.reset()
-            await runner.runAll(this.structure)
-            await runner.runAll(this.records)
-            this.example = await runner.run(this.solution)
-            this.setExample(this.example)
 
-            console.log(`Выполнен код для образца`)
+            try {
+                await runner.runAll(this.structure)
+                await runner.runAll(this.records)
+                this.example = await runner.run(this.solution)
+                this.setExample(this.example)
+
+            } catch (error){
+                console.log(`Поймана ошибка во время выполнения примера ${error}`)
+                this.pushError(error)
+            }
+
+
 
         },
 
-        async run(userCode): Promise<DBResponse>{
+        async run(userCode){
 
             const runner = new SQLRunner()
             const checker = new Checker();
 
             this.resetOutput()
-            await runner.reset()
+            runner.reset()
             await runner.runAll(this.structure + ";" + this.records)
 
             try {
