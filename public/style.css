@@ -1,7 +1,39 @@
 @import "tailwindcss";
 
+.step_instruction h2 {
+    font-size: 16px;
+    margin-top: 32px;
+    font-weight: bold;
+}
+
 .step_instruction p{
-
     margin: 16px 0;
+}
 
+.step_instruction code {
+    background-color: #eee;
+    border-radius: 8px;
+    padding: 4px 6px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.step_instruction table {
+
+    background-color: #eee;
+    border-radius: 8px;
+}
+
+.step_instruction td {
+    text-align: left;
+    padding: 4px 8px;
+}
+
+.step_instruction th {
+    text-align: left;
+    padding: 8px 8px;
+}
+
+.step_instruction thead {
+    border-bottom: 1px solid #aaa;
 }
