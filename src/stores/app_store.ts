@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia';
-import {Exercise, Lesson} from "../types";
-import {useExStore} from "./ex_store";
+import {Step, Lesson} from "../types";
+import {useStepStore} from "./step_store";
+import {MiniStorage} from "../classes/storage.class";
 
 
 export const useAppStore = defineStore('main', {
@@ -16,6 +17,7 @@ export const useAppStore = defineStore('main', {
     getters: {
 
         exercises: (state) => {
+            // алиас для поддержки ошибок прошлого
             return state.steps
         },
 
@@ -43,10 +45,13 @@ export const useAppStore = defineStore('main', {
 
     actions: {
 
-        // Вгружаем все шаги после загрузки.
-        setSteps(allSteps: Exercise[]): void {
-            this.steps = allSteps;
-            console.log("Шаги загружены")
+        // Сохраняем в стор все шаги после загрузки, попутн вспоминая что у нас в хранилище :)
+        setSteps(allSteps: Step[]): void {
+
+            const miniStorage = new MiniStorage()
+            this.steps = miniStorage.restoreAllStepsData(allSteps);
+
+            console.log("Шаги загружены и обогащены информацией из localStorage")
         },
 
         // Меням статус: loading / ready / error
@@ -59,7 +64,7 @@ export const useAppStore = defineStore('main', {
             this.currentStepID = key;
             console.log(`current step set to ${key}`);
 
-            const exStore = useExStore();
+            const exStore = useStepStore();
             exStore.setExercise(this.currentStep)
             if (this.currentStep.type == 'practice') {
                 exStore.runExample().then()

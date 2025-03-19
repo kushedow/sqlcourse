@@ -1,8 +1,8 @@
 <script lang="ts">
 
 import {defineComponent} from 'vue';
-import {useAppStore} from '../stores/app_store.ts';
-import {Exercise, Lesson} from "../types";
+import {useAppStore} from '../stores/app_store';
+import {Step, Lesson} from "../types";
 
 export default defineComponent({
 
@@ -18,7 +18,7 @@ export default defineComponent({
   data() { return {}},
 
   computed: {
-
+    // Получаем шаги, сгруппированные в уроки
     lessons(): Lesson[] {
       return this.store.groupedExercises;
     },
@@ -38,16 +38,15 @@ export default defineComponent({
   mounted() {
 
     try {
+      // Пытаемся вытащить шаг из адресной строки
       const step = parseInt(window.location.hash.split("_").slice(-1)[0])
       this.store.setCurrentStep(step);
     } catch {
+      // Если не получилось – начинаем с начала
       console.log("Navigation: не задан шаг, начинаем с начала")
       this.store.setCurrentStep(0);
     }
-
   }
-
-
 
 })
 
@@ -59,24 +58,18 @@ export default defineComponent({
     <h2 class="text-lg mb-3 "> Содержание: </h2>
 
     <div v-for="lesson in lessons">
-
       <h2 class="my-3">{{lesson.title}}</h2>
       <ul>
         <li v-for="step in lesson.steps" class="my-1">
 
-          <span v-if="step.type == 'practice'">✍️ </span>
-          <span v-if="step.type == 'theory'">👨‍💻 </span>
-
+          <span v-if="step.type == 'practice' && !step.isCompleted">✍️ </span>
+          <span v-if="step.type == 'theory' && !step.isCompleted">👨‍💻 </span>
+          <span v-if="step.isCompleted">✅ </span>
           <a :href="'#step_' + step.id" @click="goto(step.id)" class="text-slate-500 hover:text-slate-700 ">{{step.title}}</a>
-
         </li>
       </ul>
-
     </div>
 
-    <ul>
-
-    </ul>
   </div>
 
 </template>

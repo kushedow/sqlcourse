@@ -1,8 +1,8 @@
 <script lang="ts">
 
-import {DBResponse, Exercise, Feedback} from "../types";
+import {DBResponse, Step, Feedback} from "../types";
 import {defineComponent} from "vue";
-import {useExStore} from "../stores/ex_store";
+import {useStepStore} from "../stores/step_store";
 import {useAppStore} from "../stores/app_store";
 
 export default defineComponent({
@@ -13,22 +13,23 @@ export default defineComponent({
   setup() {
 
     const appStore = useAppStore();
-    const exStore = useExStore();
+    const exStore = useStepStore();
     return { appStore, exStore };
 
   },
 
   data() {
     return {
-      userCode: "",
+      userCode: this.appStore.currentStep.userCode,
     }
   },
 
   computed: {
 
     status(): string { return this.appStore.status;  },
+    userCode(): string { return this.appStore.currentStep.userCode; },
     runnerStatus(): string {return this.exStore.runnerStatus; },
-    currentStep(): Exercise { return this.appStore.currentStep; },
+    currentStep(): Step { return this.appStore.currentStep; },
 
     example(): DBResponse { return this.exStore.example; },
     output(): DBResponse { return this.exStore.output; },
@@ -101,7 +102,7 @@ export default defineComponent({
               class="w-full bg-[#eee]  rounded p-2 my-3"
               :class="{ 'bg-emerald-100': isCompleted,}"
               placeholder="Введите SQL запрос тут"
-    ></textarea>
+    >{{userCode}}</textarea>
 
 
     <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}</div>

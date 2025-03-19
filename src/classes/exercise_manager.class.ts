@@ -1,16 +1,16 @@
-import {Exercise} from "../types";
+import {Step} from "../types";
 
 const APIURL = "https://functions.yandexcloud.net/d4e426vjguftonb368aj"
 
 
 export class ExerciseManager {
 
-    public allExercises: Exercise[]
+    public allExercises: Step[]
 
     constructor() {}
 
     // @ts-ignore
-    async load(): Promise<Exercise[]> {
+    async load(): Promise<Step[]> {
 
         try {
             const response = await fetch(APIURL);
@@ -19,7 +19,7 @@ export class ExerciseManager {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            const receivedData: Exercise[] = await response.json(); // Parse the response body as JSON
+            const receivedData: Step[] = await response.json(); // Parse the response body as JSON
 
             this.allExercises = receivedData;
             return receivedData

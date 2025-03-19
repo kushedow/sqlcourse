@@ -1,10 +1,12 @@
 import {defineStore} from 'pinia';
-import {DBResponse, Exercise, Feedback} from "../types";
+import {DBResponse, Step, Feedback} from "../types";
 import {SQLRunner} from "../classes/runner.class";
 import {Checker} from "../classes/checker.class";
+import {MiniStorage} from "../classes/storage.class";
 
 
-export const useExStore = defineStore('exercise', {
+export const useStepStore = defineStore('exercise', {
+
 
 
     state: () => ({
@@ -21,7 +23,6 @@ export const useExStore = defineStore('exercise', {
         errors: [],
 
         runnerStatus: "loading",
-
 
     }),
 
@@ -44,7 +45,8 @@ export const useExStore = defineStore('exercise', {
 
         setChecklist(value: Feedback[]): void { this.checklist = value; },
 
-        setExercise(exercise: Exercise): void{
+        setExercise(exercise: Step): void{
+            this.id = exercise.id
             this.structure = exercise.structure
             this.records = exercise.records
             this.solution = exercise.solution
@@ -87,9 +89,11 @@ export const useExStore = defineStore('exercise', {
 
             const runner = new SQLRunner()
             const checker = new Checker();
+            const miniStorage = new MiniStorage();
 
             this.resetOutput()
             runner.reset()
+
             await runner.runAll(this.structure + ";" + this.records)
 
             try {
@@ -108,6 +112,8 @@ export const useExStore = defineStore('exercise', {
 
             const checklist = [].concat(headersFeedback,countFeedback, rowsFeedback)
             this.setChecklist(checklist)
+
+            miniStorage.saveStepData(this.id, this.isCompleted, userCode)
 
             this.runnerStatus = "ready"
 

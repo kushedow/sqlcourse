@@ -1,6 +1,6 @@
 <script lang="ts">
 
-import { Exercise} from "../types";
+import { Step} from "../types";
 import {defineComponent} from 'vue';
 import {useAppStore} from '../stores/app_store.ts';
 
@@ -36,11 +36,11 @@ export default defineComponent({
       return this.store.status;
     },
 
-    exercises(): Exercise[] {
+    exercises(): Step[] {
       return this.store.exercises;
     },
 
-    currentStep(): Exercise{
+    currentStep(): Step{
       return this.store.currentStep;
     },
 

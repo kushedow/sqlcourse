@@ -6,7 +6,7 @@ export interface Feedback {
 
 }
 
-export interface Exercise {
+export interface Step {
     id: number;
     lesson: string;
     title: string;
@@ -17,13 +17,27 @@ export interface Exercise {
     solution: string;
     hint: string;
     snippets: string;
+
+    // подгружаемое их SavedStep
+    isCompleted?: boolean;
+    userCode?: string;
+
     data: object;
+
+}
+
+export interface SavedStep {
+
+    id: number;
+    userCode: string;
+    isCompleted: boolean
+
 }
 
 // Сгруппирванные в уроки шаги (упражнения)
 export interface Lesson {
     title: string;
-    steps: Exercise[];
+    steps: Step[];
 }
 
 
