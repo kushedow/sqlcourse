@@ -20,6 +20,13 @@ export interface Exercise {
     data: object;
 }
 
+// Сгруппирванные в уроки шаги (упражнения)
+export interface Lesson {
+    title: string;
+    steps: Exercise[];
+}
+
+
 export interface DBTableColumn {
     name: string;
     dataTypeID: number;

@@ -1,0 +1,81 @@
+[
+  {
+    "id": 0,
+    "title": "Добро пожаловать",
+    "lesson": "Intro",
+    "type": "theory"
+
+  },
+  {
+    "id": 1,
+    "title": "Основы SELECT",
+    "lesson": "SELECT",
+    "type": "theory"
+  },
+  {
+    "id": 2,
+    "title": "Получить все",
+    "lesson": "SELECT",
+    "type": "practice"
+  },
+  {
+    "id": 3,
+    "title": "Вывести только иконки",
+    "lesson": "JOIN",
+    "type": "practice"
+
+  },
+  {
+    "id": 4,
+    "title": "Вывести иконку и название",
+    "lesson": "JOIN",
+    "type": "practice"
+  }
+]
+
+
+  [
+    {name: "Intro", steps: [
+      {
+        "id": 0,
+        "title": "Добро пожаловать",
+        "lesson": "Intro",
+        "type": "theory"
+
+      }
+    ]}
+    {name: "SELECT", steps: [
+      {
+        "id": 1,
+        "title": "Основы SELECT",
+        "lesson": "SELECT",
+        "type": "theory"
+      },
+      {
+        "id": 2,
+        "title": "Получить все",
+        "lesson": "SELECT",
+        "type": "practice"
+      }
+    ]}
+    {name: "JOIN", steps: [
+      {
+        "id": 3,
+        "title": "Вывести только иконки",
+        "lesson": "JOIN",
+        "type": "practice"
+
+      },
+      {
+        "id": 4,
+        "title": "Вывести иконку и название",
+        "lesson": "JOIN",
+        "type": "practice"
+      }
+
+    ]}
+  ]
+
+
+
+

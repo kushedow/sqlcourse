@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia';
-import {Exercise} from "../types";
+import {Exercise, Lesson} from "../types";
 import {useExStore} from "./ex_store";
 
 
@@ -23,6 +23,21 @@ export const useAppStore = defineStore('main', {
             const currentID: number = state.currentStepID;
             return state.steps.find(ex => ex.id == currentID)
         },
+
+        groupedExercises: (state): Lesson[] => {
+            const grouped = [];
+            const lessonMap = new Map(); // Use a Map for efficient lookups
+            for (const step of state.steps) {
+                const lessonName = step.lesson;
+
+                if (!lessonMap.has(lessonName)) {
+                    lessonMap.set(lessonName, { title: lessonName, steps: [] });
+                    grouped.push(lessonMap.get(lessonName)); // Add the new group to the result array
+                }
+                lessonMap.get(lessonName).steps.push(step);
+            }
+            return grouped;
+        }
 
     },
 
