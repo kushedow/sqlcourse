@@ -44,16 +44,17 @@ export class Checker {
 
         for (let i = 0; i < example.rows.length; i++) {
 
-            const exampleValues = example.fields.toString();
-            const outputValues = output.fields.toString();
+            const exampleRowValues = JSON.stringify(example.rows[i])
+            const outputRowValues = JSON.stringify(output.rows[i])
 
-            console.log(`CHECKER: example values`, exampleValues)
-            console.log(`CHECKER: output values`, outputValues)
+            console.log(`CHECKER: row ${i}`)
+            console.log(`CHECKER: example values`, example.rows[i])
+            console.log(`CHECKER: output values`, output.rows[i])
 
             checklist.push({
                 title: `Значения в ряду ${i} совпадают`,
-                completed: exampleValues.toString() == outputValues.toString(),
-                details: `${JSON.stringify(exampleValues)} and  ${JSON.stringify(outputValues)}`
+                completed: exampleRowValues == outputRowValues,
+                details: `${exampleRowValues} != ${outputRowValues}`
             })
         }
 

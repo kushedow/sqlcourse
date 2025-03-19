@@ -24,7 +24,9 @@ export class SQLRunner{
         const allQueries: string[] = queries.split(";")
 
         for (const query of allQueries){
-            await this.run(query)
+            if (query.trim() != "") {
+                await this.run(query)
+            }
         }
 
     }
