@@ -16,15 +16,16 @@ export const useAppStore = defineStore('main', {
 
     getters: {
 
-        exercises: (state) => {
+        exercises: (state): Step[] => {
             // алиас для поддержки ошибок прошлого
             return state.steps
         },
 
-        currentStep: (state) => {
+        currentStep: (state): Step => {
             const currentID: number = state.currentStepID;
             return state.steps.find(ex => ex.id == currentID)
         },
+
 
         groupedExercises: (state): Lesson[] => {
             const grouped = [];
@@ -45,11 +46,28 @@ export const useAppStore = defineStore('main', {
 
     actions: {
 
-        // Сохраняем в стор все шаги после загрузки, попутн вспоминая что у нас в хранилище :)
+        getStep(stepID: number) : Step | null {
+            return this.steps.find((step: Step) => step.id == stepID)
+        },
+
+        attachTheory(steps: Step[]){
+
+            for (const step of steps) {
+                if (step.type == 'theory' || !step.theory_steps) { step.theory = []; continue;}
+                step.theory = [this.getStep(+step.theory_steps).instruction]
+            }
+
+            return steps
+
+        },
+
+        // Сохраняем в стор все шаги после загрузки, попутно вспоминая, что у нас в локальном хранилище
         setSteps(allSteps: Step[]): void {
 
             const miniStorage = new MiniStorage()
+
             this.steps = miniStorage.restoreAllStepsData(allSteps);
+            this.steps = this.attachTheory(this.steps);
 
             console.log("Шаги загружены и обогащены информацией из localStorage")
         },

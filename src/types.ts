@@ -7,6 +7,7 @@ export interface Feedback {
 }
 
 export interface Step {
+    theory: string[];
     id: number;
     lesson: string;
     title: string;
@@ -17,6 +18,8 @@ export interface Step {
     solution: string;
     hint: string;
     snippets: string;
+
+    theory_steps: string;
 
     // подгружаемое их SavedStep
     isCompleted?: boolean;

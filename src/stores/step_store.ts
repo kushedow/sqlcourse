@@ -7,12 +7,11 @@ import {MiniStorage} from "../classes/storage.class";
 
 export const useStepStore = defineStore('exercise', {
 
-
-
     state: () => ({
 
         userCode: '',
 
+        id: {},
         structure:  '',
         records:  '',
         solution:  '',
@@ -31,7 +30,7 @@ export const useStepStore = defineStore('exercise', {
         isCompleted(store): boolean {
             if (store.checklist.length === 0) {return false}
             return store.checklist.every(checkpoint => checkpoint.completed);
-        }
+        },
 
     },
 
@@ -46,12 +45,14 @@ export const useStepStore = defineStore('exercise', {
         setChecklist(value: Feedback[]): void { this.checklist = value; },
 
         setExercise(exercise: Step): void{
+
             this.id = exercise.id
             this.structure = exercise.structure
             this.records = exercise.records
             this.solution = exercise.solution
-            this.resetOutput()
             this.runnerStatus = "ready"
+
+            this.resetOutput()
         },
 
         resetOutput(){
