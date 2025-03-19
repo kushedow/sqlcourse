@@ -29,9 +29,26 @@ export default defineComponent({
 
     // Переход к другой страничке
     goto(ID: number){
+      window.scrollTo({top:0})
       this.store.setCurrentStep(ID)
     }
+
+  },
+
+  mounted() {
+
+    try {
+      const step = parseInt(window.location.hash.split("_").slice(-1)[0])
+      this.store.setCurrentStep(step);
+    } catch {
+      console.log("Navigation: не задан шаг, начинаем с начала")
+      this.store.setCurrentStep(0);
+    }
+
   }
+
+
+
 })
 
 </script>
@@ -50,7 +67,8 @@ export default defineComponent({
           <span v-if="step.type == 'practice'">✍️ </span>
           <span v-if="step.type == 'theory'">👨‍💻 </span>
 
-          <a href="#step_{{step.id}}" @click="goto(step.id)" class="text-slate-500 hover:text-slate-700 ">{{step.title}}</a>
+          <a :href="'#step_' + step.id" @click="goto(step.id)" class="text-slate-500 hover:text-slate-700 ">{{step.title}}</a>
+
         </li>
       </ul>
 
