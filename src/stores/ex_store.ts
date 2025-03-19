@@ -72,7 +72,7 @@ export const useExStore = defineStore('exercise', {
                 this.setExample(this.example)
 
             } catch (error){
-                console.log(`Поймана ошибка во время выполнения примера ${error}`)
+                console.log(`Runner: Поймана ошибка во время выполнения примера ${error}`)
                 this.pushError(error)
             }
 
@@ -96,7 +96,7 @@ export const useExStore = defineStore('exercise', {
                 const output = await runner.run(userCode)
                 this.setOutput(output)
             } catch (error){
-                console.log(`Поймана ошибка во время выполнения ${error}`)
+                console.log(`Runner: Поймана ошибка во время выполнения ${error}`)
                 this.pushError(error)
             }
 

@@ -96,20 +96,25 @@ export default defineComponent({
   </section>
 
   <section class="exercise__editor my-3">
-    <textarea v-model="userCode" class="w-full bg-[#eee] rounded p-2 my-3" placeholder="Введите SQL запрос тут"></textarea>
+
+    <textarea v-model="userCode"
+              class="w-full bg-[#eee]  rounded p-2 my-3"
+              :class="{ 'bg-emerald-100': isCompleted,}"
+              placeholder="Введите SQL запрос тут"
+    ></textarea>
+
 
     <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}</div>
 
-    <div v-if="isCompleted" class="p-4 mb-3 rounded bg-emerald-100 cursor-pointer">
-      Задание выполнено, можно делать следующее
-      <button class="underline" @click="nextStep()">Следующее</button>
+    <div v-if="isCompleted" class="p-4 mb-3 rounded bg-emerald-50 ">
+      Задание выполнено, можно делать
+      <button class="underline cursor-pointer" @click="nextStep()">Следующее</button>
     </div>
 
     <button @click="run()" class="bg-slate-500 text-white rounded p-3 cursor-pointer mr-4">
         <span v-if="runnerStatus =='ready'"> Запустить и проверить</span>
         <span v-if="runnerStatus =='rendering'"> Готовим таблицы ...</span>
         <span v-if="runnerStatus =='running'"> Выполняем ... </span>
-
     </button>
 
 

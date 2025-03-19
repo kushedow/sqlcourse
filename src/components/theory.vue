@@ -23,7 +23,7 @@ export default defineComponent({
   methods: {
 
     nextStep(): void{
-      console.log("Переходим из теории в следующий шаг")
+      console.log("Navigation: Переходим из теории в следующий шаг")
       window.scrollTo({top:0})
       this.appStore.nextStep()
     },

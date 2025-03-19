@@ -47,10 +47,6 @@ export class Checker {
             const exampleRowValues = JSON.stringify(example.rows[i])
             const outputRowValues = JSON.stringify(output.rows[i])
 
-            console.log(`CHECKER: row ${i}`)
-            console.log(`CHECKER: example values`, example.rows[i])
-            console.log(`CHECKER: output values`, output.rows[i])
-
             checklist.push({
                 title: `Значения в ряду ${i} совпадают`,
                 completed: exampleRowValues == outputRowValues,
