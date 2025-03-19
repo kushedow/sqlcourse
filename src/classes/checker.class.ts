@@ -47,6 +47,9 @@ export class Checker {
             const exampleValues = example.fields.toString();
             const outputValues = output.fields.toString();
 
+            console.log(`CHECKER: example values`, exampleValues)
+            console.log(`CHECKER: output values`, outputValues)
+
             checklist.push({
                 title: `Значения в ряду ${i} совпадают`,
                 completed: exampleValues.toString() == outputValues.toString(),
