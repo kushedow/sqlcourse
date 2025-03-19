@@ -19,7 +19,8 @@ export const useExStore = defineStore('exercise', {
         output: {},
         checklist: [],
         errors: [],
-        status: "loading",
+
+        runnerStatus: "loading",
 
 
     }),
@@ -48,6 +49,7 @@ export const useExStore = defineStore('exercise', {
             this.records = exercise.records
             this.solution = exercise.solution
             this.resetOutput()
+            this.runnerStatus = "ready"
         },
 
         resetOutput(){
@@ -57,6 +59,8 @@ export const useExStore = defineStore('exercise', {
         },
 
         async runExample(): Promise<void>{
+
+            this.runnerStatus = "rendering"
 
             const runner = new SQLRunner()
             runner.reset()
@@ -72,11 +76,14 @@ export const useExStore = defineStore('exercise', {
                 this.pushError(error)
             }
 
+            this.runnerStatus = "ready"
 
 
         },
 
-        async run(userCode){
+        async run(userCode: string){
+
+            this.runnerStatus = "running"
 
             const runner = new SQLRunner()
             const checker = new Checker();
@@ -101,6 +108,8 @@ export const useExStore = defineStore('exercise', {
 
             const checklist = [].concat(headersFeedback,countFeedback, rowsFeedback)
             this.setChecklist(checklist)
+
+            this.runnerStatus = "ready"
 
         }
 

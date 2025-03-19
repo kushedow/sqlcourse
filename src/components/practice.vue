@@ -27,6 +27,7 @@ export default defineComponent({
   computed: {
 
     status(): string { return this.appStore.status;  },
+    runnerStatus(): string {return this.exStore.runnerStatus; },
     currentStep(): Exercise { return this.appStore.currentStep; },
 
     example(): DBResponse { return this.exStore.example; },
@@ -103,7 +104,15 @@ export default defineComponent({
       Задание выполнено, можно делать следующее
       <button class="underline" @click="nextStep()">Следующее</button>
     </div>
-    <button @click="run()" class="bg-slate-500 text-white rounded p-3 cursor-pointer mr-4">Запустить и проверить</button>
+
+    <button @click="run()" class="bg-slate-500 text-white rounded p-3 cursor-pointer mr-4">
+        <span v-if="runnerStatus =='ready'"> Запустить и проверить</span>
+        <span v-if="runnerStatus =='rendering'"> Готовим таблицы ...</span>
+        <span v-if="runnerStatus =='running'"> Выполняем ... </span>
+
+    </button>
+
+
   </section>
 
   <section v-if="output.rows" class="exercise__output my-3 border border-gray-200 rounded-xl shadow-2xs p-4" >
