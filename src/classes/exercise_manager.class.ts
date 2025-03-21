@@ -1,7 +1,6 @@
 import {Step} from "../types";
 
-const APIURL = "https://api.cors.lol/?url=https://script.google.com/macros/s/AKfycbwWKJcWMg-tBqijcTyCl8tz1g79VpRlXhjImHQK8LkyppXZWFNEFDjTbz1aNvzJaEBw/exec"
-
+const APIURL = "https://gas-cors-proxy.onrender.com/AKfycbwWKJcWMg-tBqijcTyCl8tz1g79VpRlXhjImHQK8LkyppXZWFNEFDjTbz1aNvzJaEBw"
 
 export class ExerciseManager {
 
