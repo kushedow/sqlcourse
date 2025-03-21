@@ -72,10 +72,16 @@ export default defineComponent({
 
 <template>
 
-    <details>
-      <summary class="cursor-pointer mt-2 mb-1 text-slate-600">Напомнить теорию</summary>
-      <article v-html="currentStep.theory[0]"> </article>
-    </details>
+  <details>
+    <summary class="cursor-pointer mt-2 mb-1 text-slate-600">Напомнить теорию</summary>
+    <article v-html="currentStep.theory[0]"> </article>
+  </details>
+
+  <details>
+    <summary class="cursor-pointer mb-1 text-slate-600">Показать схему таблиц</summary>
+    <article><img :src="currentStep.schema" > </article>
+  </details>
+
 
   <section class="practice__example my-3 border border-gray-200 rounded-xl shadow-2xs p-4" v-if="currentStep != null">
 
