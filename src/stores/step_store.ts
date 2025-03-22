@@ -3,6 +3,7 @@ import {DBResponse, Step, Feedback} from "../types";
 import {SQLRunner} from "../classes/runner.class";
 import {Checker} from "../classes/checker.class";
 import {MiniStorage} from "../classes/storage.class";
+import {AIHelper} from "../classes/ai_helper.class";
 
 
 export const useStepStore = defineStore('exercise', {
@@ -11,6 +12,7 @@ export const useStepStore = defineStore('exercise', {
 
         userCode: '',
 
+        step: {},
         id: {},
         structure:  '',
         records:  '',
@@ -22,6 +24,8 @@ export const useStepStore = defineStore('exercise', {
         errors: [],
 
         runnerStatus: "loading",
+        aiStatus: "ready",
+        aiHelp: "" ,
 
     }),
 
@@ -44,13 +48,17 @@ export const useStepStore = defineStore('exercise', {
 
         setChecklist(value: Feedback[]): void { this.checklist = value; },
 
-        setExercise(exercise: Step): void{
+        setExercise(step: Step): void{
 
-            this.id = exercise.id
-            this.structure = exercise.structure
-            this.records = exercise.records
-            this.solution = exercise.solution
+            this.step = step
+
+            this.id = step.id
+            this.structure = step.structure
+            this.records = step.records
+            this.solution = step.solution
             this.runnerStatus = "ready"
+            this.aiHelp = ""
+            this.aiStatus = "ready"
 
             this.resetOutput()
         },
@@ -103,6 +111,7 @@ export const useStepStore = defineStore('exercise', {
             } catch (error){
                 console.log(`Runner: Поймана ошибка во время выполнения ${error}`)
                 this.pushError(error)
+                this.runnerStatus = "ready"
             }
 
             console.log("Проверяем решение")
@@ -117,6 +126,19 @@ export const useStepStore = defineStore('exercise', {
             miniStorage.saveStepData(this.id, this.isCompleted, userCode)
 
             this.runnerStatus = "ready"
+
+        },
+
+        async getAIHelp(userCode){
+
+            this.aiStatus = "running"
+            this.aiHelp = "Ждем подсказку от ИИ"
+
+            const aiHelper = new AIHelper()
+            this.aiHelp = await aiHelper.getHelp(this.step, userCode, this.errors)
+            this.aiStatus = "ready"
+
+            return this.aiHelp
 
         }
 

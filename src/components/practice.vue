@@ -21,6 +21,7 @@ export default defineComponent({
   data() {
     return {
       userCode: this.appStore.currentStep.userCode,
+
     }
   },
 
@@ -29,11 +30,16 @@ export default defineComponent({
     status(): string { return this.appStore.status;  },
     userCode(): string { return this.appStore.currentStep.userCode; },
     runnerStatus(): string {return this.exStore.runnerStatus; },
+
     currentStep(): Step { return this.appStore.currentStep; },
 
     example(): DBResponse { return this.exStore.example; },
     output(): DBResponse { return this.exStore.output; },
     errors(): string[] { return this.exStore.errors; },
+
+    aiHelp(): string {return this.exStore.aiHelp;},
+    aiStatus(): string {return this.exStore.aiStatus;},
+
     isCompleted(): boolean { return this.exStore.isCompleted; },
     checklist(): Feedback { return this.exStore.checklist; },
 
@@ -44,6 +50,12 @@ export default defineComponent({
     async run(){
       console.log("Процессим решение")
       await this.exStore.run(this.userCode)
+    },
+
+    async getAIHelp(){
+      console.log("Зовем на помощь AI")
+      await this.exStore.getAIHelp(this.userCode)
+
     },
 
     nextStep(){
@@ -107,6 +119,12 @@ export default defineComponent({
 
   </section>
 
+  <section class="exercise_ai" >
+
+    <article v-html="aiHelp"></article>
+
+  </section>
+
   <section class="exercise__editor my-3">
 
     <textarea v-model="userCode"
@@ -127,6 +145,11 @@ export default defineComponent({
         <span v-if="runnerStatus =='ready'"> Запустить и проверить</span>
         <span v-if="runnerStatus =='rendering'"> Готовим таблицы ...</span>
         <span v-if="runnerStatus =='running'"> Выполняем ... </span>
+    </button>
+
+    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4">
+      <span v-if="aiStatus =='ready'"> Получить помощь ии</span>
+      <span v-if="aiStatus =='running'"> Подсказываем...</span>
     </button>
 
 

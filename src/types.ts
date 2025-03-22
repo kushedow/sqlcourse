@@ -18,6 +18,7 @@ export interface Step {
     solution: string;
     hint: string;
     snippets: string;
+    schema: string;
 
     theory_steps: string;
 
@@ -53,4 +54,8 @@ export interface DBResponse {
     rows: object[];
     fields: DBTableColumn[];
     affectedRows: number;
+}
+
+export interface AIResponse {
+    response: string;
 }
