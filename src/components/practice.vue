@@ -4,11 +4,12 @@ import {DBResponse, Step, Feedback} from "../types";
 import {defineComponent} from "vue";
 import {useStepStore} from "../stores/step_store";
 import {useAppStore} from "../stores/app_store";
+import ResponseTable from "./response_table.vue";
 
 export default defineComponent({
 
   name: 'Practice',
-  components: {},
+  components: {ResponseTable},
 
   setup() {
 
@@ -103,23 +104,7 @@ export default defineComponent({
 
       <div v-if="!example.rows" class="p-4 rounded bg-slate-100">Секунду, отрисовываем...</div>
 
-      <table v-if="example">
-        <thead class="text-gray-700 bg-gray-50">
-        <tr class="">
-          <th v-for="field in example.fields" class="p-2">
-            {{field.name}}
-          </th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr v-for="row in example.rows" class="bg-white border-b border-gray-50">
-          <td v-for="cell in row" class="px-2 py-1">
-            {{cell}}
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <ResponseTable :outputData="example"></ResponseTable>
 
     </div>
     <!-- /.left -->
@@ -130,18 +115,7 @@ export default defineComponent({
 
       <div v-if="output.rows" class="exercise__output" >
 
-        <table>
-          <thead class="text-gray-700 bg-gray-50">
-          <tr>
-            <th v-for="field in output.fields"> {{field.name}}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="row in output.rows" class="bg-white border-b border-gray-50">
-            <td v-for="cell in row" class="px-2 py-1">{{cell}} </td>
-          </tr>
-          </tbody>
-        </table>
+        <ResponseTable :outputData="output"></ResponseTable>
 
         <div v-if="output=={}" class="p-4 rounded bg-slate-100">После выполнения запроса, тут будет результат</div>
         <div v-if="output.fields && output.fields.length == 0 " class="p-4 rounded bg-slate-100">Запрос вернул пустой результат</div>
