@@ -18,10 +18,21 @@
     font-size: 15px;
 }
 
+.step_instruction pre code {
+    display: inline-block;
+}
+
 .step_instruction table {
 
     background-color: #eee;
     border-radius: 8px;
+
+}
+
+.step_instruction caption {
+    caption-side: top;
+    text-align: left;
+    padding-bottom: 8px;
 }
 
 .step_instruction td {
