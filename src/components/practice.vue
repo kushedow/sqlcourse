@@ -95,27 +95,61 @@ export default defineComponent({
   </details>
 
 
-  <section class="practice__example my-3 border border-gray-200 rounded-xl shadow-2xs p-4" v-if="currentStep != null">
+  <section class="grid grid-cols-2 gap-4 practice__example my-3" v-if="currentStep != null">
 
-    <div v-if="!example.rows" class="p-4 rounded bg-slate-100">Секунду, отрисовываем образец...</div>
+    <div class="left">
 
-    <table v-if="example">
-      <thead class="text-gray-700 bg-gray-50">
-      <tr class="">
-        <th v-for="field in example.fields" class="p-2">
-          {{field.name}}
-        </th>
-      </tr>
-      </thead>
+      <small>Образец</small>
 
-      <tbody>
-      <tr v-for="row in example.rows" class="bg-white border-b border-gray-50">
-        <td v-for="cell in row" class="p-2">
-          {{cell}}
-        </td>
-      </tr>
-      </tbody>
-    </table>
+      <div v-if="!example.rows" class="p-4 rounded bg-slate-100">Секунду, отрисовываем...</div>
+
+      <table v-if="example">
+        <thead class="text-gray-700 bg-gray-50">
+        <tr class="">
+          <th v-for="field in example.fields" class="p-2">
+            {{field.name}}
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr v-for="row in example.rows" class="bg-white border-b border-gray-50">
+          <td v-for="cell in row" class="px-2 py-1">
+            {{cell}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <!-- /.left -->
+
+    <div class="right">
+
+      <small>Результат</small>
+
+      <div v-if="output.rows" class="exercise__output" >
+
+        <table>
+          <thead class="text-gray-700 bg-gray-50">
+          <tr>
+            <th v-for="field in output.fields"> {{field.name}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="row in output.rows" class="bg-white border-b border-gray-50">
+            <td v-for="cell in row" class="px-2 py-1">{{cell}} </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div v-if="output=={}" class="p-4 rounded bg-slate-100">После выполнения запроса, тут будет результат</div>
+        <div v-if="output.fields && output.fields.length == 0 " class="p-4 rounded bg-slate-100">Запрос вернул пустой результат</div>
+
+      </div>
+
+    </div>
+    <!-- /.right -->
 
   </section>
 
@@ -155,25 +189,7 @@ export default defineComponent({
 
   </section>
 
-  <section v-if="output.rows" class="exercise__output my-3 border border-gray-200 rounded-xl shadow-2xs p-4" >
 
-    <table>
-        <thead class="text-gray-700 bg-gray-50">
-        <tr>
-          <th v-for="field in output.fields"> {{field.name}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="row in output.rows" class="bg-white border-b border-gray-50">
-          <td v-for="cell in row" class="px-3 py-2">{{cell}} </td>
-        </tr>
-        </tbody>
-      </table>
-
-    <div v-if="output=={}" class="p-4 rounded bg-slate-100">После выполнения запроса, тут будет результат</div>
-    <div v-if="output.fields && output.fields.length == 0 " class="p-4 rounded bg-slate-100">Запрос вернул пустой результат</div>
-
-  </section>
 
   <section class="exercise__feedback">
     <div v-if="!checklist" class="p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>

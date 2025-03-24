@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<link rel="stylesheet" href="../public/style.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.0.14/dist/index.global.min.js"></script>
+
+<div class="step step_instruction">
+
+    <!-- -->
+    <!-- -->
+
+<p><code>WHERE</code> фильтрует строки, выбирая только те, которые соответствуют условию.</p>
+
+<p>Представим таблицу <strong>animals</strong>:</p>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>species</th>
+        <th>emoji</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Buddy</td>
+        <td>Dog</td>
+        <td>🐶</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Whiskers</td>
+        <td>Cat</td>
+        <td>🐱</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Leo</td>
+        <td>Lion</td>
+        <td>🦁</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Rex</td>
+        <td>Dog</td>
+        <td>🐕</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Выбрать всех собак (Dog):</h2>
+
+<p><code>SELECT emoji, name, species FROM animals WHERE species = 'Dog'</code></p>
+<p>Результат (только собаки) 🐶:<p>
+<pre>
+🐶 Buddy Dog
+🐕 Rex   Dog
+</pre>
+
+<h2>Выбрать животное по имени (Whiskers):</h2>
+<p><code>SELECT * FROM animals WHERE name = 'Whiskers'</code></p>
+<p>Результат (только кошка Whiskers 🐱):<p>
+
+<pre>
+🐱 Whiskers  Cat
+</pre>
+
+<h2>Выбрать всех, у кого id больше 2:</h2>
+<p><code>SELECT id, name, species FROM animals WHERE id > 2;</code></p>
+<p>Результат (id 3 и больше):</p>
+<pre>
+3 🐶 Buddy Dog
+4 🐕 Rex   Dog
+</pre>
+
+
+
+<h2>Операторы в WHERE:</h2>
+<p>
+<ul>
+    <li><code>=</code>: Равно</li>
+    <li><code>></code>, <code><</code>: Больше, Меньше</li>
+    <li><code>>=</code>, <code><=</code>: Больше или равно, Меньше или равно</li>
+    <li><code>!=</code> или <code><></code>: Не равно</li>
+   </ul>
+</p>
+
+<p>Обратите внимание: <code>WHERE</code> применяется *после* выбора колонок (SELECT).</p>
