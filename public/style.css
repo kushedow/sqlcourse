@@ -23,16 +23,21 @@
 }
 
 .step_instruction table {
-
     background-color: #eee;
     border-radius: 8px;
-
 }
+
+.step_instruction table.inline-block {
+    margin-right: 16px;
+}
+
 
 .step_instruction caption {
     caption-side: top;
     text-align: left;
     padding-bottom: 8px;
+    background-color: white;
+    font-size: 80%;
 }
 
 .step_instruction td {
