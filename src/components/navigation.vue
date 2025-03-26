@@ -23,6 +23,11 @@ export default defineComponent({
       return this.store.groupedExercises;
     },
 
+    currentID(): number {
+      return this.store.currentStep.id
+    },
+
+
   },
 
   methods: {
@@ -60,12 +65,13 @@ export default defineComponent({
     <div v-for="lesson in lessons">
       <h2 class="my-3">{{lesson.title}}</h2>
       <ul>
-        <li v-for="step in lesson.steps" class="my-1">
+        <li v-for="step in lesson.steps"  class="my-1 pl-3 rounded" :class="currentID === step.id ? 'bg-violet-100 p-2' : ''">
 
           <span v-if="step.type == 'practice' && !step.isCompleted">✍️ </span>
           <span v-if="step.type == 'theory' && !step.isCompleted">👨‍💻 </span>
           <span v-if="step.isCompleted">✅ </span>
           <a :href="'#step_' + step.id" @click="goto(step.id)" class="text-slate-500 hover:text-slate-700 ">{{step.title}}</a>
+
         </li>
       </ul>
     </div>
