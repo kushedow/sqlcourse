@@ -33,7 +33,9 @@ export default defineComponent({
       miniStorage.saveStepData(this.currentStep.id, true)
 
       window.scrollTo({top:0})
-      this.appStore.nextStep()
+
+      const stepID = this.appStore.nextStep(this.userCode)
+      window.location.hash = `#step_${stepID}`;
     },
 
   },

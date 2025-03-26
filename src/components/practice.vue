@@ -62,7 +62,8 @@ export default defineComponent({
     nextStep(){
       this.userCode = ""
       window.scrollTo({top:0})
-      this.appStore.nextStep(this.userCode)
+      const stepID = this.appStore.nextStep(this.userCode)
+      window.location.hash = `#step_${stepID}`;
     }
 
   },

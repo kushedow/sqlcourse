@@ -93,6 +93,7 @@ export const useAppStore = defineStore('main', {
         nextStep(): void {
             const nextStepID = this.currentStepID + 1
             this.setCurrentStep(nextStepID)
+            return nextStepID
         }
 
     },
