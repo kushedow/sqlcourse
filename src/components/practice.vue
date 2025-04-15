@@ -1,7 +1,7 @@
 <script lang="ts">
 
-import {DBResponse, Step, Feedback} from "../types";
-import {defineComponent} from "vue";
+import {DBResponse, Feedback, Step} from "../types";
+import {defineComponent, nextTick, useTemplateRef} from "vue";
 import {useStepStore} from "../stores/step_store";
 import {useAppStore} from "../stores/app_store";
 import ResponseTable from "./response_table.vue";
@@ -15,6 +15,7 @@ export default defineComponent({
 
     const appStore = useAppStore();
     const exStore = useStepStore();
+    const userCodeTextarea = useTemplateRef("userCodeTextarea")
     return { appStore, exStore };
 
   },
@@ -22,7 +23,6 @@ export default defineComponent({
   data() {
     return {
       userCode: this.appStore.currentStep.userCode,
-
     }
   },
 
@@ -59,6 +59,25 @@ export default defineComponent({
       console.log("Зовем на помощь AI")
       await this.exStore.getAIHelp(this.userCode)
 
+    },
+
+    copyName(name){
+
+      if (!userCodeTextarea) return;
+
+      const selectionStart = userCodeTextarea.selectionStart;
+      const selectionEnd = userCodeTextarea.selectionEnd;
+      const currentValue = userCodeTextarea.value;
+      userCodeTextarea.value = currentValue.substring(0, selectionStart) + name + currentValue.substring(selectionEnd);
+      userCodeTextarea.selectionStart = userCodeTextarea.selectionEnd = selectionStart + name.length;
+
+      // Trigger input event (optional, but often needed for Vue/React reactivity)
+      const event = new Event('input', {
+        bubbles: true, cancelable: true,
+      });
+      userCodeTextarea.dispatchEvent(event);
+
+      nextTick(()=> userCodeTextarea.focus())
     },
 
     nextStep(){
@@ -140,6 +159,7 @@ export default defineComponent({
 
     <textarea v-model="userCode"
               id = "userCodeTextarea"
+              ref = "userCodeTextarea"
               :rows="textareaRows"
               class="w-full bg-[#eee]  rounded p-2 my-3"
               :class="{ 'bg-emerald-100': isCompleted,}"
