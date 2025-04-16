@@ -1,6 +1,6 @@
 import {Step} from "../types";
 
-const APIURL = "https://gas-cors-proxy.onrender.com/AKfycbwWKJcWMg-tBqijcTyCl8tz1g79VpRlXhjImHQK8LkyppXZWFNEFDjTbz1aNvzJaEBw"
+const APIURL = "https://proxy.kushedow.tech/AKfycbwWKJcWMg-tBqijcTyCl8tz1g79VpRlXhjImHQK8LkyppXZWFNEFDjTbz1aNvzJaEBw/steps"
 
 export class ExerciseManager {
 
