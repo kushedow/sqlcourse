@@ -10,6 +10,8 @@ export const useAppStore = defineStore('main', {
 
         steps: [],             // все шаги
         currentStepID: 0,      // стартовый / текущий шаг
+        userID: null,
+        userHash: null,
         status: "loading",     // Cостояние приложения (loading / ready / error)
 
     }),
@@ -88,6 +90,27 @@ export const useAppStore = defineStore('main', {
                 exStore.runExample().then()
             }
         },
+
+        setAuthData(authData): void {
+
+            console.log("Установлены данные авторизации")
+            this.userID = authData.auth
+            this.userHash = authData.hash
+            localStorage.setItem("userid", this.userID)
+            localStorage.setItem("userhash", this.userHash)
+            console.log(`userid ${this.userID}, userhash ${this.userHash}`)
+
+        },
+
+        loadAuthData(): void {
+
+            console.log("Вспомнились данные авторизации")
+            this.userID = localStorage.getItem("userid")
+            this.userHash =  localStorage.getItem("userhash")
+            console.log(`userid ${this.userID}, userhash ${this.userHash}`)
+
+        },
+
 
         // Перейти к следующему заданию, если оно есть
         nextStep(): void {

@@ -36,11 +36,31 @@ export default defineComponent({
     goto(ID: number){
       window.scrollTo({top:0})
       this.store.setCurrentStep(ID)
+    },
+
+    getQueryParams() {
+      const params = {};
+      const urlObj = new URL(window.location.toString());
+      const searchParams = new URLSearchParams(urlObj.search);
+
+      for (const [key, value] of searchParams.entries()) {
+        params[key] = value;
+      }
+
+      return params;
     }
 
   },
 
   mounted() {
+
+    const params: Object = this.getQueryParams()
+
+    if (params.auth && params.hash){
+       this.store.setAuthData(params)
+    } else {
+       this.store.loadAuthData()
+    }
 
     try {
       // Пытаемся вытащить шаг из адресной строки
@@ -51,6 +71,7 @@ export default defineComponent({
       console.log("Navigation: не задан шаг, начинаем с начала")
       this.store.setCurrentStep(0);
     }
+
   }
 
 })
