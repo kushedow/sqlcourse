@@ -49,16 +49,20 @@ export default defineComponent({
 
 <template>
 
-  <main class="container mt-8 mx-auto xl:w-4/6 2xl:w-4/6 ">
+  <main class="container md:mt-8 mx-auto xl:w-4/6 2xl:w-4/6 ">
 
-    <section class=" rounded-3xl bg-[#121831] p-6 md:flex  ">
+    <section class="md:rounded-3xl bg-[#121831] md:p-6 md:flex  ">
       <!-- Left Section -->
       <div class="relative rounded-3xl p-8 text-white md:w-7/12">
-        <h1 class="mb-4 text-6xl font-semibold">Тренажер по SQL</h1>
-        <p class="mb-8 text-3xl">
+        <h1 class="mb-4 text-4xl md:text-6xl font-semibold">Тренажер по SQL</h1>
+        <p class="mb-8 text-xl md:text-3xl">
           Чтобы эффективно учиться, <br/>
           не чувствуя себя глупеньким!
         </p>
+
+        <figure class="md:hidden mb-6">
+          <img src="/public/promo/first_screen_image.png" class="w-full" style="margin-left: -8px" alt=""/>
+        </figure>
 
         <ul class="mb-8 list-none pl-0">
           <li class="mb-3 flex items-center">
@@ -113,7 +117,7 @@ export default defineComponent({
       </div>
 
 
-      <div class="flex flex-col items-center pr-8 py-8 md:w-5/12">
+      <div class="hidden md:block flex flex-col items-center pr-8 py-8 md:w-5/12">
         <img src="/public/promo/first_screen_image.png" class="w-full" alt=""/>
       </div>
     </section>
@@ -124,10 +128,9 @@ export default defineComponent({
         <!-- Left Section -->
         <div class="rounded-xl bg-white md:mb-0 md:w-2/3">
           <div class="p-6">
-            <h2 class="mb-4 text-xl font-semibold text-[#121831]">Для кого этот курс?</h2>
-            <p class="text-gray-700">Для начинающих аналитиков, разработчиков и менеджеров, которые пробовали учить SQL
-              по
-              другим курсам и расстроились.</p>
+            <h2 class="mb-4 text-xl font-semibold text-[#121831]">Для кого этот тренажер?</h2>
+            <p class="text-gray-700">Для начинающих аналитиков, разработчиков и менеджеров, которые хотят освоить SQL или уже пробовали учить SQL
+              по другим курсам и расстроились.</p>
           </div>
 
           <div class="rounded-xl p-6">
@@ -145,7 +148,7 @@ export default defineComponent({
         </div>
 
         <!-- Right Section -->
-        <div class="flex flex-col items-start rounded-xl bg-[#111827] p-6 shadow-sm md:w-1/3">
+        <div class="flex flex-col items-start rounded-xl bg-[#111827] p-6 shadow-sm md:w-1/3 mt-6 md:mt-0">
           <h2 class="mb-4 text-xl font-semibold text-white">Кто это все придумал?</h2>
           <img src="/promo/author_pic.png" alt="Author" class="mb-4 w-1/2 rounded-full"/>
           <p class="text-gray-300">Глеб Кушедов, пишу код с 2006, преподаю всякое программирование с 2012. Пишу на Python, JS, проектирую интерфейсы, занимаюсь аналитикой. Этот сервис я собрал для моих учеников и одной милой барышни, которой сложно даются скуели :) </p>
