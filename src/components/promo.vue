@@ -51,7 +51,7 @@ export default defineComponent({
 
   <main class="container md:mt-8 mx-auto xl:w-4/6 2xl:w-4/6 ">
 
-    <section class="md:rounded-3xl bg-[#121831] md:p-6 md:flex  ">
+    <section class="md:rounded-3xl bg-[#111827] md:p-6 md:flex  ">
       <!-- Left Section -->
       <div class="relative rounded-3xl p-8 text-white md:w-7/12">
         <h1 class="mb-4 text-4xl md:text-6xl font-semibold">Тренажер по SQL</h1>
