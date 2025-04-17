@@ -44,7 +44,7 @@ export default defineComponent({
     isCompleted(): boolean { return this.exStore.isCompleted; },
     checklist(): Feedback { return this.exStore.checklist; },
 
-    textareaRows(): number { return this.userCode.split("\n").length || 1; },
+    textareaRows(): number { return  this.userCode?.split("\n").length || 1; },
 
   },
 
