@@ -109,11 +109,18 @@ export default defineComponent({
             Бесплатно
           </li>
         </ul>
+        <div class="flex gap-4">
+        <!-- /.flex -->
+        <a href="#plans"
+           class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#2BDEFF] px-6 py-4 font-bold hover:bg-[#4ade80]">
+          Начать учиться!
+        </a>
 
-        <a @click="nextStep()"
-           class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#2BDEFF] px-6 py-4 font-bold hover:bg-[#4ade80]">Начать
-          учиться!</a>
+        <a href="https://t.me/learn_sql_bot"
+           class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">Bойти через TG
+        </a>
 
+        </div>
       </div>
 
 
@@ -157,7 +164,6 @@ export default defineComponent({
     </section>
 
 
-
     <section>
 
       <h2 class="m-6 text-5xl font-semibold text-center">Что внутри?</h2>
@@ -179,10 +185,94 @@ export default defineComponent({
         <img src="/promo/screenshots.png" alt="Author" class="w-full"/>
       </figure>
 
-      <div class="text-center mb-6">
-        <a @click="nextStep()"
-           class="text-white cursor-pointer rounded-xl inline-block bg-[#111827] px-6 py-4 font-bold hover:bg-[#111827]">Начать
-          учиться!</a>
+
+    </section>
+
+
+    <section class="flex items-center justify-center px-4" id="plans">
+
+      <div class="w-full py-16 ">
+
+        <div class="text-center mb-12">
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">Выбирайте тариф</h1>
+          <p class="text-lg md:text-xl text-gray-500">и решайте 100+ задачек</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 text-white">
+
+          <div class="bg-[#1f1f2b] p-8 rounded-lg shadow-lg flex flex-col w-full md:w-1/2 lg:w-5/12">
+            <h2 class="text-2xl font-semibold mb-2">Бесплатновый</h2>
+            <p class="text-gray-400 mb-6 text-sm">Для тех, кто просто посмотреть</p>
+
+            <ul class="space-y-3 mb-8 flex-grow">
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Вся теория
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Все задачи с автопроверками
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Без регистрации
+              </li>
+              <li class="flex items-center text-gray-500"> <svg class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+                ИИ не помогает
+              </li>
+            </ul>
+
+            <a @click="nextStep()" class="text-center bg-[#333344] hover:bg-[#444455] text-white font-semibold py-3 px-6 rounded-lg transition duration-200 mt-auto cursor-pointer">
+              Начать учиться
+            </a>
+          </div>
+
+          <div class="bg-[#1f1f2b] p-8 rounded-lg shadow-lg flex flex-col w-full md:w-1/2 lg:w-5/12">
+            <h2 class="text-2xl font-semibold mb-2">Бесплатновый плюс</h2>
+            <p class="text-gray-400 mb-6 text-sm">Для тех, кто пришел учиться</p>
+
+            <ul class="space-y-3 mb-8 flex-grow">
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Вся теория
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Все задачи с автопроверками
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Нужно войти через Telegram
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Безлимитная помощь ИИ
+              </li>
+            </ul>
+
+            <a href= "https://t.me/learn_sql_bot" class="text-center bg-[#333344] hover:bg-[#444455] text-white font-semibold py-3 px-6 rounded-lg transition duration-200  cursor-pointer">
+              Начать учиться
+            </a>
+          </div>
+
+        </div>
+
       </div>
 
     </section>
