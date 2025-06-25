@@ -1,6 +1,6 @@
 import {AIResponse, Step} from "../types";
 
-const AIURL = "https://gas-cors-proxy.onrender.com/generate"
+const AIURL = "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-ai-help"
 
 
 export class AIHelper {
