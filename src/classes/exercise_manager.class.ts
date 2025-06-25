@@ -1,6 +1,6 @@
 import {Step} from "../types";
 
-const APIURL = "https://proxy.kushedow.tech/AKfycbwWKJcWMg-tBqijcTyCl8tz1g79VpRlXhjImHQK8LkyppXZWFNEFDjTbz1aNvzJaEBw/steps"
+const APIURL = "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-content"
 
 export class ExerciseManager {
 
