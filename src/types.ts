@@ -59,3 +59,9 @@ export interface DBResponse {
 export interface AIResponse {
     response: string;
 }
+
+export interface UserData {
+    userID: string;
+    userHash: string;
+    userProduct: string;
+}

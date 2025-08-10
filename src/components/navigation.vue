@@ -3,6 +3,7 @@
 import {defineComponent} from 'vue';
 import {useAppStore} from '../stores/app_store';
 import {Step, Lesson} from "../types";
+import {URLHelper} from "../classes/url_helper.class";
 
 export default defineComponent({
 
@@ -18,6 +19,7 @@ export default defineComponent({
   data() { return {}},
 
   computed: {
+
     // Получаем шаги, сгруппированные в уроки
     lessons(): Lesson[] {
       return this.store.groupedExercises;
@@ -26,7 +28,6 @@ export default defineComponent({
     currentID(): number {
       return this.store.currentStep.id
     },
-
 
   },
 
@@ -38,33 +39,15 @@ export default defineComponent({
       this.store.setCurrentStep(ID)
     },
 
-    getQueryParams() {
-      const params = {};
-      const urlObj = new URL(window.location.toString());
-      const searchParams = new URLSearchParams(urlObj.search);
-
-      for (const [key, value] of searchParams.entries()) {
-        params[key] = value;
-      }
-
-      return params;
-    }
-
   },
 
   mounted() {
 
-    const params: Object = this.getQueryParams()
-
-    if (params.auth && params.hash){
-       this.store.setAuthData(params)
-    } else {
-       this.store.loadAuthData()
-    }
+    const urlHelper = new URLHelper();
 
     try {
       // Пытаемся вытащить шаг из адресной строки
-      const step = parseInt(window.location.hash.split("_").slice(-1)[0])
+      const step = urlHelper.getStep()
       this.store.setCurrentStep(step);
     } catch {
       // Если не получилось – начинаем с начала

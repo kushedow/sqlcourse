@@ -10,6 +10,7 @@ import Navigation from "./navigation.vue";
 import Practice from "./practice.vue";
 import Theory from "./theory.vue";
 import Promo from "./promo.vue";
+import {URLHelper} from "../classes/url_helper.class";
 
 export default defineComponent({
 
@@ -49,12 +50,29 @@ export default defineComponent({
 
   async mounted() {
 
+    const urlHelper = new URLHelper();
+
+    if (urlHelper.hasUserInfo()) {
+      this.store.setUserData(urlHelper.getQueryParams())
+    }
+
+    const apiURLS = {
+        "basic": "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-content",
+        "education": "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-education",
+      }
+
     try {
-      const allSteps = await this.manager.load()
+
+      // Определяем продукт и загружаем задания, если не выбран продукт - загружаем Basic
+
+      this.store.loadUserData()
+      const dataURL = apiURLS[this.store.userData.userProduct] ? apiURLS[this.store.userData.userProduct] : apiURLS["basic"]
+      const allSteps = await this.manager.load(dataURL)
+
       this.store.setSteps(allSteps);
       this.store.setStatus("ready")
     } catch (error) {
-      console.log(`Произошла ошибка при загрузке ${error}`)
+      console.log(`Произошла ошибка при загрузке ${error}. Напишите t.me/kushedow`)
       this.store.setStatus("error")
     }
 
