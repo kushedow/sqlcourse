@@ -12,11 +12,12 @@ import PracticeWide from "./practice_wide.vue";
 import Theory from "./theory.vue";
 import Promo from "./promo.vue";
 import {URLHelper} from "../classes/url_helper.class";
+import Quiz from "./quiz.vue";
 
 export default defineComponent({
 
   name: 'Learn SQL',
-  components: {Promo, Navigation, Practice, Theory, PracticeWide},
+  components: {Quiz, Promo, Navigation, Practice, Theory, PracticeWide},
 
   setup() {
     const store = useAppStore();
@@ -131,11 +132,8 @@ export default defineComponent({
     </section>
 
     <section v-if="currentStep.type=='practice' && currentStep.view=='full'" class="">
-
       <practice-wide/>
-
     </section>
-
 
     <section v-if="currentStep.type=='theory'"
              class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
@@ -146,9 +144,14 @@ export default defineComponent({
 
     </section>
 
-    <div v-if="currentStep.type=='promo'">
-      <promo/>
+    <div v-if="currentStep.type=='promo'"> <promo/> </div>
+
+    <div v-if="currentStep.type=='quiz'"
+         class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
+      <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
+      <quiz/>
     </div>
+
 
     <!-- Компонент навигации по всем шагам  -->
     <div v-if="status == 'ready' ">

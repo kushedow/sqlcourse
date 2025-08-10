@@ -121,10 +121,6 @@ export default defineComponent({
             <article v-html="currentStep.theory[0]"> </article>
           </details>
 
-          <details>
-            <summary class="cursor-pointer mb-1 text-slate-600">Показать схему таблиц</summary>
-            <article><img :src="currentStep.schema" alt="Схема таблиц"> </article>
-          </details>
 
       </section>
 
@@ -189,11 +185,9 @@ export default defineComponent({
         <!-- /.right -->
 
 
-
-
       </section>
 
-      <section class="exercise_ai" >
+      <section class="exercise_ai  rounded-2xl px-4 mb-4 border-gray-200 border-1" v-if="aiHelp.length > 0" >
         <article v-html="aiHelp"></article>
       </section>
 
@@ -208,16 +202,9 @@ export default defineComponent({
         </ul>
       </section>
 
-
     </div>
 
-
-
-
   </div>
-
-
-
 
 </template>
 

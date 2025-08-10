@@ -31,7 +31,6 @@
     margin-right: 16px;
 }
 
-
 .step_instruction caption {
     caption-side: top;
     text-align: left;
@@ -52,4 +51,11 @@
 
 .step_instruction thead {
     border-bottom: 1px solid #aaa;
+}
+
+/* Таблицы результата */
+
+.exercise_ai p, .exercise_ai li, .exercise_ai pre {
+    font-size: 14px;
+    margin: 16px 0;
 }
