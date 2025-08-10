@@ -15,6 +15,13 @@ export class MiniStorage {
         if (userDataJSON) {
             return JSON.parse(userDataJSON)
         }
+
+        return {
+            userID: null,
+            userHash: null,
+            userProduct: "basic",
+        }
+
     }
 
     saveStepData(stepID: number, isCompleted: boolean = false, userCode: string = ""): void {
