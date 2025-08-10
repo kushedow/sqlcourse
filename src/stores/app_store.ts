@@ -101,7 +101,6 @@ export const useAppStore = defineStore('main', {
             }
 
             const miniStorage = new MiniStorage()
-
             miniStorage.saveUserData(userData)
 
         },
@@ -109,7 +108,6 @@ export const useAppStore = defineStore('main', {
         loadUserData(): void {
             const miniStorage = new MiniStorage()
             this.userData = miniStorage.loadUserData()
-
             console.log("Локальные данные пользователя ", this.userData)
 
         },

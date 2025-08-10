@@ -57,6 +57,7 @@ export const useStepStore = defineStore('exercise', {
             this.records = step.records
             this.solution = step.solution
             this.runnerStatus = "ready"
+
             this.aiHelp = ""
             this.aiStatus = "ready"
 

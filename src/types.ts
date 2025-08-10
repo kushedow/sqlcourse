@@ -7,11 +7,13 @@ export interface Feedback {
 }
 
 export interface Step {
+
     theory: string[];
     id: number;
     lesson: string;
     title: string;
     type: string;
+    view: string;
     instruction: string;
     structure: string;
     records: string;

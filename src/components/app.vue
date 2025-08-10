@@ -8,6 +8,7 @@ import {ExerciseManager} from "../classes/exercise_manager.class.js"
 
 import Navigation from "./navigation.vue";
 import Practice from "./practice.vue";
+import PracticeWide from "./practice_wide.vue";
 import Theory from "./theory.vue";
 import Promo from "./promo.vue";
 import {URLHelper} from "../classes/url_helper.class";
@@ -15,7 +16,7 @@ import {URLHelper} from "../classes/url_helper.class";
 export default defineComponent({
 
   name: 'Learn SQL',
-  components: {Promo, Navigation, Practice, Theory},
+  components: {Promo, Navigation, Practice, Theory, PracticeWide},
 
   setup() {
     const store = useAppStore();
@@ -120,7 +121,7 @@ export default defineComponent({
   <main v-if="currentStep">
 
 
-    <section v-if="currentStep.type=='practice'"
+    <section v-if="currentStep.type=='practice' && currentStep.view!='full'"
              class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
 
       <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
@@ -128,6 +129,13 @@ export default defineComponent({
       <practice/>
 
     </section>
+
+    <section v-if="currentStep.type=='practice' && currentStep.view=='full'" class="">
+
+      <practice-wide/>
+
+    </section>
+
 
     <section v-if="currentStep.type=='theory'"
              class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
