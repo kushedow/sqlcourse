@@ -59,3 +59,10 @@
     font-size: 14px;
     margin: 16px 0;
 }
+
+details.tables-structure figure  {
+    display: inline-block;
+    margin-right: 16px;
+    vertical-align: top;
+    font-size: 14px;
+}

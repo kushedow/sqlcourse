@@ -107,7 +107,7 @@ export default defineComponent({
 
 <template>
 
-  <div class="grid grid-cols-2 gap-8 h-screen">
+  <div class="grid grid-cols-2 gap-8 h-min-screen">
     <!-- Column 1 -->
 
     <div class="p-6 bg-white">
