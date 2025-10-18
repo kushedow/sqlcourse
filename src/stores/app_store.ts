@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia';
-import {Step, Lesson} from "../types";
+import {Step, Lesson, UserData} from "../types";
 import {useStepStore} from "./step_store";
 import {MiniStorage} from "../classes/storage.class";
 
@@ -10,8 +10,7 @@ export const useAppStore = defineStore('main', {
 
         steps: [],             // все шаги
         currentStepID: 0,      // стартовый / текущий шаг
-        userID: null,
-        userHash: null,
+        userData: null,        // номер, хеш и продукт пользователя
         status: "loading",     // Cостояние приложения (loading / ready / error)
 
     }),
@@ -91,26 +90,27 @@ export const useAppStore = defineStore('main', {
             }
         },
 
-        setAuthData(authData): void {
+        setUserData(authData): void {
 
             console.log("Установлены данные авторизации")
-            this.userID = authData.auth
-            this.userHash = authData.hash
-            localStorage.setItem("userid", this.userID)
-            localStorage.setItem("userhash", this.userHash)
-            console.log(`userid ${this.userID}, userhash ${this.userHash}`)
+
+            const userData: UserData = {
+                userID: authData.auth,
+                userHash: authData.hash,
+                userProduct: authData.product
+            }
+
+            const miniStorage = new MiniStorage()
+            miniStorage.saveUserData(userData)
 
         },
 
-        loadAuthData(): void {
-
-            console.log("Вспомнились данные авторизации")
-            this.userID = localStorage.getItem("userid")
-            this.userHash =  localStorage.getItem("userhash")
-            console.log(`userid ${this.userID}, userhash ${this.userHash}`)
+        loadUserData(): void {
+            const miniStorage = new MiniStorage()
+            this.userData = miniStorage.loadUserData()
+            console.log("Локальные данные пользователя ", this.userData)
 
         },
-
 
         // Перейти к следующему заданию, если оно есть
         nextStep(): void {

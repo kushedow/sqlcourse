@@ -46,7 +46,7 @@ export default defineComponent({
   <table v-if="outputData.rows" >
     <thead class="text-gray-700 bg-gray-50">
     <tr>
-      <th v-for="field in outputData.fields" :key="field.name" class="text-sm cursor-pointer" @click="this.$parent.copyName(field.name)">{{ field.name }}</th>
+      <th v-for="field in outputData.fields" :key="field.name" class="text-sm cursor-pointer px-2 py-1" @click="this.$parent.copyName(field.name)">{{ field.name }}</th>
     </tr>
     </thead>
     <tbody>

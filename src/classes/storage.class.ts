@@ -1,9 +1,28 @@
-import {SavedStep, Step} from "../types";
+import {SavedStep, Step, UserData} from "../types";
 
 export class MiniStorage {
 
     constructor() {}
 
+    saveUserData(userData: UserData): void {
+        localStorage.setItem("userData", JSON.stringify(userData))
+        console.log("saveUserData", JSON.stringify(userData))
+    }
+
+    loadUserData(): UserData {
+        const userDataJSON = localStorage.getItem("userData")
+        console.log("loadUserData", userDataJSON)
+        if (userDataJSON) {
+            return JSON.parse(userDataJSON)
+        }
+
+        return {
+            userID: null,
+            userHash: null,
+            userProduct: "basic",
+        }
+
+    }
 
     saveStepData(stepID: number, isCompleted: boolean = false, userCode: string = ""): void {
 
@@ -34,5 +53,6 @@ export class MiniStorage {
     restoreAllStepsData(steps: Step[]): Step[] {
         return steps.map(step => this.restoreStepData(step))
     }
+
 
 }

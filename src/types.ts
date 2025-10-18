@@ -7,11 +7,13 @@ export interface Feedback {
 }
 
 export interface Step {
+
     theory: string[];
     id: number;
     lesson: string;
     title: string;
     type: string;
+    view: string;
     instruction: string;
     structure: string;
     records: string;
@@ -58,4 +60,10 @@ export interface DBResponse {
 
 export interface AIResponse {
     response: string;
+}
+
+export interface UserData {
+    userID: string;
+    userHash: string;
+    userProduct: string;
 }

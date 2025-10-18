@@ -1,7 +1,5 @@
 import {Step} from "../types";
 
-const APIURL = "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-content"
-
 export class ExerciseManager {
 
     public allExercises: Step[]
@@ -9,10 +7,10 @@ export class ExerciseManager {
     constructor() {}
 
     // @ts-ignore
-    async load(): Promise<Step[]> {
+    async load(apiURL): Promise<Step[]> {
 
         try {
-            const response = await fetch(APIURL);
+            const response = await fetch(apiURL);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

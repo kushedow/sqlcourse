@@ -189,7 +189,6 @@ export default defineComponent({
   </section>
 
 
-
   <section class="exercise__feedback">
     <div v-if="!checklist" class="p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>
     <ul v-if="checklist">
@@ -199,6 +198,9 @@ export default defineComponent({
       </li>
     </ul>
   </section>
+
+
+
 
 </template>
 
