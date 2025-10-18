@@ -5,6 +5,8 @@ import {Checker} from "../classes/checker.class";
 import {MiniStorage} from "../classes/storage.class";
 import {AIHelper} from "../classes/ai_helper.class";
 
+// import {AppStore, useAppStore} from './app_store'
+
 
 export const useStepStore = defineStore('exercise', {
 
@@ -90,7 +92,6 @@ export const useStepStore = defineStore('exercise', {
 
             this.runnerStatus = "ready"
 
-
         },
 
         async run(userCode: string){
@@ -134,6 +135,9 @@ export const useStepStore = defineStore('exercise', {
 
             this.aiStatus = "running"
             this.aiHelp = "Ждем подсказку от ИИ"
+
+            const appStore = useAppStore()
+            console.log(appStore.userData)
 
             const aiHelper = new AIHelper()
             this.aiHelp = await aiHelper.getHelp(this.step, userCode, this.errors)
