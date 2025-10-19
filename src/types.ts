@@ -15,16 +15,18 @@ export interface Step {
     type: string;
     view: string;
     instruction: string;
-    structure: string;
-    records: string;
-    solution: string;
-    hint: string;
+
+    structure: string; // SQL код создания структуры
+    records: string; // SQL код создания записей
+    solution: string;  // SQL код решения
+
+    hint: string;  // Текст подсказки
     snippets: string;
-    schema: string;
+    schema: string; // непонятно что такое
+    table_names: string; // Названия таблиц
+    theory_steps: string; // Шаги теории, которые нужно показать
 
-    theory_steps: string;
-
-    // подгружаемое их SavedStep
+    // подгружаемое из SavedStep
     isCompleted?: boolean;
     userCode?: string;
 
@@ -46,6 +48,16 @@ export interface Lesson {
     steps: Step[];
 }
 
+export interface DBSchemaTable {
+    name: string;
+    columns: DBSchemaColumn[]
+}
+
+export interface DBSchemaColumn{
+    name: string;
+    type: string;
+    comment: string;
+}
 
 export interface DBTableColumn {
     name: string;
@@ -57,6 +69,8 @@ export interface DBResponse {
     fields: DBTableColumn[];
     affectedRows: number;
 }
+
+
 
 export interface AIResponse {
     response: string;
