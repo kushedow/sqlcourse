@@ -109,7 +109,7 @@ export default defineComponent({
 
 <template>
 
-  <div class="flex gap-8 h-min-screen h-lvh">
+  <div class="flex gap-8 h-min-screen min-h-lvh">
 
 <!--    <section class="flex-1">-->
 <!--      <Navigation/>-->
@@ -173,7 +173,7 @@ export default defineComponent({
       <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}</div>
 
 
-      <section class="practice__example my-3" v-if="currentStep != null">
+      <section class="practice__example" v-if="currentStep != null">
 
         <div class="exercise-example">
           <small class="inline-block rounded-full bg-slate-300 text-sm text-slate-600 px-2 py-0.5 mb-4">Образец</small>
@@ -193,14 +193,14 @@ export default defineComponent({
 
       </section>
 
-      <section class="exercise_ai  rounded-2xl px-4 mb-4 border-gray-200 border-1" v-if="aiHelp.length > 0" >
+      <section class="exercise_ai  rounded-2xl px-4 my-4 border-gray-200 border-1" v-if="aiHelp.length > 0" >
         <article v-html="aiHelp"></article>
       </section>
 
 
-      <section class="exercise__feedback">
+      <section class="exercise__feedback my-4">
         <div v-if="!checklist" class="p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>
-        <ul v-if="checklist">
+        <ul v-if="checklist.length">
           <span class="inline-block rounded-full bg-slate-300 text-sm text-slate-600 px-2 py-0.5 mb-4">Чеклист</span>
           <li v-for="checkpoint in checklist">
             <span v-if="checkpoint.completed">✅ {{checkpoint.title}}</span>

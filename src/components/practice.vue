@@ -107,14 +107,14 @@ export default defineComponent({
 
 <template>
 
-  <details>
+  <details class="step_instruction">
     <summary class="cursor-pointer mt-2 mb-1 text-slate-600">Напомнить теорию</summary>
     <article v-html="currentStep.theory[0]"> </article>
   </details>
 
   <details>
     <summary class="cursor-pointer mb-1 text-slate-600">Показать схему таблиц</summary>
-    <article><img :src="currentStep.schema" > </article>
+    <article><img :src="currentStep.schema"> </article>
   </details>
 
 

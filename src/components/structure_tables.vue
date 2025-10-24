@@ -34,18 +34,21 @@ export default defineComponent({
   <div v-for="table in tables" class="">
 
     <!-- Table Header -->
-    <div class="">
+    <details class="p-4 bg-white rounded-lg mb-4 ">
 
-      <p class="text-base font-bold mb-2">{{ table.name }}</p>
+      <summary class="text-sm font-bold cursor-pointer">{{ table.name }}</summary>
 
-        <div v-for="column in table.columns">
-          <p><span>{{column.name}}</span>:
+        <div v-for="column in table.columns" class="mt-1">
+          <p>
+             <span v-if="column.type == 'integer'">🔢 </span>
+             <span v-if="column.type.includes('character varying') ">🔤 </span>
+             <span>{{column.name}}</span>:
              <span class="text-sm text-gray-400">{{column.type}}</span>
              <span class="text-sm text-gray-400">{{column.comment}}</span>
           </p>
         </div>
 
-    </div>
+    </details>
 
   </div>
 
