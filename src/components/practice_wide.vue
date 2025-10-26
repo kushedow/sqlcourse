@@ -5,11 +5,13 @@ import {defineComponent, nextTick, useTemplateRef} from "vue";
 import {useStepStore} from "../stores/step_store";
 import {useAppStore} from "../stores/app_store";
 import ResponseTable from "./response_table.vue";
+import Structuretables from "./structure_tables.vue";
+import Navigation from "./navigation.vue";
 
 export default defineComponent({
 
   name: 'PracticeWide',
-  components: {ResponseTable},
+  components: {ResponseTable, Structuretables, Navigation},
 
   setup() {
 
@@ -107,15 +109,21 @@ export default defineComponent({
 
 <template>
 
-  <div class="grid grid-cols-2 gap-8 h-min-screen">
-    <!-- Column 1 -->
+  <div class="flex gap-8 h-min-screen min-h-lvh">
 
-    <div class="p-6 bg-white">
+<!--    <section class="flex-1">-->
+<!--      <Navigation/>-->
+<!--    </section>-->
+
+    <!-- Column 1 -->
+    <section class="flex-2 p-6 bg-white">
 
       <section class="exercise__instruction">
 
           <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
           <article v-html="currentStep.instruction" class="step_instruction"></article>
+
+
           <details>
             <summary class="cursor-pointer mt-2 mb-1 text-slate-600">Напомнить теорию</summary>
             <article v-html="currentStep.theory[0]"> </article>
@@ -157,44 +165,43 @@ export default defineComponent({
       </section>
 
 
-    </div>
+    </section>
 
     <!-- Column 2 -->
-    <div class="pt-6">
+    <section class="flex-2 pt-6">
 
       <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}</div>
 
 
-      <section class="grid grid-cols-2 gap-4 practice__example my-3" v-if="currentStep != null">
+      <section class="practice__example" v-if="currentStep != null">
 
-        <div class="left">
-          <small>Образец</small>
+        <div class="exercise-example">
+          <small class="inline-block rounded-full bg-slate-300 text-sm text-slate-600 px-2 py-0.5 mb-4">Образец</small>
           <div v-if="!example.rows" class="p-4 rounded bg-slate-100">Секунду, отрисовываем...</div>
           <ResponseTable :outputData="example"></ResponseTable>
-        </div>
-        <!-- /.left -->
+        </div> <!-- /.exercise-example -->
 
-        <div class="right">
-          <small>Результат</small>
+        <div class="exercise-result mt-4">
+
           <div v-if="output.rows" class="exercise__output" >
+            <span class="inline-block rounded-full bg-slate-300 text-sm text-slate-600 px-2 py-0.5 mb-4">Результат</span>
             <ResponseTable :outputData="output"></ResponseTable>
             <div v-if="output=={}" class="p-4 rounded bg-slate-100">После выполнения запроса, тут будет результат</div>
             <div v-if="output.fields && output.fields.length == 0 " class="p-4 rounded bg-slate-100">Запрос вернул пустой результат</div>
           </div>
-        </div>
-        <!-- /.right -->
-
+        </div><!-- /.exercise-result -->
 
       </section>
 
-      <section class="exercise_ai  rounded-2xl px-4 mb-4 border-gray-200 border-1" v-if="aiHelp.length > 0" >
+      <section class="exercise_ai  rounded-2xl px-4 my-4 border-gray-200 border-1" v-if="aiHelp.length > 0" >
         <article v-html="aiHelp"></article>
       </section>
 
 
-      <section class="exercise__feedback">
+      <section class="exercise__feedback my-4">
         <div v-if="!checklist" class="p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>
-        <ul v-if="checklist">
+        <ul v-if="checklist.length">
+          <span class="inline-block rounded-full bg-slate-300 text-sm text-slate-600 px-2 py-0.5 mb-4">Чеклист</span>
           <li v-for="checkpoint in checklist">
             <span v-if="checkpoint.completed">✅ {{checkpoint.title}}</span>
             <span v-if="!checkpoint.completed">❌ {{checkpoint.title}}: <small>{{checkpoint.details}}</small></span>
@@ -202,7 +209,15 @@ export default defineComponent({
         </ul>
       </section>
 
-    </div>
+    </section>
+
+    <!-- Column 3 -->
+    <section class="flex-1  pt-6" id="exercise-schema" >
+
+        <h3 class="inline-block rounded-full bg-slate-300 text-sm text-slate-600 px-2 py-0.5 mb-4">Таблицы</h3>
+        <Structuretables/>
+
+    </section>
 
   </div>
 

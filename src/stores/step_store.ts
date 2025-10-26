@@ -4,8 +4,7 @@ import {SQLRunner} from "../classes/runner.class";
 import {Checker} from "../classes/checker.class";
 import {MiniStorage} from "../classes/storage.class";
 import {AIHelper} from "../classes/ai_helper.class";
-
-// import {AppStore, useAppStore} from './app_store'
+import {useAppStore} from "./app_store";
 
 
 export const useStepStore = defineStore('exercise', {
@@ -28,6 +27,8 @@ export const useStepStore = defineStore('exercise', {
         runnerStatus: "loading",
         aiStatus: "ready",
         aiHelp: "" ,
+
+        tables: [], // Таблицы, которые нужно показать в структуре
 
     }),
 
@@ -59,6 +60,7 @@ export const useStepStore = defineStore('exercise', {
             this.records = step.records
             this.solution = step.solution
             this.runnerStatus = "ready"
+            this.table_names = step.table_names
 
             this.aiHelp = ""
             this.aiStatus = "ready"
@@ -89,6 +91,8 @@ export const useStepStore = defineStore('exercise', {
                 console.log(`Runner: Поймана ошибка во время выполнения примера ${error}`)
                 this.pushError(error)
             }
+
+            await this.getStructure(runner)
 
             this.runnerStatus = "ready"
 
@@ -131,13 +135,19 @@ export const useStepStore = defineStore('exercise', {
 
         },
 
-        async getAIHelp(userCode){
+        async getStructure(runner): Promise<void>{
+
+            const tableNamesList =  this.table_names?.replaceAll(" ", "").split(',') ?? []
+            this.tables = await runner.getStructure(tableNamesList)
+            console.log(this.tables)
+
+        },
+
+
+        async getAIHelp(userCode: string){
 
             this.aiStatus = "running"
             this.aiHelp = "Ждем подсказку от ИИ"
-
-            const appStore = useAppStore()
-            console.log(appStore.userData)
 
             const aiHelper = new AIHelper()
             this.aiHelp = await aiHelper.getHelp(this.step, userCode, this.errors)
