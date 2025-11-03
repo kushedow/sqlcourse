@@ -56,7 +56,7 @@ export default defineComponent({
       <div class="relative rounded-3xl p-8 text-white md:w-7/12">
         <h1 class="mb-4 text-4xl md:text-6xl font-semibold">Тренажер по SQL</h1>
         <p class="mb-8 text-xl md:text-3xl">
-          Чтобы эффективно учиться, <br/>
+          100 заданий теорией с самых основ, чтобы эффективно учиться, <br/>
           не чувствуя себя глупеньким!
         </p>
 
@@ -72,7 +72,7 @@ export default defineComponent({
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                     clip-rule="evenodd"/>
             </svg>
-            Понятные объяснения
+            Понятные объяснения на котятах
           </li>
           <li class="mb-3 flex items-center">
             <svg class="mr-2 h-5 w-5 text-[#121831] rounded-xs p-1/2 bg-[#2BDEFF]" fill="currentColor"
@@ -81,7 +81,7 @@ export default defineComponent({
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                     clip-rule="evenodd"/>
             </svg>
-            Интересные простые задания
+            Простые маленькие задания
           </li>
           <li class="mb-3 flex items-center">
             <svg class="mr-2 h-5 w-5 text-[#121831] rounded-xs p-1/2 bg-[#2BDEFF]" fill="currentColor"
@@ -92,32 +92,14 @@ export default defineComponent({
             </svg>
             ИИ наставник всегда поможет
           </li>
-          <li class="mb-3 flex items-center">
-            <svg class="mr-2 h-5 w-5 text-[#121831] rounded-xs p-1/2 bg-[#2BDEFF]" fill="currentColor"
-                 viewBox="0 0 20 20">
-              <path fill-rule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"/>
-            </svg>
-            Без слёз
-            <svg class="mr-2 h-5 w-5 text-[#121831] rounded-xs p-1/2 ml-4 bg-[#2BDEFF]" fill="currentColor"
-                 viewBox="0 0 20 20">
-              <path fill-rule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"/>
-            </svg>
-            Бесплатно
-          </li>
+
+
         </ul>
         <div class="flex gap-4">
         <!-- /.flex -->
         <a href="#plans"
-           class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#2BDEFF] px-6 py-4 font-bold hover:bg-[#4ade80]">
-          Начать учиться!
-        </a>
-
-        <a href="https://t.me/learn_sql_bot"
-           class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">Bойти через TG
+           class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">
+          Начать учиться бесплатно и без регистрации!
         </a>
 
         </div>
@@ -127,6 +109,31 @@ export default defineComponent({
       <div class="hidden md:block flex flex-col items-center pr-8 py-8 md:w-5/12">
         <img src="/public/promo/first_screen_image.png" class="w-full" alt=""/>
       </div>
+    </section>
+
+
+    <section id="contains" class="mt-5">
+
+      <h2 class="m-8 text-5xl font-semibold text-center">Что внутри?</h2>
+      <p class="text-center text-2xl mb-4 m-4">100 задач, разделенных по&nbsp;10&nbsp;темам</p>
+      <p class="text-center mx-auto md:w-3/4 mb-4">
+        <span class="inline-block mr-4">Простые выборки</span>
+        <span class="inline-block mr-4">Условия</span>
+        <span class="inline-block mr-4">Алиасы</span>
+        <span class="inline-block mr-4">Арифметика</span>
+        <span class="inline-block mr-4">Группировки</span>
+        <span class="inline-block mr-4">Агрегации</span>
+        <span class="inline-block mr-4">Джойны</span>
+        <span class="inline-block mr-4">Связи в таблицах</span>
+        <span class="inline-block mr-4">Время и даты</span>
+        <span class="inline-block mr-4">Интервалы</span>
+        <span class="inline-block mr-4">Case When</span>
+      </p>
+      <figure class="">
+        <img src="/promo/screenshots.png" alt="Author" class="w-full"/>
+      </figure>
+
+
     </section>
 
 
@@ -164,45 +171,20 @@ export default defineComponent({
     </section>
 
 
-    <section>
-
-      <h2 class="m-6 text-5xl font-semibold text-center">Что внутри?</h2>
-      <p class="text-center text-2xl mb-4 m-4">Больше 100 задач, разделенных по&nbsp;10&nbsp;темам</p>
-      <p class="text-center mx-auto md:w-3/4 mb-4">
-        <span class="inline-block mr-4">Простые выборки</span>
-        <span class="inline-block mr-4">Условия</span>
-        <span class="inline-block mr-4">Алиасы</span>
-        <span class="inline-block mr-4">Арифметика</span>
-        <span class="inline-block mr-4">Группировки</span>
-        <span class="inline-block mr-4">Агрегации</span>
-        <span class="inline-block mr-4">Джойны</span>
-        <span class="inline-block mr-4">Связи в таблицах</span>
-        <span class="inline-block mr-4">Время и даты</span>
-        <span class="inline-block mr-4">Интервалы</span>
-        <span class="inline-block mr-4">Case When</span>
-      </p>
-      <figure class="">
-        <img src="/promo/screenshots.png" alt="Author" class="w-full"/>
-      </figure>
-
-
-    </section>
-
-
     <section class="flex items-center justify-center px-4" id="plans">
 
       <div class="w-full py-16 ">
 
         <div class="text-center mb-12">
-          <h1 class="text-3xl md:text-4xl font-bold mb-2">Выбирайте тариф</h1>
-          <p class="text-lg md:text-xl text-gray-500">и решайте 100+ задачек</p>
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">Начните прямо сейчас</h1>
+          <p class="text-lg md:text-xl text-gray-500">Дополнительные инструменты разблокируются после регистрации!</p>
         </div>
 
         <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 text-white">
 
           <div class="bg-[#1f1f2b] p-8 rounded-lg shadow-lg flex flex-col w-full md:w-1/2 lg:w-5/12">
-            <h2 class="text-2xl font-semibold mb-2">Бесплатновый</h2>
-            <p class="text-gray-400 mb-6 text-sm">Для тех, кто просто посмотреть</p>
+            <h2 class="text-2xl font-semibold mb-2">Бесплатновый тариф</h2>
+
 
             <ul class="space-y-3 mb-8 flex-grow">
               <li class="flex items-center">
@@ -215,61 +197,22 @@ export default defineComponent({
                 <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                Все задачи с автопроверками
+                100+ задач с автопроверками
               </li>
               <li class="flex items-center">
                 <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                Без регистрации
+                ИИ доступен после регистрации
               </li>
-              <li class="flex items-center text-gray-500"> <svg class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
-                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
-                ИИ не помогает
-              </li>
+
             </ul>
 
-            <a @click="nextStep()" class="text-center bg-[#333344] hover:bg-[#444455] text-white font-semibold py-3 px-6 rounded-lg transition duration-200 mt-auto cursor-pointer">
-              Начать учиться
+            <a @click="nextStep()" class="text-center bg-[#4ade80] hover:bg-[#444455] text-[#000] font-semibold py-3 px-6 rounded-lg transition duration-200 mt-auto cursor-pointer">
+              Начать учиться!
             </a>
           </div>
 
-          <div class="bg-[#1f1f2b] p-8 rounded-lg shadow-lg flex flex-col w-full md:w-1/2 lg:w-5/12">
-            <h2 class="text-2xl font-semibold mb-2">Бесплатновый плюс</h2>
-            <p class="text-gray-400 mb-6 text-sm">Для тех, кто пришел учиться</p>
-
-            <ul class="space-y-3 mb-8 flex-grow">
-              <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                Вся теория
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                Все задачи с автопроверками
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                Нужно войти через Telegram
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                Безлимитная помощь ИИ
-              </li>
-            </ul>
-
-            <a href= "https://t.me/learn_sql_bot" class="text-center bg-[#333344] hover:bg-[#444455] text-white font-semibold py-3 px-6 rounded-lg transition duration-200  cursor-pointer">
-              Начать учиться
-            </a>
-          </div>
 
         </div>
 
