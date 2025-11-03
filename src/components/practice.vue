@@ -46,6 +46,8 @@ export default defineComponent({
 
     textareaRows(): number { return  this.userCode?.split("\n").length || 1; },
 
+    isUserLogged(): boolean { return  Boolean(this.appStore.userData?.userID) },
+
   },
 
   methods: {
@@ -180,10 +182,15 @@ export default defineComponent({
         <span v-if="runnerStatus =='running'"> Выполняем ... </span>
     </button>
 
-    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4">
+
+    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="isUserLogged">
       <span v-if="aiStatus =='ready'"> Получить помощь ии</span>
       <span v-if="aiStatus =='running'"> Подсказываем...</span>
     </button>
+
+    <a href="https://t.me/learn_sql_bot" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="!isUserLogged">
+      <span v-if="aiStatus =='ready'"> ✨ Включить помощь от ИИ</span>
+    </a>
 
 
   </section>
