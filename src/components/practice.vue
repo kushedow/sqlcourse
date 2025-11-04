@@ -117,9 +117,9 @@ export default defineComponent({
 
   <details>
     <summary class="cursor-pointer mb-1 text-slate-600">Показать схему таблиц</summary>
-    <article class="flex  pt-4 bg-[#F2F6F8] ">
-    <Structuretables/>
-    </article>
+      <article class="flex pt-4 bg-[#F2F6F8] ">
+        <Structuretables/>
+      </article>
   </details>
 
 

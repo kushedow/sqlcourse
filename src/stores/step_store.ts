@@ -5,6 +5,7 @@ import {Checker} from "../classes/checker.class";
 import {MiniStorage} from "../classes/storage.class";
 import {AIHelper} from "../classes/ai_helper.class";
 import {useAppStore} from "./app_store";
+import {REPORT_URL} from "../config.ts"
 
 
 export const useStepStore = defineStore('exercise', {
@@ -34,9 +35,9 @@ export const useStepStore = defineStore('exercise', {
 
     getters: {
 
-        isCompleted(store): boolean {
-            if (store.checklist.length === 0) {return false}
-            return store.checklist.every(checkpoint => checkpoint.completed);
+        isCompleted(): boolean {
+            if (this.checklist.length === 0) {return false}
+            return this.checklist.every(checkpoint => checkpoint.completed);
         },
 
     },
@@ -96,6 +97,8 @@ export const useStepStore = defineStore('exercise', {
 
             this.runnerStatus = "ready"
 
+            await this.reportEvent("opened")
+
         },
 
         async run(userCode: string){
@@ -129,8 +132,13 @@ export const useStepStore = defineStore('exercise', {
             const checklist = [].concat(headersFeedback,countFeedback, rowsFeedback)
             this.setChecklist(checklist)
 
+            if (this.isCompleted) {
+                await this.reportEvent("completed")
+            }
+
             miniStorage.saveStepData(this.id, this.isCompleted, userCode)
 
+            // Переключаем состояние раннера для отображения в UI
             this.runnerStatus = "ready"
 
         },
@@ -140,6 +148,30 @@ export const useStepStore = defineStore('exercise', {
             const tableNamesList =  this.table_names?.replaceAll(" ", "").split(',') ?? []
             this.tables = await runner.getStructure(tableNamesList)
             console.log(this.tables)
+
+        },
+
+        async reportEvent(eventName=""): Promise<void>{
+
+            const appStore = useAppStore()
+            const userData = appStore.userData
+
+            const url = REPORT_URL
+            const data = {event: eventName, id: this.id, ...userData}
+            const headers = {"Content-Type": "application/json" }
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: headers,
+                    body: JSON.stringify(data)}
+                );
+                if (!response.ok) {  throw new Error(`Response status: ${response.status}`);}
+                console.log(`Событие ${this.id} ${eventName} записано`)
+
+            } catch (error) {
+                console.error(`Событие ${this.id} ${eventName} не отправлено: `+error.message);
+            }
 
         },
 
