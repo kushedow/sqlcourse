@@ -31,27 +31,33 @@ export default defineComponent({
 
 <template>
 
-  <div v-for="table in tables" class="">
 
-    <!-- Table Header -->
-    <details class="p-4 bg-white rounded-lg mb-4 ">
+    <figure v-for="table in tables"  class="rounded-b-lg mb-4 ml-4  text-left text-sm ">
 
-      <summary class="text-sm font-bold cursor-pointer">{{ table.name }}</summary>
+      <div class="text-sm font-bold cursor-pointer p-2 bg-[#E1FAF3] rounded-t-md border-[#ddd] border-solid border-1" @click="this.$parent.copyName(table.name)">{{ table.name }}</div>
 
-        <div v-for="column in table.columns" class="mt-1">
-          <p>
-             <span v-if="column.type == 'integer'">🔢 </span>
-             <span v-if="column.type.includes('character varying') ">🔤 </span>
-             <span>{{column.name}}</span>:
+      <div class="py-2 bg-white border-[#ddd] border-solid border-1 border-t-0 rounded-b-md">
+
+        <div v-for="column in table.columns" class="p-1 text-left px-2 flex gap-2 justify-between">
+          <span class="left ">
+            <span v-if="column.type == 'integer'">🔢 </span>
+            <span v-if="column.type.includes('char') || column.type.includes('text') ">🔤 </span>
+            <span @click="this.$parent.copyName(column.name)" class="cursor-pointer">{{column.name}}</span>
+
+          </span>
+          <span class="right">
              <span class="text-sm text-gray-400">{{column.type}}</span>
-             <span class="text-sm text-gray-400">{{column.comment}}</span>
-          </p>
+            <span class="text-sm text-gray-400">{{column.comment}}</span>
+
+          </span>
+
         </div>
 
-    </details>
+      </div>
 
-  </div>
 
+
+    </figure>
 
 
 </template>
