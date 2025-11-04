@@ -5,11 +5,12 @@ import {defineComponent, nextTick, useTemplateRef} from "vue";
 import {useStepStore} from "../stores/step_store";
 import {useAppStore} from "../stores/app_store";
 import ResponseTable from "./response_table.vue";
+import Structuretables from "./structure_tables.vue";
 
 export default defineComponent({
 
   name: 'Practice',
-  components: {ResponseTable},
+  components: {Structuretables, ResponseTable},
 
   setup() {
 
@@ -116,7 +117,9 @@ export default defineComponent({
 
   <details>
     <summary class="cursor-pointer mb-1 text-slate-600">Показать схему таблиц</summary>
-    <article><img :src="currentStep.schema"> </article>
+    <article class="flex  pt-4 bg-[#F2F6F8] ">
+    <Structuretables/>
+    </article>
   </details>
 
 
@@ -163,7 +166,7 @@ export default defineComponent({
               id = "userCodeTextarea"
               ref = "userCodeTextarea"
               :rows="textareaRows"
-              class="w-full bg-[#eee]  rounded p-2 my-3"
+              class="w-full bg-[#F2F6F8]  rounded p-2 my-3"
               :class="{ 'bg-emerald-100': isCompleted,}"
               placeholder="Введите SQL запрос тут"
     >{{userCode}}</textarea>
@@ -172,18 +175,20 @@ export default defineComponent({
     <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}</div>
 
     <div v-if="isCompleted" class="p-4 mb-3 rounded bg-emerald-50 ">
-      Задание выполнено, можно делать
-      <button class="underline cursor-pointer" @click="nextStep()">Следующее</button>
+      ✅ Задание выполнено, можно делать cледующее!
     </div>
 
-    <button @click="run()" class="bg-slate-500 text-white rounded p-3 cursor-pointer mr-4">
+    <button @click="run()" class="bg-slate-500 text-white rounded p-3 cursor-pointer inline-block mr-4 mb-4" v-if="!isCompleted">
         <span v-if="runnerStatus =='ready'"> Запустить и проверить</span>
         <span v-if="runnerStatus =='rendering'"> Готовим таблицы ...</span>
         <span v-if="runnerStatus =='running'"> Выполняем ... </span>
     </button>
 
+    <button @click="nextStep()" class="bg-[#4ade80] text-slate-900 rounded p-3 cursor-pointer inline-block mr-4 mb-4" v-if="isCompleted">
+      <span>Следующее задание →</span>
+    </button>
 
-    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="isUserLogged">
+    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="isUserLogged" >
       <span v-if="aiStatus =='ready'"> Получить помощь ии</span>
       <span v-if="aiStatus =='running'"> Подсказываем...</span>
     </button>
