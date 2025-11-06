@@ -134,6 +134,8 @@ export const useStepStore = defineStore('exercise', {
 
             if (this.isCompleted) {
                 await this.reportEvent("completed")
+            } else {
+                await this.reportEvent("failed")
             }
 
             miniStorage.saveStepData(this.id, this.isCompleted, userCode)
@@ -180,6 +182,8 @@ export const useStepStore = defineStore('exercise', {
 
             this.aiStatus = "running"
             this.aiHelp = "Ждем подсказку от ИИ"
+
+            await this.reportEvent("aihelp")
 
             const aiHelper = new AIHelper()
             this.aiHelp = await aiHelper.getHelp(this.step, userCode, this.errors)
