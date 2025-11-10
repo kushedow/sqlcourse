@@ -135,14 +135,7 @@ export default defineComponent({
       <practice-wide/>
     </section>
 
-    <section v-if="currentStep.type=='theory'"
-             class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
-
-      <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
-      <article v-html="currentStep.instruction" class="step_instruction"></article>
-      <theory/>
-
-    </section>
+    <theory v-if="currentStep.type=='theory'"/>
 
     <div v-if="currentStep.type=='promo'"> <promo/> </div>
 
