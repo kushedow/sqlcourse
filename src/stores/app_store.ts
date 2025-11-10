@@ -2,6 +2,8 @@ import {defineStore} from 'pinia';
 import {Step, Lesson, UserData} from "../types";
 import {useStepStore} from "./step_store";
 import {MiniStorage} from "../classes/storage.class";
+import {ExerciseManager} from "../classes/exercise_manager.class";
+import router from '../router'
 
 
 export const useAppStore = defineStore('main', {
@@ -9,7 +11,7 @@ export const useAppStore = defineStore('main', {
     state: () => ({
 
         steps: [],             // все шаги
-        currentStepID: 0,      // стартовый / текущий шаг
+        currentStepID: 1,      // стартовый / текущий шаг
         userData: null,        // номер, хеш и продукт пользователя
         status: "loading",     // Cостояние приложения (loading / ready / error)
 
@@ -23,6 +25,9 @@ export const useAppStore = defineStore('main', {
         },
 
         currentStep: (state): Step => {
+            console.log("Выполняем поиск задания ", state.currentStepID)
+            if(state.steps.length == 0) {console.error("Список заданий пуст, нельзя получить")}
+
             const currentID: number = state.currentStepID;
             return state.steps.find(ex => ex.id == currentID)
         },
@@ -46,6 +51,38 @@ export const useAppStore = defineStore('main', {
     },
 
     actions: {
+
+        async pushRoute(location) {
+
+           await router.push(location)
+
+        },
+
+        async loadData(): Promise<void> {
+
+                const manager = new ExerciseManager() ;
+
+            try {
+
+                // загружаем задания, если не выбран продукт - загружаем Basic
+
+                const dataURL =  "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-content"
+                const allSteps = await manager.load(dataURL)
+
+                this.setSteps(allSteps);
+
+                const exStore = useStepStore();
+                exStore.setExercise(this.currentStep)
+
+                this.setStatus("ready")
+
+
+            } catch (error) {
+                console.log(`Произошла ошибка при загрузке ${error}. Напишите t.me/kushedow`)
+                this.setStatus("error")
+            }
+
+        },
 
         getStep(stepID: number) : Step | null {
             return this.steps.find((step: Step) => step.id == stepID)
@@ -79,15 +116,19 @@ export const useAppStore = defineStore('main', {
         },
 
         // Задаем в сторе задания
+
         setCurrentStep(key: number): void {
-            this.currentStepID = key;
+
+            this.currentStepID = Number(key);
             console.log(`current step set to ${key}`);
 
-            const exStore = useStepStore();
-            exStore.setExercise(this.currentStep)
-            if (this.currentStep.type == 'practice') {
-                exStore.runExample().then()
+            if (this.state == "ready"){
+                const exStore = useStepStore();
+                exStore.setExercise(this.currentStep)
             }
+
+
+
         },
 
         setUserData(authData): void {

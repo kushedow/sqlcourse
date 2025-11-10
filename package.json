@@ -19,6 +19,7 @@
     "pinia": "^3.0.1",
     "tailwindcss": "^4.0.14",
     "vue": "^3.5.13",
-    "vue-markdown": "^2.2.4"
+    "vue-router": "^4.6.3",
+    "vuejs3-logger": "^1.0.0"
   }
 }

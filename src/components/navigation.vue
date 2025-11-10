@@ -33,27 +33,9 @@ export default defineComponent({
 
   methods: {
 
-    // Переход к другой страничке
-    goto(ID: number){
-      window.scrollTo({top:0})
-      this.store.setCurrentStep(ID)
-    },
-
   },
 
   mounted() {
-
-    const urlHelper = new URLHelper();
-
-    try {
-      // Пытаемся вытащить шаг из адресной строки
-      const step = urlHelper.getStep()
-      this.store.setCurrentStep(step);
-    } catch {
-      // Если не получилось – начинаем с начала
-      console.log("Navigation: не задан шаг, начинаем с начала")
-      this.store.setCurrentStep(0);
-    }
 
   }
 
@@ -74,7 +56,8 @@ export default defineComponent({
           <span v-if="step.type == 'practice' && !step.isCompleted">✍️ </span>
           <span v-if="step.type == 'theory' && !step.isCompleted">👨‍💻 </span>
           <span v-if="step.isCompleted">✅ </span>
-          <a :href="'#step_' + step.id" @click="goto(step.id)" class="text-slate-500 hover:text-slate-700 ">{{step.title}}</a>
+
+          <router-link :to="`step_${step.id}`">{{ step.title }}</router-link>
 
         </li>
       </ul>

@@ -6,18 +6,15 @@ import {useAppStore} from '../stores/app_store.ts';
 
 import {ExerciseManager} from "../classes/exercise_manager.class.js"
 
-import Navigation from "./navigation.vue";
-import Practice from "./practice.vue";
-import PracticeWide from "./practice_wide.vue";
-import Theory from "./theory.vue";
-import Promo from "./promo.vue";
+import ContentStep from "./content_step.vue";
+
 import {URLHelper} from "../classes/url_helper.class";
-import Quiz from "./quiz.vue";
+
 
 export default defineComponent({
 
   name: 'Learn SQL',
-  components: {Quiz, Promo, Navigation, Practice, Theory, PracticeWide},
+  components: {ContentStep},
 
   setup() {
     const store = useAppStore();
@@ -25,14 +22,7 @@ export default defineComponent({
     return {store, manager};
   },
 
-  data() {
-    return {
-      example: {},    // Результат выполнения кода примера-образца
-      output: {},     // Результат выполнения кода ученика
-      checklist: [],  // Результат проверки по списку
-      errors: [],     // Ошибки при выполнении
-    };
-  },
+  data() { return {}},
 
   computed: {
 
@@ -52,31 +42,17 @@ export default defineComponent({
 
   async mounted() {
 
+
     const urlHelper = new URLHelper();
 
-    if (urlHelper.hasUserInfo()) {
-      this.store.setUserData(urlHelper.getQueryParams())
-    }
+    // if (urlHelper.hasUserInfo()) {
+    //   this.store.setUserData(urlHelper.getQueryParams())
+    // }
 
-    const apiURLS = {
-        "basic": "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-content",
-        "education": "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-education",
-      }
+    this.store.loadUserData()
 
-    try {
+    await this.store.loadData()
 
-      // Определяем продукт и загружаем задания, если не выбран продукт - загружаем Basic
-
-      this.store.loadUserData()
-      const dataURL = apiURLS[this.store.userData.userProduct] ? apiURLS[this.store.userData.userProduct] : apiURLS["basic"]
-      const allSteps = await this.manager.load(dataURL)
-
-      this.store.setSteps(allSteps);
-      this.store.setStatus("ready")
-    } catch (error) {
-      console.log(`Произошла ошибка при загрузке ${error}. Напишите t.me/kushedow`)
-      this.store.setStatus("error")
-    }
 
   },
 
@@ -91,6 +67,10 @@ export default defineComponent({
 </script>
 
 <template>
+
+
+  <router-view />
+
 
   <div v-if="status == 'loading'" class="status text-center">
 
@@ -108,6 +88,7 @@ export default defineComponent({
 
   </div>
 
+
   <main v-if="status == 'error'">
 
     <section class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
@@ -119,46 +100,7 @@ export default defineComponent({
 
   </main>
 
-  <main v-if="currentStep">
 
-
-    <section v-if="currentStep.type=='practice' && currentStep.view!='full'"
-             class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
-
-      <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
-      <article v-html="currentStep.instruction" class="step_instruction"></article>
-      <practice/>
-
-    </section>
-
-    <section v-if="currentStep.type=='practice' && currentStep.view=='full'" class="">
-      <practice-wide/>
-    </section>
-
-    <section v-if="currentStep.type=='theory'"
-             class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
-
-      <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
-      <article v-html="currentStep.instruction" class="step_instruction"></article>
-      <theory/>
-
-    </section>
-
-    <div v-if="currentStep.type=='promo'"> <promo/> </div>
-
-    <div v-if="currentStep.type=='quiz'"
-         class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
-      <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
-      <quiz/>
-    </div>
-
-
-    <!-- Компонент навигации по всем шагам  -->
-    <div v-if="status == 'ready' ">
-      <navigation></navigation>
-    </div>
-
-  </main>
   
 
 </template>

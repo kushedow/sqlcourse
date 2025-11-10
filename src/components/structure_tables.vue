@@ -15,7 +15,7 @@ export default defineComponent({
 
   },
 
-  data() {},
+  data() { return {}},
 
   computed: {
     tables(): Step {  return this.exStore.tables ;},

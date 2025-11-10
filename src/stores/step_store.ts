@@ -54,6 +54,8 @@ export const useStepStore = defineStore('exercise', {
 
         setExercise(step: Step): void{
 
+            if (!step) {console.log("Wrong argument step")}
+
             this.step = step
 
             this.id = step.id

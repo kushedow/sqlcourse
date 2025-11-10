@@ -7,6 +7,7 @@ import {useAppStore} from "../stores/app_store";
 import ResponseTable from "./response_table.vue";
 import Structuretables from "./structure_tables.vue";
 
+
 export default defineComponent({
 
   name: 'Practice',
@@ -22,9 +23,7 @@ export default defineComponent({
   },
 
   data() {
-    return {
-      userCode: this.appStore.currentStep.userCode,
-    }
+    return {}
   },
 
   computed: {
@@ -87,7 +86,7 @@ export default defineComponent({
       this.userCode = ""
       window.scrollTo({top:0})
       const stepID = this.appStore.nextStep(this.userCode)
-      window.location.hash = `#step_${stepID}`;
+      this.appStore.pushRoute(`/step_/${stepID}`)
     }
 
   },
@@ -96,7 +95,9 @@ export default defineComponent({
 
     try {
       console.log("Начинаем монтировать практику")
-      await this.exStore.runExample()
+      // await this.appStore.currentStep(this.userCode)
+      // await this.appStore.setCurrentStep()
+      // await this.exStore.runExample()
 
     } catch (error) {
       console.log(`Произошла ошибка при генерации примера ${error}`)
