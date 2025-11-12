@@ -50,6 +50,25 @@ export default defineComponent({
 
     isUserLogged(): boolean { return  Boolean(this.appStore.userData?.userID) },
 
+    congratulation(): string {
+
+      const phrases = [
+          "Задание выполнено, можно делать cледующее!",
+          "Получилось хорошо. Еще одно задание?",
+          "Просто отлично. Все бы так работали! Продолжим?",
+          "Прекрасная работа! Следующая задача ждет!",
+          "Великолепно! Время двигаться дальше.",
+          "Ура, готово! И совсем не больно. Пока что...",
+          "Идеально! Еще одно задание?",
+          "Готово! Попробуем что-то сложнее?",
+          "Получилось хорошо... для вашего уровня. Еще одну?",
+          "Найс! Следующая задача уже заждалась.",
+
+      ]
+      const randomIndex = Math.floor(Math.random() * phrases.length);
+      return phrases[randomIndex];
+    }
+
   },
 
   methods: {
@@ -173,10 +192,10 @@ export default defineComponent({
     ></textarea>
 
 
-    <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}</div>
+    <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}. Попросим подсказку у ИИ?</div>
 
     <div v-if="isCompleted" class="p-4 mb-3 rounded bg-emerald-50 ">
-      ✅ Задание выполнено, можно делать cледующее!
+      ✅ {{congratulation}}
     </div>
 
     <button @click="run()" class="bg-slate-500 text-white rounded p-3 cursor-pointer inline-block mr-4 mb-4" v-if="!isCompleted">
