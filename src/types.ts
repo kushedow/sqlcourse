@@ -79,5 +79,4 @@ export interface AIResponse {
 export interface UserData {
     userID: string;
     userHash: string;
-    userProduct: string;
 }

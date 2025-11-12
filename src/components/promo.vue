@@ -97,10 +97,13 @@ export default defineComponent({
         </ul>
         <div class="flex gap-4">
         <!-- /.flex -->
-        <a href="#plans"
-           class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">
-          Начать учиться бесплатно и без регистрации!
-        </a>
+
+          <router-link :to="`step_1`">
+            <button class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">
+              Начать учиться бесплатно и без регистрации!
+            </button>
+          </router-link>
+
 
         </div>
       </div>
@@ -208,9 +211,12 @@ export default defineComponent({
 
             </ul>
 
-            <a @click="nextStep()" class="text-center bg-[#4ade80] hover:bg-[#444455] text-[#000] font-semibold py-3 px-6 rounded-lg transition duration-200 mt-auto cursor-pointer">
-              Начать учиться!
-            </a>
+            <router-link :to="`step_1`">
+              <button class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">
+                Начать учиться бесплатно и без регистрации!
+              </button>
+            </router-link>
+
           </div>
 
 

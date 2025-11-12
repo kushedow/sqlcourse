@@ -7,7 +7,7 @@ import {MiniStorage} from "../classes/storage.class";
 
 export default defineComponent({
 
-  name: 'Theory',
+  name: 'Practice',
   components: {},
 
   setup() {
@@ -35,8 +35,8 @@ export default defineComponent({
       window.scrollTo({top:0})
 
       const stepID = this.appStore.nextStep(this.userCode)
-      window.location.hash = `#step_${stepID}`;
-    },
+      this.appStore.pushRoute(`step_${stepID}`)
+    }
 
   },
 
@@ -47,14 +47,11 @@ export default defineComponent({
 
 <template>
 
+  <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
 
-    <section class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
+  <article v-html="currentStep.instruction" class="step_instruction"></article>
 
-      <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
-      <article v-html="currentStep.instruction" class="step_instruction"></article>
-
-      <button class="bg-slate-500 text-white rounded p-3 cursor-pointer mr-4" @click="nextStep()">Дальше!</button>
-  </section>
+  <button class="bg-slate-500 text-white rounded p-3 cursor-pointer mr-4" @click="nextStep()">Дальше!</button>
 
 </template>
 
