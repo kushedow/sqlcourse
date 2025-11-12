@@ -26,14 +26,25 @@ const router = createRouter({
     routes
 })
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to, from, next) => {
+
     const store = useAppStore();
 
+    // Сохранение данных после авторизации
+    if (to.query.auth && to.query.hash ) {
+            store.setUserData({userID: to.query.auth,userHash: to.query.hash });
+     }
+
+    // Редирект для старых адресов с решеткой
+    if (to.hash) {
+        const routeName = to.hash.replace('#', '');
+        return next(`/${routeName}`); // Return to stop further execution
+    }
 
     if (to.params.stepID) {
         store.setCurrentStep(Number(to.params.stepID));
     } else {
-        return true;
+        return next();
     }
 
     if (store.status !== "ready") {
@@ -48,7 +59,7 @@ router.beforeEach(async (to, from) => {
     exStore.setExercise(store.currentStep);
     await exStore.runExample();
 
-    return true;
+    next();
 });
 
 export default router

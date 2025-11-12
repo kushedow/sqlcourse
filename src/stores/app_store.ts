@@ -131,14 +131,13 @@ export const useAppStore = defineStore('main', {
 
         },
 
-        setUserData(authData): void {
+        setUserData(authData: UserData): void {
 
             console.log("Установлены данные авторизации")
 
             const userData: UserData = {
-                userID: authData.auth,
-                userHash: authData.hash,
-                userProduct: authData.product
+                userID: authData.userID,
+                userHash: authData.userHash,
             }
 
             const miniStorage = new MiniStorage()
