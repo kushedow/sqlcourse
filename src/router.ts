@@ -23,7 +23,14 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        // Smooth scroll to top
+        return {
+            top: 0,
+            behavior: 'smooth'
+        }
+    }
 })
 
 router.beforeEach(async (to, from, next) => {
@@ -32,7 +39,7 @@ router.beforeEach(async (to, from, next) => {
 
     // Сохранение данных после авторизации
     if (to.query.auth && to.query.hash ) {
-            store.setUserData({userID: to.query.auth,userHash: to.query.hash });
+            store.setUserData({userID: String(to.query.auth),userHash: String(to.query.hash) });
      }
 
     // Редирект для старых адресов с решеткой

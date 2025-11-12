@@ -70,17 +70,17 @@ export default defineComponent({
 
   <router-view />
 
-  <div v-if="status == 'loading'" class="status text-center">
+  <div v-if="status == 'loading' " class="status text-center">
 
     <div class="preloader fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
             w-[200px] h-[200px] bg-white rounded-2xl
             flex flex-col justify-center items-center
             shadow-lg p-5 box-border">
-      <!-- /.preloader -->
-      <img src="/public/images/preloader.gif" alt="">
-      <h2 class="mt-4">Загружаем данные тренажера</h2>
 
-    </div>
+      <img src="/public/images/preloader.gif" alt="">
+      <h2 class="mt-4">Загружаем данные</h2>
+
+    </div><!-- /.preloader -->
 
   </div>
 

@@ -4,11 +4,12 @@ import {Step} from "../types";
 import {defineComponent} from "vue";
 import {useAppStore} from "../stores/app_store";
 import {MiniStorage} from "../classes/storage.class";
+import Navigation from "./navigation.vue";
 
 export default defineComponent({
 
   name: 'Promo',
-  components: {},
+  components: {Navigation},
 
   setup() {
     const appStore = useAppStore();
@@ -174,59 +175,30 @@ export default defineComponent({
     </section>
 
 
-    <section class="flex items-center justify-center px-4" id="plans">
+    <section class="flex items-center justify-center px-4 text-center" id="plans">
 
       <div class="w-full py-16 ">
 
-        <div class="text-center mb-12">
+        <div class="text-center mb-4">
           <h1 class="text-3xl md:text-4xl font-bold mb-2">Начните прямо сейчас</h1>
           <p class="text-lg md:text-xl text-gray-500">Дополнительные инструменты разблокируются после регистрации!</p>
         </div>
 
-        <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 text-white">
-
-          <div class="bg-[#1f1f2b] p-8 rounded-lg shadow-lg flex flex-col w-full md:w-1/2 lg:w-5/12">
-            <h2 class="text-2xl font-semibold mb-2">Бесплатновый тариф</h2>
-
-
-            <ul class="space-y-3 mb-8 flex-grow">
-              <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                Вся теория
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                100+ задач с автопроверками
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                ИИ доступен после регистрации
-              </li>
-
-            </ul>
-
-            <router-link :to="`step_1`">
-              <button class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">
-                Начать учиться бесплатно и без регистрации!
-              </button>
-            </router-link>
-
-          </div>
-
-
-        </div>
+        <router-link :to="`step_1`">
+          <button class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">
+            Начать учиться бесплатно и без регистрации!
+          </button>
+        </router-link>
 
       </div>
+
+
 
     </section>
 
   </main>
+
+  <navigation></navigation>
 
 </template>
 
