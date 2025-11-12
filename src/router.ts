@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Promo from './components/promo.vue'
 import Content_step from './components/content_step.vue'
@@ -22,7 +22,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes,
     scrollBehavior(to, from, savedPosition) {
         // Smooth scroll to top
