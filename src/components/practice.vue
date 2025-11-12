@@ -1,5 +1,5 @@
 <script lang="ts">
-
+import { ref, onMounted } from 'vue';
 import {DBResponse, Feedback, Step} from "../types";
 import {defineComponent, nextTick, useTemplateRef} from "vue";
 import {useStepStore} from "../stores/step_store";
@@ -17,13 +17,14 @@ export default defineComponent({
 
     const appStore = useAppStore();
     const exStore = useStepStore();
-    return { appStore, exStore };
+    const userCodeTextarea = ref<HTMLTextAreaElement | null>(null);
+    return { appStore, exStore, userCodeTextarea };
 
   },
 
   data() {
     return {
-      userCodeTextarea: null
+
     }
   },
 
@@ -96,9 +97,6 @@ export default defineComponent({
 
     try {
       console.log("Начинаем монтировать практику")
-      // await this.appStore.currentStep(this.userCode)
-      // await this.appStore.setCurrentStep()
-      // await this.exStore.runExample()
 
     } catch (error) {
       console.log(`Произошла ошибка при генерации примера ${error}`)
