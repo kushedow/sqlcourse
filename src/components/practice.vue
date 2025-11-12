@@ -65,21 +65,21 @@ export default defineComponent({
 
     copyName(name){
 
-      if (!userCodeTextarea) return;
+      if (!this.userCodeTextarea) return;
 
-      const selectionStart = userCodeTextarea.selectionStart;
-      const selectionEnd = userCodeTextarea.selectionEnd;
-      const currentValue = userCodeTextarea.value;
-      userCodeTextarea.value = currentValue.substring(0, selectionStart) + name + currentValue.substring(selectionEnd);
-      userCodeTextarea.selectionStart = userCodeTextarea.selectionEnd = selectionStart + name.length;
+      const selectionStart = this.userCodeTextarea.selectionStart;
+      const selectionEnd = this.userCodeTextarea.selectionEnd;
+      const currentValue = this.userCodeTextarea.value;
+      this.userCodeTextarea.value = currentValue.substring(0, selectionStart) + name + currentValue.substring(selectionEnd);
+      this.userCodeTextarea.selectionStart = this.userCodeTextarea.selectionEnd = selectionStart + name.length;
 
       // Trigger input event (optional, but often needed for Vue/React reactivity)
       const event = new Event('input', {
         bubbles: true, cancelable: true,
       });
-      userCodeTextarea.dispatchEvent(event);
+      this.userCodeTextarea.dispatchEvent(event);
 
-      nextTick(()=> userCodeTextarea.focus())
+      nextTick(()=> this.userCodeTextarea.focus())
     },
 
     nextStep(){
