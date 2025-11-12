@@ -5,8 +5,6 @@ import Content_step from './components/content_step.vue'
 import {useAppStore} from "./stores/app_store";
 import {useStepStore} from "./stores/step_store";
 
-function sleep(ms) {return new Promise(resolve => setTimeout(resolve, ms));}
-
 const routes = [
     {
         path: '/',

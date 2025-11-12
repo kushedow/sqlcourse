@@ -5,7 +5,7 @@ import {Checker} from "../classes/checker.class";
 import {MiniStorage} from "../classes/storage.class";
 import {AIHelper} from "../classes/ai_helper.class";
 import {useAppStore} from "./app_store";
-import {REPORT_URL} from "../config.ts"
+import {REPORT_URL} from "../config"
 
 
 export const useStepStore = defineStore('exercise', {
@@ -135,9 +135,9 @@ export const useStepStore = defineStore('exercise', {
             this.setChecklist(checklist)
 
             if (this.isCompleted) {
-                await this.reportEvent("completed")
+                await this.reportEvent("completed", {code: userCode})
             } else {
-                await this.reportEvent("failed")
+                await this.reportEvent("failed", {code: userCode})
             }
 
             miniStorage.saveStepData(this.id, this.isCompleted, userCode)
@@ -155,13 +155,13 @@ export const useStepStore = defineStore('exercise', {
 
         },
 
-        async reportEvent(eventName=""): Promise<void>{
+        async reportEvent(eventName: String="", details: Object = {}): Promise<void>{
 
             const appStore = useAppStore()
             const userData = appStore.userData
 
             const url = REPORT_URL
-            const data = {event: eventName, id: this.id, ...userData}
+            const data = {event: eventName, id: this.id,  details: details, ...userData}
             const headers = {"Content-Type": "application/json" }
 
             try {
@@ -185,7 +185,7 @@ export const useStepStore = defineStore('exercise', {
             this.aiStatus = "running"
             this.aiHelp = "Ждем подсказку от ИИ"
 
-            await this.reportEvent("aihelp")
+            await this.reportEvent("aihelp", {code: userCode})
 
             const aiHelper = new AIHelper()
             this.aiHelp = await aiHelper.getHelp(this.step, userCode, this.errors)
