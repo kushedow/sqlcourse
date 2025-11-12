@@ -62,9 +62,12 @@ router.beforeEach(async (to, from, next) => {
     }
 
     console.log("Setting up exercise after store ready");
-    const exStore = useStepStore();
-    exStore.setExercise(store.currentStep);
-    await exStore.runExample();
+    const stepStore = useStepStore();
+    stepStore.setExercise(store.currentStep);
+
+    if (store.currentStep.type == "practice"){
+        await stepStore.runExample();
+    }
 
     next();
 });
