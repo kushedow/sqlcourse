@@ -17,13 +17,14 @@ export default defineComponent({
 
     const appStore = useAppStore();
     const exStore = useStepStore();
-    const userCodeTextarea = useTemplateRef("userCodeTextarea")
     return { appStore, exStore };
 
   },
 
   data() {
-    return {}
+    return {
+      userCodeTextarea: null
+    }
   },
 
   computed: {
@@ -170,7 +171,7 @@ export default defineComponent({
               class="w-full bg-[#F2F6F8]  rounded p-2 my-3"
               :class="{ 'bg-emerald-100': isCompleted,}"
               placeholder="Введите SQL запрос тут"
-    >{{userCode}}</textarea>
+    ></textarea>
 
 
     <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}</div>
@@ -205,7 +206,7 @@ export default defineComponent({
   <section class="exercise__feedback">
     <div v-if="!checklist" class="p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>
     <ul v-if="checklist">
-      <li v-for="checkpoint in checklist">
+      <li v-for="checkpoint in checklist" >
         <span v-if="checkpoint.completed">✅ {{checkpoint.title}}</span>
         <span v-if="!checkpoint.completed">❌ {{checkpoint.title}}: <small>{{checkpoint.details}}</small></span>
       </li>
