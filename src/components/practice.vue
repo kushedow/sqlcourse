@@ -55,13 +55,14 @@ export default defineComponent({
   methods: {
 
     async run(){
-      console.log("Процессим решение")
-      await this.exStore.run(this.userCode)
+      console.log("Процессим решение, обращаемся к полю")
+      await this.exStore.run(this.userCodeTextarea.value)
+
     },
 
     async getAIHelp(){
       console.log("Зовем на помощь AI")
-      await this.exStore.getAIHelp(this.userCode)
+      await this.exStore.getAIHelp(this.userCodeTextarea.value)
 
     },
 
@@ -88,7 +89,7 @@ export default defineComponent({
       this.userCode = ""
       window.scrollTo({top:0})
       const stepID = this.appStore.nextStep(this.userCode)
-      this.appStore.pushRoute(`/step_/${stepID}`)
+      this.appStore.pushRoute(`/step_${stepID}`)
     }
 
   },
