@@ -59,10 +59,8 @@ export default defineComponent({
   <div v-if="status == 'ready' && currentStep">
 
       <section v-if="currentStep.type=='practice' && currentStep.view!='full'"
-               class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
+               class="step container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
 
-        <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
-        <article v-html="currentStep.instruction" class="step_instruction"></article>
         <practice/>
 
       </section>

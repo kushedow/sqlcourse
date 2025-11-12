@@ -130,13 +130,17 @@ export default defineComponent({
 
 <template>
 
+  <h1 class="text-3xl mb-3 font-black">{{ currentStep.title }}</h1>
+
+  <article v-html="currentStep.instruction" class="step_instruction"></article>
+
   <details class="step_instruction">
-    <summary class="cursor-pointer mt-2 mb-1 text-slate-600">Напомнить теорию</summary>
+    <summary class="cursor-pointer mt-2 mb-1 text-emerald-600">Напомнить теорию</summary>
     <article v-html="currentStep.theory[0]"> </article>
   </details>
 
   <details>
-    <summary class="cursor-pointer mb-1 text-slate-600">Показать схему таблиц</summary>
+    <summary class="cursor-pointer mb-1 text-emerald-600">Показать схему таблиц</summary>
       <article class="flex pt-4 bg-[#F2F6F8] ">
         <Structuretables/>
       </article>
@@ -186,11 +190,10 @@ export default defineComponent({
               id = "userCodeTextarea"
               ref = "userCodeTextarea"
               :rows="textareaRows"
-              class="w-full bg-[#F2F6F8]  rounded p-2 my-3"
+              class="w-full bg-[#F2F6F8] text-lg rounded p-2 my-3"
               :class="{ 'bg-emerald-100': isCompleted,}"
               placeholder="Введите SQL запрос тут"
     ></textarea>
-
 
     <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}. Попросим подсказку у ИИ?</div>
 
@@ -198,17 +201,17 @@ export default defineComponent({
       ✅ {{congratulation}}
     </div>
 
-    <button @click="run()" class="bg-slate-500 text-white rounded p-3 cursor-pointer inline-block mr-4 mb-4" v-if="!isCompleted">
+    <button @click="run()" class="bg-black text-[#f2f6f8] rounded py-3 px-4 cursor-pointer inline-block font-medium mr-4 mb-4" v-if="!isCompleted">
         <span v-if="runnerStatus =='ready'"> Запустить и проверить</span>
         <span v-if="runnerStatus =='rendering'"> Готовим таблицы ...</span>
         <span v-if="runnerStatus =='running'"> Выполняем ... </span>
     </button>
 
-    <button @click="nextStep()" class="bg-[#4ade80] text-slate-900 rounded p-3 cursor-pointer inline-block mr-4 mb-4" v-if="isCompleted">
-      <span>Следующее задание →</span>
+    <button @click="nextStep()" class="bg-[#4ade80] text-slate-900 rounded p-3 cursor-pointer inline-block mr-4 mb-4 font-medium" v-if="isCompleted">
+      <span>Следующее задание &nbsp; &nbsp;→</span>
     </button>
 
-    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="isUserLogged" >
+    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="isUserLogged && !isCompleted" >
       <span v-if="aiStatus =='ready'"> Получить помощь ии</span>
       <span v-if="aiStatus =='running'"> Подсказываем...</span>
     </button>
@@ -217,9 +220,7 @@ export default defineComponent({
       <span v-if="aiStatus =='ready'"> ✨ Включить помощь от ИИ</span>
     </a>
 
-
   </section>
-
 
   <section class="exercise__feedback">
     <div v-if="!checklist" class="p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>

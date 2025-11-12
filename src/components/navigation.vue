@@ -45,13 +45,13 @@ export default defineComponent({
 
 <template>
 
-  <div class="container mx-auto rounded-xl bg-white p-5 mt-6 2xl:w-1/2 xl:w-2/3 ">
-    <h2 class="text-lg mb-3 "> Содержание: </h2>
+  <div class="container mx-auto rounded-xl bg-white p-5 mt-12 2xl:w-1/2 xl:w-2/3 ">
+    <h2 class="text-2xl mb-3 font-black"> Содержание: </h2>
 
     <div v-for="lesson in lessons">
-      <h2 class="my-3">{{lesson.title}}</h2>
+      <h3 class="my-3 font-bold">{{lesson.title}}</h3>
       <ul>
-        <li v-for="step in lesson.steps"  class="my-1 pl-3 rounded" :class="currentID === step.id ? 'bg-violet-100 p-2' : ''">
+        <li v-for="step in lesson.steps"  class="my-1  rounded" :class="currentID === step.id ? 'bg-black text-white p-2 -ml-2' : ''">
 
           <span v-if="step.type == 'practice' && !step.isCompleted">✍️ </span>
           <span v-if="step.type == 'theory' && !step.isCompleted">👨‍💻 </span>

@@ -64,7 +64,7 @@ router.beforeEach(async (to, from, next) => {
     stepStore.setExercise(store.currentStep);
 
     if (store.currentStep.type == "practice"){
-        await stepStore.runExample();
+         stepStore.runExample();
     }
 
     next();

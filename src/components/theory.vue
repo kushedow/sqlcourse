@@ -47,11 +47,11 @@ export default defineComponent({
 
 <template>
 
-  <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
+  <h1 class="text-3xl mb-3 font-black">{{ currentStep.title }}</h1>
 
   <article v-html="currentStep.instruction" class="step_instruction"></article>
 
-  <button class="bg-slate-500 text-white rounded p-3 cursor-pointer mr-4" @click="nextStep()">Дальше!</button>
+  <button class="bg-black text-white font-medium rounded p-3 cursor-pointer mr-4" @click="nextStep()">Дальше  &nbsp;→</button>
 
 </template>
 

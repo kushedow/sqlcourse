@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+.step{
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 12px;
+}
+
 .step_instruction h2 {
     font-size: 16px;
     margin-top: 32px;
@@ -51,6 +55,10 @@
 
 .step_instruction thead {
     border-bottom: 1px solid #aaa;
+}
+
+.step_instruction a {
+    color: #009966;
 }
 
 /* Таблицы результата */
