@@ -75,7 +75,7 @@ export default defineComponent({
 
     async run(){
       console.log("Процессим решение, обращаемся к полю")
-      await this.exStore.run(this.userCodeTextarea.value)
+      await this.exStore.run(String(this.userCodeTextarea.value))
 
     },
 
@@ -105,7 +105,7 @@ export default defineComponent({
     },
 
     nextStep(){
-      this.userCode = ""
+      this.appStore.currentStep.userCode = ""
       window.scrollTo({top:0})
       const stepID = this.appStore.nextStep(this.userCode)
       this.appStore.pushRoute(`/step_${stepID}`)
@@ -211,7 +211,7 @@ export default defineComponent({
       <span>Следующее задание &nbsp; &nbsp;→</span>
     </button>
 
-    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="isUserLogged && !isCompleted" >
+    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" type="button" v-if="isUserLogged && !isCompleted" >
       <span v-if="aiStatus =='ready'"> Получить помощь ии</span>
       <span v-if="aiStatus =='running'"> Подсказываем...</span>
     </button>
