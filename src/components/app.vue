@@ -8,9 +8,6 @@ import {ExerciseManager} from "../classes/exercise_manager.class.js"
 
 import ContentStep from "./content_step.vue";
 
-import {URLHelper} from "../classes/url_helper.class";
-
-
 export default defineComponent({
 
   name: 'Learn SQL',
@@ -42,17 +39,9 @@ export default defineComponent({
 
   async mounted() {
 
-
-    const urlHelper = new URLHelper();
-
-    // if (urlHelper.hasUserInfo()) {
-    //   this.store.setUserData(urlHelper.getQueryParams())
-    // }
-
     this.store.loadUserData()
 
     await this.store.loadData()
-
 
   },
 

@@ -19,7 +19,6 @@ export class MiniStorage {
         return {
             userID: null,
             userHash: null,
-            userProduct: "basic",
         }
 
     }

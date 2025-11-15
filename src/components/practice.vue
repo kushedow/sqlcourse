@@ -1,37 +1,39 @@
 <script lang="ts">
 import { ref, onMounted } from 'vue';
 import {DBResponse, Feedback, Step} from "../types";
-import {defineComponent, nextTick, useTemplateRef} from "vue";
+import {defineComponent, nextTick} from "vue";
 import {useStepStore} from "../stores/step_store";
 import {useAppStore} from "../stores/app_store";
 import ResponseTable from "./response_table.vue";
 import Structuretables from "./structure_tables.vue";
 
+import hljs from 'highlight.js';
+import CodeEditor from "simple-code-editor";
+
 
 export default defineComponent({
 
   name: 'Practice',
-  components: {Structuretables, ResponseTable},
+  components: {Structuretables, ResponseTable, CodeEditor},
 
   setup() {
 
     const appStore = useAppStore();
     const exStore = useStepStore();
-    const userCodeTextarea = ref<HTMLTextAreaElement | null>(null);
-    return { appStore, exStore, userCodeTextarea };
+    return { appStore, exStore };
 
   },
 
   data() {
     return {
-
+      "userCode" : ""
     }
   },
 
   computed: {
 
     status(): string { return this.appStore.status;  },
-    userCode(): string { return this.appStore.currentStep.userCode; },
+    // userCode(): string { return this.appStore.currentStep.userCode; },
     runnerStatus(): string {return this.exStore.runnerStatus; },
 
     currentStep(): Step { return this.appStore.currentStep; },
@@ -65,9 +67,12 @@ export default defineComponent({
           "Найс! Следующая задача уже заждалась.",
 
       ]
+
       const randomIndex = Math.floor(Math.random() * phrases.length);
       return phrases[randomIndex];
-    }
+    },
+
+    snippets(): string[] {return ["SELECT", "FROM", "WHERE", "JOIN", "ORDER", "LIMIT", "*", "," , "=", "AND", "OR", "ON"] }
 
   },
 
@@ -75,33 +80,35 @@ export default defineComponent({
 
     async run(){
       console.log("Процессим решение, обращаемся к полю")
-      await this.exStore.run(String(this.userCodeTextarea.value))
+      await this.exStore.run(String(this.userCode))
 
     },
 
     async getAIHelp(){
       console.log("Зовем на помощь AI")
-      await this.exStore.getAIHelp(this.userCodeTextarea.value)
+      await this.exStore.getAIHelp(this.userCode)
 
     },
 
-    copyName(name){
+    copyName(name: string){
 
-      if (!this.userCodeTextarea) return;
+      const userCodeTextarea: HTMLTextAreaElement = document.querySelector(".code-editor textarea")
 
-      const selectionStart = this.userCodeTextarea.selectionStart;
-      const selectionEnd = this.userCodeTextarea.selectionEnd;
-      const currentValue = this.userCodeTextarea.value;
-      this.userCodeTextarea.value = currentValue.substring(0, selectionStart) + name + currentValue.substring(selectionEnd);
-      this.userCodeTextarea.selectionStart = this.userCodeTextarea.selectionEnd = selectionStart + name.length;
+      if (!userCodeTextarea) return;
+
+      const selectionStart = userCodeTextarea.selectionStart;
+      const selectionEnd = userCodeTextarea.selectionEnd;
+      const currentValue = userCodeTextarea.value;
+      userCodeTextarea.value = currentValue.substring(0, selectionStart) + name + currentValue.substring(selectionEnd);
+      userCodeTextarea.selectionStart = userCodeTextarea.selectionEnd = selectionStart + name.length;
 
       // Trigger input event (optional, but often needed for Vue/React reactivity)
       const event = new Event('input', {
         bubbles: true, cancelable: true,
       });
-      this.userCodeTextarea.dispatchEvent(event);
+      userCodeTextarea.dispatchEvent(event);
 
-      nextTick(()=> this.userCodeTextarea.focus())
+      nextTick(()=> userCodeTextarea.focus())
     },
 
     nextStep(){
@@ -146,7 +153,6 @@ export default defineComponent({
       </article>
   </details>
 
-
   <section class="grid grid-cols-2 gap-4 practice__example my-3" v-if="currentStep != null">
 
     <div class="left">
@@ -186,14 +192,16 @@ export default defineComponent({
 
   <section class="exercise__editor my-3">
 
-    <textarea v-model="userCode"
-              id = "userCodeTextarea"
-              ref = "userCodeTextarea"
-              :rows="textareaRows"
-              class="w-full bg-[#F2F6F8] text-lg rounded p-2 my-3"
-              :class="{ 'bg-emerald-100': isCompleted,}"
-              placeholder="Введите SQL запрос тут"
-    ></textarea>
+
+    <CodeEditor
+        :line-nums="true" padding="15px" theme="felipec" :languages="[['sql']]" width="100%" :display-language="false" :copy-code="false" :header="false" border-radius="8px" v-model="userCode"  font-size="16px"></CodeEditor>
+
+    <div class="palette my-2 text-[12px] opacity-20 hover:opacity-100 transition ease-in duration-200" v-if="!isCompleted">
+      <span v-for="snip in snippets"
+            class="p-1 bg-[#F2F6F8]  text-gray-600 mr-1 rounded cursor-pointer"
+            @click="this.copyName(` ${snip} `)">{{snip}}</span>
+    </div>
+    <!-- /.palette -->
 
     <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}. Попросим подсказку у ИИ?</div>
 
@@ -232,7 +240,4 @@ export default defineComponent({
     </ul>
   </section>
 
-
-
 </template>
-

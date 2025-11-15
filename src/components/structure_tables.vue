@@ -31,7 +31,6 @@ export default defineComponent({
 
 <template>
 
-
     <figure v-for="table in tables"  class="rounded-b-lg mb-4 ml-4  text-left text-sm ">
 
       <div class="text-sm font-bold cursor-pointer p-2 bg-[#E1FAF3] rounded-t-md border-[#ddd] border-solid border-1" @click="this.$parent.copyName(table.name)">{{ table.name }}</div>
@@ -55,10 +54,7 @@ export default defineComponent({
 
       </div>
 
-
-
     </figure>
 
 
 </template>
-
