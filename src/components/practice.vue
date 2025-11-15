@@ -113,6 +113,7 @@ export default defineComponent({
 
     nextStep(){
       this.appStore.currentStep.userCode = ""
+      this.userCode = ""
       window.scrollTo({top:0})
       const stepID = this.appStore.nextStep(this.userCode)
       this.appStore.pushRoute(`/step_${stepID}`)
