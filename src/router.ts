@@ -30,7 +30,7 @@ const routes = [
 const router = createRouter({
     history: createWebHashHistory(),
     routes,
-    scrollBehavior(to, from, savedPosition) {
+    scrollBehavior() {
         // Smooth scroll to top
         return {
             top: 0,

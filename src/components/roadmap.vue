@@ -289,13 +289,9 @@ export default defineComponent({
     fill: black;
 
   }
-
-  .roadmap text{
-    //fill: white;
-  }
-
+  
   .roadmap g text{
-    font-family:  Arial !important;
+    font-family:  Arial,serif !important;
   }
 
   g[data-enabled="0"] text {
