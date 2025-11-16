@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Promo from './components/promo.vue'
+import Roadmap from './components/roadmap.vue'
 import Content_step from './components/content_step.vue'
 import {useAppStore} from "./stores/app_store";
 import {useStepStore} from "./stores/step_store";
@@ -16,7 +17,14 @@ const routes = [
         path: '/step_:stepID',
         name: 'Step',
         component: Content_step
-    }
+    },
+
+    {
+        path: '/map',
+        name: 'Roadmap',
+        component: Roadmap
+    },
+
 ]
 
 const router = createRouter({
