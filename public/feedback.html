@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>NPS Form</title>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+<!-- Контент страницы для примера -->
+<div class="p-8 text-gray-400">Контент сайта...</div>
+
+<!-- NPS Форма -->
+<div id="nps-bar" class="fixed bottom-0 left-0 w-full bg-black text-white p-4 md:p-6 transition-transform">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 relative">
+
+        <!-- Текст вопроса -->
+        <p class="text-sm md:text-base font-medium pr-8 md:pr-0">
+            Насколько вероятно, что вы порекомендуете сервис другу или коллеге?
+        </p>
+
+        <!-- Кнопки оценки -->
+        <div class="flex flex-wrap justify-center gap-1 md:gap-2">
+            <!-- Генерация кнопок 1-10 -->
+            <script>
+                for (let i = 1; i <= 10; i++) {
+                    document.write(`
+                            <button onclick="handleVote(${i})" class="w-8 h-8 md:w-10 md:h-10 bg-white text-black rounded hover:bg-gray-200 transition-colors text-sm font-bold">
+                                ${i}
+                            </button>
+                        `);
+                }
+            </script>
+        </div>
+
+        <!-- Кнопка закрытия -->
+        <button onclick="closeNps()" class="absolute right-0 top-[-8px] md:static text-gray-400 hover:text-white text-2xl p-2" aria-label="Закрыть">
+            &times;
+        </button>
+    </div>
+</div>
+
+<script>
+    function closeNps() {
+        const bar = document.getElementById('nps-bar');
+        bar.style.transform = 'translateY(100%)';
+        setTimeout(() => bar.remove(), 300);
+    }
+
+    function handleVote(score) {
+        console.log('User score:', score);
+        // Здесь можно добавить отправку данных на сервер
+        closeNps();
+    }
+</script>
+
+</body>
+</html>
