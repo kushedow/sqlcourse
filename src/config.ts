@@ -1,4 +1,4 @@
-const SERVER_URL = "https://n8n-latest-5cu5.onrender.com"
+const SERVER_URL = "https://8028296-lg653208.twc1.net"
 const REPORT_URL = SERVER_URL+"/webhook/asql/events"
 
-export {REPORT_URL}
+export {SERVER_URL, REPORT_URL}

@@ -17,12 +17,8 @@ const options = {
     showConsoleColors: true
 };
 
-
 app.use(Vuejs3logger, options);
 
 app.use(pinia)
 app.use(router);
 app.mount('#app');
-
-
-

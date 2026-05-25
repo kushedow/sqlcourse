@@ -71,7 +71,6 @@ export interface DBResponse {
 }
 
 
-
 export interface AIResponse {
     response: string;
 }
