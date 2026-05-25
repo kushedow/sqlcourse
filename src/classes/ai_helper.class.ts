@@ -1,6 +1,7 @@
 import {AIResponse, Step} from "../types";
+import {SERVER_URL} from "../config";
 
-const AIURL = "https://n8n-latest-5cu5.onrender.com/webhook/asql-get-ai-help"
+const AIURL = SERVER_URL+"/webhook/asql-get-ai-help"
 
 
 export class AIHelper {
