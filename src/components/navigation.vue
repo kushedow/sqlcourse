@@ -3,7 +3,6 @@
 import {defineComponent} from 'vue';
 import {useAppStore} from '../stores/app_store';
 import {Step, Lesson} from "../types";
-import {URLHelper} from "../classes/url_helper.class";
 
 export default defineComponent({
 
