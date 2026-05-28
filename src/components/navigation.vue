@@ -47,6 +47,10 @@ export default defineComponent({
   <div class="container mx-auto rounded-xl bg-white p-5 mt-12 2xl:w-1/2 xl:w-2/3 ">
     <h2 class="text-2xl mb-3 font-black"> Содержание: </h2>
 
+    <div class=""><span class="rounded-full bg-gray-200 pr-4 pl-3 py-1 text-black-300 text-sm cursor-pointer">
+      <router-link :to="`map`">Открыть карту навыков</router-link>
+    </span></div>
+
     <div v-for="lesson in lessons">
       <h3 class="my-3 font-bold">{{lesson.title}}</h3>
       <ul>
