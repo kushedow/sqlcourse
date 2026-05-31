@@ -3,21 +3,17 @@
 import {Step} from "../types";
 import {defineComponent} from "vue";
 
-import Quiz from "./quiz.vue";
-import Promo from "./promo.vue";
+import StepPromo from "./step_promo.vue";
 import Navigation from "./navigation.vue";
-import Practice from "./practice.vue";
-import Theory from "./theory.vue";
-import PracticeWide from "./practice_wide.vue";
+import StepPractice from "./step_practice.vue";
+import StepTheory from "./step_theory.vue";
 
 import {useAppStore} from "../stores/app_store";
-
-
 
 export default defineComponent({
 
   name: 'ContentStep',
-  components: {Quiz, Promo, Navigation, Practice, Theory, PracticeWide},
+  components: {Promo: StepPromo, Navigation, Practice: StepPractice, Theory: StepTheory},
 
   setup() {
     const store = useAppStore();
@@ -58,28 +54,16 @@ export default defineComponent({
 
   <div v-if="status == 'ready' && currentStep">
 
-      <section v-if="currentStep.type=='practice' && currentStep.view!='full'"
+      <section v-if="currentStep.type=='practice'"
                class="step container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
-
         <practice/>
 
-      </section>
-
-      <section v-if="currentStep.type=='practice' && currentStep.view=='full'" class="">
-        <practice-wide/>
       </section>
 
       <section v-if="currentStep.type=='theory'"
                class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
         <theory/>
-
       </section>
-
-      <div v-if="currentStep.type=='quiz'"
-           class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
-        <h1 class="text-3xl mb-3">{{ currentStep.title }}</h1>
-        <quiz/>
-      </div>
 
       <!-- Компонент навигации по всем шагам  -->
       <div v-if="status == 'ready' ">
@@ -89,4 +73,3 @@ export default defineComponent({
   </div>
 
 </template>
-

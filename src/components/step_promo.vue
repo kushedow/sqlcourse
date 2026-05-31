@@ -101,9 +101,15 @@ export default defineComponent({
 
           <router-link :to="`step_1`">
             <button class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-4 font-bold hover:bg-[#4ade80]">
-              Начать учиться бесплатно и без регистрации!
+              Начать учиться бесплатно
             </button>
           </router-link>
+
+<!--          <router-link :to="`login`">-->
+<!--            <button class="text-gray-900 cursor-pointer rounded-xl inline-block bg-gray-400 px-6 py-4 font-bold hover:bg-gray-500">-->
+<!--              Войти-->
+<!--            </button>-->
+<!--          </router-link>-->
 
 
         </div>
@@ -137,9 +143,7 @@ export default defineComponent({
         <img src="/promo/screenshots.png" alt="Author" class="w-full"/>
       </figure>
 
-
     </section>
-
 
     <section class="container mx-auto py-8">
       <div class="md:flex md:space-x-8">
@@ -191,8 +195,6 @@ export default defineComponent({
         </router-link>
 
       </div>
-
-
 
     </section>
 
