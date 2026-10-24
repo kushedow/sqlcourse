@@ -145,7 +145,7 @@ export default defineComponent({
 
       <small class="step-practice__panel-title">Результат</small>
 
-      <div v-if="output.rows" class="step-practice__output exercise__output" >
+      <div v-if="output.rows" class="step-practice__output exercise__output rounded-lg overflow-hidden" >
 
         <ResponseTable :outputData="output" :highlight="highlight"></ResponseTable>
 

@@ -13,24 +13,18 @@ export interface Step {
     lesson: string;
     title: string;
     type: string;
-    view: string;
     instruction: string;
 
     structure: string; // SQL код создания структуры
     records: string; // SQL код создания записей
     solution: string;  // SQL код решения
 
-    hint: string;  // Текст подсказки
-    snippets: string;
-    schema: string; // непонятно что такое
     table_names: string; // Названия таблиц
     theory_steps: string; // Шаги теории, которые нужно показать
 
     // подгружаемое из SavedStep
     isCompleted?: boolean;
     userCode?: string;
-
-    data: object;
 
 }
 
@@ -65,7 +59,7 @@ export interface DBTableColumn {
 }
 
 export interface DBResponse {
-    rows: object[];
+    rows: Record<string, unknown>[];
     fields: DBTableColumn[];
     affectedRows: number;
 }
