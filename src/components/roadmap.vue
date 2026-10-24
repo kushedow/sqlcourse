@@ -36,17 +36,17 @@ export default defineComponent({
 
 <template>
 
-  <main class="step container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white 2xl:w-2/3 mb-10 ">
+  <main class="roadmap step container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white 2xl:w-2/3 mb-10 ">
 
-    <header class="mb-4">
-      <button @click="$router.go(-1)" class="rounded-full bg-gray-200 pr-4 pl-3 py-1 text-black-300 text-sm cursor-pointer">← Назад</button>
-      <h1 class="text-3xl mb-3 font-black mt-2">Карта навыков</h1>
-      <p>Навыки разделены на 3 группы: основы, базовый уровень, продвинутый уровень. </p>
-      <p>Ориентируйтесь по карте и отслеживайте свой прогресс. </p>
+    <header class="roadmap__header mb-4">
+      <button @click="$router.go(-1)" class="roadmap__back rounded-full bg-gray-200 pr-4 pl-3 py-1 text-black-300 text-sm cursor-pointer">← Назад</button>
+      <h1 class="roadmap__title text-3xl mb-3 font-black mt-2">Карта навыков</h1>
+      <p class="roadmap__description">Навыки разделены на 3 группы: основы, базовый уровень, продвинутый уровень. </p>
+      <p class="roadmap__description">Ориентируйтесь по карте и отслеживайте свой прогресс. </p>
 
     </header>
 
-    <svg viewBox="0 0 1944 1581" fill="none" xmlns="http://www.w3.org/2000/svg" class="roadmap">
+    <svg viewBox="0 0 1944 1581" fill="none" xmlns="http://www.w3.org/2000/svg" class="roadmap__map">
       <g id="asql_roadmap" @click="handleGroupClick">
 
 
@@ -284,13 +284,13 @@ export default defineComponent({
 
 <style scoped>
 
-  .roadmap g{
+  .roadmap__map g{
     cursor:  pointer;
     fill: black;
 
   }
   
-  .roadmap g text{
+  .roadmap__map g text{
     font-family:  Arial,serif !important;
   }
 

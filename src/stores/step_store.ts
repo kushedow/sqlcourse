@@ -142,6 +142,9 @@ export const useStepStore = defineStore('exercise', {
 
             miniStorage.saveStepData(this.id, this.isCompleted, userCode)
 
+            // Синхронизируем статус с основным стором, чтобы навигация сразу показала галочку
+            useAppStore().setStepCompleted(this.id, this.isCompleted)
+
             // Переключаем состояние раннера для отображения в UI
             this.runnerStatus = "ready"
 

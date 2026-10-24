@@ -59,27 +59,27 @@ export default defineComponent({
 
   <router-view />
 
-  <div v-if="status == 'loading' " class="status text-center">
+  <div v-if="status == 'loading' " class="app__loader status text-center">
 
-    <div class="preloader fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+    <div class="app__loader-box preloader fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
             w-[200px] h-[200px] bg-white rounded-2xl
             flex flex-col justify-center items-center
             shadow-lg p-5 box-border">
 
-      <img src="/public/images/preloader.gif" alt="">
-      <h2 class="mt-4">Загружаем данные</h2>
+      <img src="/public/images/preloader.gif" alt="" class="app__loader-image">
+      <h2 class="app__loader-text mt-4">Загружаем данные</h2>
 
     </div><!-- /.preloader -->
 
   </div>
 
 
-  <main v-if="status == 'error'">
+  <main v-if="status == 'error'" class="app__error">
 
-    <section class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
-      <div class="p-4 mb-3 rounded bg-red-100">
+    <section class="app__error-card container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
+      <div class="app__error-message p-4 mb-3 rounded bg-red-100">
         Ошибка при загрузке.
-        <button @click="reload()" class="underline cursor-pointer">Попробовать снова</button>
+        <button @click="reload()" class="app__error-retry underline cursor-pointer">Попробовать снова</button>
       </div>
     </section>
 

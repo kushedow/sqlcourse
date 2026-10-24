@@ -136,106 +136,106 @@ export default defineComponent({
 
 <template>
 
-  <h1 class="text-3xl mb-3 font-black">{{ currentStep.title }}</h1>
+  <h1 class="step-practice__title text-3xl mb-3 font-black">{{ currentStep.title }}</h1>
 
-  <article v-html="currentStep.instruction" class="step_instruction"></article>
+  <article v-html="currentStep.instruction" class="step-practice__instruction step_instruction"></article>
 
-  <details class="step_instruction">
-    <summary class="cursor-pointer mt-2 mb-1 text-emerald-600">Напомнить теорию</summary>
-    <article v-html="currentStep.theory[0]"> </article>
+  <details class="step-practice__theory step_instruction">
+    <summary class="step-practice__theory-summary cursor-pointer mt-2 mb-1 text-emerald-600">Напомнить теорию</summary>
+    <article v-html="currentStep.theory[0]" class="step-practice__theory-content"> </article>
   </details>
 
-  <details>
-    <summary class="cursor-pointer mb-1 text-emerald-600">Показать схему таблиц</summary>
-      <article class="flex pt-4 bg-[#F2F6F8] ">
+  <details class="step-practice__schema">
+    <summary class="step-practice__schema-summary cursor-pointer mb-1 text-emerald-600">Показать схему таблиц</summary>
+      <article class="step-practice__schema-content flex pt-4 bg-[#F2F6F8] ">
         <Structuretables/>
       </article>
   </details>
 
-  <section class="grid grid-cols-2 gap-4 practice__example my-3" v-if="currentStep != null">
+  <section class="step-practice__example grid grid-cols-2 gap-4 practice__example my-3" v-if="currentStep != null">
 
-    <div class="left">
+    <div class="step-practice__example-panel left">
 
-      <small>Образец</small>
+      <small class="step-practice__panel-title">Образец</small>
 
-      <div v-if="!example.rows" class="p-4 rounded bg-slate-100">Секунду, отрисовываем...</div>
+      <div v-if="!example.rows" class="step-practice__example-placeholder p-4 rounded bg-slate-100">Секунду, отрисовываем...</div>
 
       <ResponseTable :outputData="example"></ResponseTable>
 
     </div>
     <!-- /.left -->
 
-    <div class="right">
+    <div class="step-practice__output-panel right">
 
-      <small>Результат</small>
+      <small class="step-practice__panel-title">Результат</small>
 
-      <div v-if="output.rows" class="exercise__output" >
+      <div v-if="output.rows" class="step-practice__output exercise__output" >
 
         <ResponseTable :outputData="output"></ResponseTable>
 
-        <div v-if="output.fields && output.fields.length == 0 " class="p-4 rounded bg-slate-100">Запрос вернул пустой результат</div>
+        <div v-if="output.fields && output.fields.length == 0 " class="step-practice__output-empty p-4 rounded bg-slate-100">Запрос вернул пустой результат</div>
 
       </div>
 
-      <div v-else class="p-4 rounded bg-slate-100">После выполнения запроса, тут будет результат</div>
+      <div v-else class="step-practice__output-placeholder p-4 rounded bg-slate-100">После выполнения запроса, тут будет результат</div>
 
     </div>
     <!-- /.right -->
 
   </section>
 
-  <section class="exercise_ai" >
+  <section class="step-practice__ai exercise_ai" >
 
-    <article v-html="aiHelp"></article>
+    <article v-html="aiHelp" class="step-practice__ai-help"></article>
 
   </section>
 
-  <section class="exercise__editor my-3">
+  <section class="step-practice__editor exercise__editor my-3">
 
 
     <CodeEditor
         :line-nums="true" padding="15px" theme="felipec" :languages="[['sql']]" width="100%" :display-language="false" :copy-code="false" :header="false" border-radius="8px" v-model="userCode"  font-size="16px"></CodeEditor>
 
-    <div class="palette my-2 text-[12px] opacity-20 hover:opacity-100 transition ease-in duration-200" v-if="!isCompleted">
+    <div class="step-practice__palette palette my-2 text-[12px] opacity-20 hover:opacity-100 transition ease-in duration-200" v-if="!isCompleted">
       <span v-for="snip in snippets"
-            class="p-1 bg-[#F2F6F8]  text-gray-600 mr-1 rounded cursor-pointer"
+            class="step-practice__snippet p-1 bg-[#F2F6F8]  text-gray-600 mr-1 rounded cursor-pointer"
             @click="this.copyName(` ${snip} `)">{{snip}}</span>
     </div>
     <!-- /.palette -->
 
-    <div v-if="errors.length > 0" class="p-4 mb-3 rounded bg-red-100">{{errors[0]}}. Попросим подсказку у ИИ?</div>
+    <div v-if="errors.length > 0" class="step-practice__error p-4 mb-3 rounded bg-red-100">{{errors[0]}}. Попросим подсказку у ИИ?</div>
 
-    <div v-if="isCompleted" class="p-4 mb-3 rounded bg-emerald-50 ">
+    <div v-if="isCompleted" class="step-practice__complete p-4 mb-3 rounded bg-emerald-50 ">
       ✅ {{congratulation}}
     </div>
 
-    <button @click="run()" class="bg-black text-[#f2f6f8] rounded py-3 px-4 cursor-pointer inline-block font-medium mr-4 mb-4" v-if="!isCompleted">
+    <button @click="run()" class="step-practice__button step-practice__button--run bg-black text-[#f2f6f8] rounded py-3 px-4 cursor-pointer inline-block font-medium mr-4 mb-4" v-if="!isCompleted">
         <span v-if="runnerStatus =='ready'"> Запустить и проверить</span>
         <span v-if="runnerStatus =='rendering'"> Готовим таблицы ...</span>
         <span v-if="runnerStatus =='running'"> Выполняем ... </span>
     </button>
 
-    <button @click="nextStep()" class="bg-[#4ade80] text-slate-900 rounded p-3 cursor-pointer inline-block mr-4 mb-4 font-medium" v-if="isCompleted">
+    <button @click="nextStep()" class="step-practice__button step-practice__button--next bg-[#4ade80] text-slate-900 rounded p-3 cursor-pointer inline-block mr-4 mb-4 font-medium" v-if="isCompleted">
       <span>Следующее задание &nbsp; &nbsp;→</span>
     </button>
 
-    <button @click="getAIHelp()" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" type="button" v-if="isUserLogged && !isCompleted" >
+    <button @click="getAIHelp()" class="step-practice__button step-practice__button--ai bg-slate-200 rounded p-3 cursor-pointer mr-4" type="button" v-if="isUserLogged && !isCompleted" >
       <span v-if="aiStatus =='ready'"> Получить помощь ии</span>
       <span v-if="aiStatus =='running'"> Подсказываем...</span>
     </button>
 
-    <a href="https://t.me/learn_sql_bot" class="bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="!isUserLogged">
+    <a href="https://t.me/learn_sql_bot" class="step-practice__promo-link bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="!isUserLogged">
       <span v-if="aiStatus =='ready'"> ✨ Включить помощь от ИИ</span>
     </a>
 
   </section>
 
-  <section class="exercise__feedback">
-    <div v-if="!checklist" class="p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>
-    <ul v-if="checklist">
-      <li v-for="checkpoint in checklist" :key="checkpoint.title">
-        <span v-if="checkpoint.completed">✅ {{checkpoint.title}}</span>
-        <span v-if="!checkpoint.completed">❌ {{checkpoint.title}}: <small>{{checkpoint.details}}</small></span>
+  <section class="step-practice__feedback exercise__feedback">
+    <div v-if="!checklist" class="step-practice__feedback-placeholder p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>
+    <ul v-if="checklist" class="step-practice__checklist">
+      <li v-for="checkpoint in checklist" :key="checkpoint.title" class="step-practice__checkpoint">
+        <span v-if="checkpoint.completed" class="step-practice__checkpoint-text step-practice__checkpoint-text--done">✅ {{checkpoint.title}}</span>
+        <span v-if="!checkpoint.completed" class="step-practice__checkpoint-text step-practice__checkpoint-text--failed">❌ {{checkpoint.title}}: <small>{{checkpoint.details}}</small></span>
       </li>
     </ul>
   </section>

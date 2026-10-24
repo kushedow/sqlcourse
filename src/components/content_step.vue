@@ -52,21 +52,21 @@ export default defineComponent({
 
 <template>
 
-  <div v-if="status == 'ready' && currentStep">
+  <div v-if="status == 'ready' && currentStep" class="content-step">
 
       <section v-if="currentStep.type=='practice'"
-               class="step container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
+               class="content-step__practice step container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
         <practice/>
 
       </section>
 
       <section v-if="currentStep.type=='theory'"
-               class="container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
+               class="content-step__theory container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 ">
         <theory/>
       </section>
 
       <!-- Компонент навигации по всем шагам  -->
-      <div v-if="status == 'ready' ">
+      <div v-if="status == 'ready' " class="content-step__navigation">
         <navigation></navigation>
       </div>
 

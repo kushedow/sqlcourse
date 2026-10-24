@@ -132,6 +132,14 @@ export const useAppStore = defineStore('main', {
 
         },
 
+        // Отмечаем шаг выполненным, чтобы навигация сразу показывала галочку
+        setStepCompleted(stepID: number, isCompleted: boolean): void {
+            const step = this.getStep(stepID);
+            if (step) {
+                step.isCompleted = isCompleted;
+            }
+        },
+
         setUserData(authData: UserData): void {
 
             console.log("Установлены данные авторизации")

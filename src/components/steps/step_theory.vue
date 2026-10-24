@@ -28,9 +28,11 @@ export default defineComponent({
       console.log("Navigation: Переходим из теории в следующий шаг")
 
       // Отмечаем текущий шаг как пройденный
-      // TODO: в сторе нужно обновить
       const miniStorage = new MiniStorage()
       miniStorage.saveStepData(this.currentStep.id, true)
+
+      // Обновляем статус в сторе, чтобы навигация сразу показала галочку
+      this.appStore.setStepCompleted(this.currentStep.id, true)
 
       window.scrollTo({top:0})
 
@@ -47,11 +49,11 @@ export default defineComponent({
 
 <template>
 
-  <h1 class="text-3xl mb-3 font-black">{{ currentStep.title }}</h1>
+  <h1 class="step-theory__title text-3xl mb-3 font-black">{{ currentStep.title }}</h1>
 
-  <article v-html="currentStep.instruction" class="step_instruction"></article>
+  <article v-html="currentStep.instruction" class="step-theory__instruction step_instruction"></article>
 
-  <button class="bg-black text-white font-medium rounded p-3 cursor-pointer mr-4" @click="nextStep()">Дальше  &nbsp;→</button>
+  <button class="step-theory__next bg-black text-white font-medium rounded p-3 cursor-pointer mr-4" @click="nextStep()">Дальше  &nbsp;→</button>
 
 </template>
 

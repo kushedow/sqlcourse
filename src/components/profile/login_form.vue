@@ -51,32 +51,32 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="container md:mt-8 mx-auto xl:w-4/6 2xl:w-4/6">
-    <section class="md:rounded-3xl bg-white md:p-6 p-4">
-      <h1 class="text-3xl font-semibold mb-3">Вход</h1>
-      <p class="text-gray-700 mb-6">Введите свою почту, туда придет код для входа</p>
+  <main class="login-form container md:mt-8 mx-auto xl:w-4/6 2xl:w-4/6">
+    <section class="login-form__card md:rounded-3xl bg-white md:p-6 p-4">
+      <h1 class="login-form__title text-3xl font-semibold mb-3">Вход</h1>
+      <p class="login-form__subtitle text-gray-700 mb-6">Введите свою почту, туда придет код для входа</p>
 
-      <form class="max-w-md" @submit.prevent="submitLogin">
-        <label class="block mb-2 font-medium" for="email">Электронная почта</label>
+      <form class="login-form__form max-w-md" @submit.prevent="submitLogin">
+        <label class="login-form__label block mb-2 font-medium" for="email">Электронная почта</label>
         <input
           id="email"
           v-model.trim="email"
           type="email"
           required
-          class="w-full border border-gray-300 rounded-xl px-4 py-3 mb-4"
+          class="login-form__input w-full border border-gray-300 rounded-xl px-4 py-3 mb-4"
           placeholder="you@example.com"
         />
 
         <button
           type="submit"
           :disabled="isLoading"
-          class="text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-3 font-bold hover:bg-[#3fd473] disabled:cursor-not-allowed disabled:opacity-60"
+          class="login-form__submit text-[#242952] cursor-pointer rounded-xl inline-block bg-[#4ade80] px-6 py-3 font-bold hover:bg-[#3fd473] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {{ isLoading ? "Отправляем..." : "Войти" }}
         </button>
       </form>
 
-      <p v-if="message" class="mt-4" :class="isError ? 'text-red-600' : 'text-green-700'">
+      <p v-if="message" class="login-form__message mt-4" :class="isError ? 'text-red-600' : 'text-green-700'">
         {{ message }}
       </p>
     </section>
