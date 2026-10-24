@@ -12,8 +12,6 @@ export const useStepStore = defineStore('exercise', {
 
     state: () => ({
 
-        userCode: '',
-
         step: {},
         id: {},
         structure:  '',
@@ -23,13 +21,14 @@ export const useStepStore = defineStore('exercise', {
         example: {},
         output: {},
         checklist: [],
-        errors: [],
+        errors: [] as string[],
 
         runnerStatus: "loading",
         aiStatus: "ready",
         aiHelp: "" ,
 
         tables: [], // Таблицы, которые нужно показать в структуре
+        table_names: '', // Имена таблиц, по которым строится структура
 
     }),
 
@@ -48,7 +47,7 @@ export const useStepStore = defineStore('exercise', {
 
         setOutput(value: DBResponse): void { this.output = value; },
 
-        pushError(value: Feedback[]): void { this.errors.push(value);},
+        pushError(error: unknown): void { this.errors.push(String(error));},
 
         setChecklist(value: Feedback[]): void { this.checklist = value; },
 
@@ -163,11 +162,8 @@ export const useStepStore = defineStore('exercise', {
 
         async reportEvent(eventName: String="", details: Object = {}): Promise<void>{
 
-            const appStore = useAppStore()
-            const userData = appStore.userData
-
             const url = REPORT_URL
-            const data = {event: eventName, id: this.id,  details: details, ...userData}
+            const data = {event: eventName, id: this.id,  details: details}
             const headers = {"Content-Type": "application/json" }
 
             try {

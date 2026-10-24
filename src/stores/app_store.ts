@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia';
-import {Step, Lesson, UserData} from "../types";
+import {Step, Lesson} from "../types";
 import {useStepStore} from "./step_store";
 import {MiniStorage} from "../classes/storage.class";
 import {ExerciseManager} from "../classes/exercise_manager.class";
@@ -13,17 +13,11 @@ export const useAppStore = defineStore('main', {
 
         steps: [],             // все шаги
         currentStepID: 1,      // стартовый / текущий шаг
-        userData: null,        // номер, хеш и продукт пользователя
         status: "loading",     // Cостояние приложения (loading / ready / error)
 
     }),
 
     getters: {
-
-        exercises: (state): Step[] => {
-            // алиас для поддержки ошибок прошлого
-            return state.steps
-        },
 
         currentStep: (state): Step => {
             console.log("Выполняем поиск задания ", state.currentStepID)
@@ -140,29 +134,8 @@ export const useAppStore = defineStore('main', {
             }
         },
 
-        setUserData(authData: UserData): void {
-
-            console.log("Установлены данные авторизации")
-
-            const userData: UserData = {
-                userID: authData.userID,
-                userHash: authData.userHash,
-            }
-
-            const miniStorage = new MiniStorage()
-            miniStorage.saveUserData(userData)
-
-        },
-
-        loadUserData(): void {
-            const miniStorage = new MiniStorage()
-            this.userData = miniStorage.loadUserData()
-            console.log("Локальные данные пользователя ", this.userData)
-
-        },
-
         // Перейти к следующему заданию, если оно есть
-        nextStep(): void {
+        nextStep(): number {
             const nextStepID = this.currentStepID + 1
             this.setCurrentStep(nextStepID)
             return nextStepID

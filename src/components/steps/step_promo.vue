@@ -107,12 +107,6 @@ export default defineComponent({
             </button>
           </router-link>
 
-<!--          <router-link :to="`login`">-->
-<!--            <button class="text-gray-900 cursor-pointer rounded-xl inline-block bg-gray-400 px-6 py-4 font-bold hover:bg-gray-500">-->
-<!--              Войти-->
-<!--            </button>-->
-<!--          </router-link>-->
-
 
         </div>
       </div>

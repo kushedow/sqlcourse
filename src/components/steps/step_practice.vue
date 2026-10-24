@@ -1,18 +1,18 @@
 <script lang="ts">
 import {DBResponse, Feedback, Step} from "../../types";
-import {defineComponent, nextTick} from "vue";
+import {defineComponent} from "vue";
 import {useStepStore} from "../../stores/step_store";
 import {useAppStore} from "../../stores/app_store";
 import ResponseTable from "../practice/response_table.vue";
 import Structuretables from "../practice/structure_tables.vue";
 
-import CodeEditor from "simple-code-editor";
+import SqlEditor from "../practice/sql_editor.vue";
 
 
 export default defineComponent({
 
   name: 'Practice',
-  components: {Structuretables, ResponseTable, CodeEditor},
+  components: {Structuretables, ResponseTable, SqlEditor},
 
   setup() {
 
@@ -48,8 +48,6 @@ export default defineComponent({
 
     textareaRows(): number { return  this.userCode?.split("\n").length || 1; },
 
-    isUserLogged(): boolean { return  Boolean(this.appStore.userData?.userID) },
-
     congratulation(): string {
 
       const phrases = [
@@ -70,8 +68,6 @@ export default defineComponent({
       return phrases[randomIndex];
     },
 
-    snippets(): string[] {return ["SELECT", "FROM", "WHERE", "JOIN", "ORDER", "LIMIT", "*", "," , "=", "AND", "OR", "ON"] }
-
   },
 
   methods: {
@@ -86,27 +82,6 @@ export default defineComponent({
       console.log("Зовем на помощь AI")
       await this.exStore.getAIHelp(this.userCode)
 
-    },
-
-    copyName(name: string){
-
-      const userCodeTextarea: HTMLTextAreaElement = document.querySelector(".code-editor textarea")
-
-      if (!userCodeTextarea) return;
-
-      const selectionStart = userCodeTextarea.selectionStart;
-      const selectionEnd = userCodeTextarea.selectionEnd;
-      const currentValue = userCodeTextarea.value;
-      userCodeTextarea.value = currentValue.substring(0, selectionStart) + name + currentValue.substring(selectionEnd);
-      userCodeTextarea.selectionStart = userCodeTextarea.selectionEnd = selectionStart + name.length;
-
-      // Trigger input event (optional, but often needed for Vue/React reactivity)
-      const event = new Event('input', {
-        bubbles: true, cancelable: true,
-      });
-      userCodeTextarea.dispatchEvent(event);
-
-      nextTick(()=> userCodeTextarea.focus())
     },
 
     nextStep(){
@@ -184,24 +159,12 @@ export default defineComponent({
 
   </section>
 
-  <section class="step-practice__ai exercise_ai" >
-
-    <article v-html="aiHelp" class="step-practice__ai-help"></article>
-
-  </section>
+  <section v-if="aiHelp" class="step-practice__ai exercise_ai p-4" v-html="aiHelp"></section>
 
   <section class="step-practice__editor exercise__editor my-3">
 
 
-    <CodeEditor
-        :line-nums="true" padding="15px" theme="felipec" :languages="[['sql']]" width="100%" :display-language="false" :copy-code="false" :header="false" border-radius="8px" v-model="userCode"  font-size="16px"></CodeEditor>
-
-    <div class="step-practice__palette palette my-2 text-[12px] opacity-20 hover:opacity-100 transition ease-in duration-200" v-if="!isCompleted">
-      <span v-for="snip in snippets"
-            class="step-practice__snippet p-1 bg-[#F2F6F8]  text-gray-600 mr-1 rounded cursor-pointer"
-            @click="this.copyName(` ${snip} `)">{{snip}}</span>
-    </div>
-    <!-- /.palette -->
+    <SqlEditor v-model="userCode" :is-completed="isCompleted" />
 
     <div v-if="errors.length > 0" class="step-practice__error p-4 mb-3 rounded bg-red-100">{{errors[0]}}. Попросим подсказку у ИИ?</div>
 
@@ -219,14 +182,10 @@ export default defineComponent({
       <span>Следующее задание &nbsp; &nbsp;→</span>
     </button>
 
-    <button @click="getAIHelp()" class="step-practice__button step-practice__button--ai bg-slate-200 rounded p-3 cursor-pointer mr-4" type="button" v-if="isUserLogged && !isCompleted" >
+    <button @click="getAIHelp()" class="step-practice__button step-practice__button--ai bg-slate-200 rounded p-3 cursor-pointer mr-4" type="button" v-if="!isCompleted" >
       <span v-if="aiStatus =='ready'"> Получить помощь ии</span>
       <span v-if="aiStatus =='running'"> Подсказываем...</span>
     </button>
-
-    <a href="https://t.me/learn_sql_bot" class="step-practice__promo-link bg-slate-200 rounded p-3 cursor-pointer mr-4" v-if="!isUserLogged">
-      <span v-if="aiStatus =='ready'"> ✨ Включить помощь от ИИ</span>
-    </a>
 
   </section>
 

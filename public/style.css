@@ -27,7 +27,7 @@
 }
 
 .step_instruction table {
-    background-color: #eee;
+    background-color: #f2f6f8;
     border-radius: 8px;
 }
 
@@ -51,7 +51,8 @@
 
 .step_instruction th {
     text-align: left;
-    padding: 8px 8px;
+    padding: 4px 8px;
+    font-size: 14px;
 }
 
 .step_instruction thead {
@@ -67,6 +68,11 @@
 .exercise_ai p, .exercise_ai li, .exercise_ai pre {
     font-size: 14px;
     margin: 16px 0;
+}
+
+.step-practice__ai {
+    border-radius: 8px;
+    background-color: #eee8f6;
 }
 
 details.tables-structure figure  {

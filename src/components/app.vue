@@ -27,10 +27,6 @@ export default defineComponent({
       return this.store.status;
     },
 
-    exercises(): Step[] {
-      return this.store.exercises;
-    },
-
     currentStep(): Step {
       return this.store.currentStep;
     },
@@ -38,8 +34,6 @@ export default defineComponent({
   },
 
   async mounted() {
-
-    this.store.loadUserData()
 
     await this.store.loadData()
 

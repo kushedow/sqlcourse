@@ -3,7 +3,6 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import StepPromo from './components/steps/step_promo.vue'
 import Roadmap from './components/roadmap.vue'
 import Content_step from './components/content_step.vue'
-import LoginForm from './components/profile/login_form.vue'
 import {useAppStore} from "./stores/app_store";
 import {useStepStore} from "./stores/step_store";
 
@@ -26,12 +25,6 @@ const routes = [
         component: Roadmap
     },
 
-    {
-        path: '/login',
-        name: 'Login',
-        component: LoginForm
-    },
-
 ]
 
 const router = createRouter({
@@ -49,11 +42,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
 
     const store = useAppStore();
-
-    // Сохранение данных после авторизации
-    if (to.query.auth && to.query.hash ) {
-            store.setUserData({userID: String(to.query.auth),userHash: String(to.query.hash) });
-     }
 
     // Редирект для старых адресов с решеткой
     if (to.hash) {

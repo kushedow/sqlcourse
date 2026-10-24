@@ -30,10 +30,6 @@ export default defineComponent({
       return this.store.status;
     },
 
-    exercises(): Step[] {
-      return this.store.exercises;
-    },
-
     currentStep(): Step {
       return this.store.currentStep;
     },
