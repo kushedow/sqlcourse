@@ -30,17 +30,22 @@ export default defineComponent({
 
       console.log("Navigation: Переходим из теории в следующий шаг")
 
+      const currentStep = this.currentStep
+      const stepID = this.appStore.nextStep()
+
+      // Следующего задания нет — остаёмся на месте
+      if (stepID === currentStep.id) return
+
       // Отмечаем текущий шаг как пройденный
       const miniStorage = new MiniStorage()
-      miniStorage.saveStepData(this.currentStep.id, true)
+      miniStorage.saveStepData(currentStep.id, true)
 
       // Обновляем статус в сторе, чтобы навигация сразу показала галочку
-      this.appStore.setStepCompleted(this.currentStep.id, true)
+      this.appStore.setStepCompleted(currentStep.id, true)
 
       window.scrollTo({top: 0})
 
-      const stepID = this.appStore.nextStep()
-      window.location.hash = `#step_${stepID}`;
+      this.appStore.pushRoute(`/step_${stepID}`)
     },
 
   },

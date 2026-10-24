@@ -117,13 +117,6 @@ export const useAppStore = defineStore('main', {
             this.currentStepID = Number(key);
             console.log(`current step set to ${key}`);
 
-            if (this.status === "ready"){
-                const exStore = useStepStore();
-                exStore.setExercise(this.currentStep)
-            }
-
-
-
         },
 
         // Отмечаем шаг выполненным, чтобы навигация сразу показывала галочку
@@ -134,9 +127,16 @@ export const useAppStore = defineStore('main', {
             }
         },
 
-        // Перейти к следующему заданию, если оно есть
+        // Перейти к следующему заданию, если оно есть.
+        // Если следующего задания нет — ничего не меняем и возвращаем текущий шаг.
         nextStep(): number {
             const nextStepID = this.currentStepID + 1
+
+            if (!this.getStep(nextStepID)) {
+                console.warn(`Следующее задание (${nextStepID}) не найдено, остаёмся на месте`)
+                return this.currentStepID
+            }
+
             this.setCurrentStep(nextStepID)
             return nextStepID
         }

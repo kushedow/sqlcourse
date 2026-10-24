@@ -86,10 +86,16 @@ export default defineComponent({
     },
 
     nextStep(){
-      this.appStore.currentStep.userCode = ""
+      const currentStep = this.appStore.currentStep
+      const stepID = this.appStore.nextStep()
+
+      // Следующего задания нет — остаёмся на месте
+      if (stepID === currentStep.id) return
+
+      // Чистим черновик пройденного шага и редактор
+      currentStep.userCode = ""
       this.userCode = ""
       window.scrollTo({top:0})
-      const stepID = this.appStore.nextStep(this.userCode)
       this.appStore.pushRoute(`/step_${stepID}`)
     }
 
@@ -117,12 +123,12 @@ export default defineComponent({
   <article v-html="currentStep.instruction" class="step-practice__instruction step_instruction"></article>
 
   <details class="step-practice__theory step_instruction">
-    <summary class="step-practice__theory-summary cursor-pointer mt-2 mb-1 text-emerald-600">Напомнить теорию</summary>
+    <summary class="step-practice__theory-summary cursor-pointer mt-2 mb-1 text-emerald-600 text-sm">Напомнить теорию</summary>
     <article v-html="currentStep.theory[0]" class="step-practice__theory-content"> </article>
   </details>
 
   <details class="step-practice__schema">
-    <summary class="step-practice__schema-summary cursor-pointer mb-1 text-emerald-600">Показать схему таблиц</summary>
+    <summary class="step-practice__schema-summary cursor-pointer mb-1 text-emerald-600 text-sm">Показать схему таблиц</summary>
       <article class="step-practice__schema-content flex pt-4 bg-[#F2F6F8] ">
         <Structuretables/>
       </article>
