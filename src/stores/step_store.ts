@@ -130,12 +130,7 @@ export const useStepStore = defineStore('exercise', {
 
                 console.log("Проверяем решение")
 
-                const headersFeedback = checker.checkHeaders(this.example, this.output);
-                const countFeedback = checker.checkRowsLength(this.example, this.output);
-                const rowsFeedback = checker.checkAllRows(this.example, this.output);
-
-                const checklist = [].concat(headersFeedback,countFeedback, rowsFeedback)
-                this.setChecklist(checklist)
+                this.setChecklist(checker.check(this.example, this.output))
 
                 if (this.isCompleted) {
                     await this.reportEvent("completed", {code: userCode})

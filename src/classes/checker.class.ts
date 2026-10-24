@@ -2,59 +2,83 @@ import {Feedback, DBResponse} from "../types";
 
 export class Checker {
 
-    checkHeaders(output: DBResponse, example: DBResponse): Feedback[] {
-
-        const checklist: Feedback[] = [];
-
-        const exampleKeys = example.fields.map(key => key.name);
-        const outputKeys = output.fields.map(key => key.name);
-
-        checklist.push({
-            title: "Названия колонок совпадают с образцом",
-            completed: exampleKeys.toString() == outputKeys.toString(),
-            details: ` ${JSON.stringify(exampleKeys)} != ${JSON.stringify(outputKeys)}`
-        })
-
-        return checklist
-
+    // Единственная точка входа — полный чек-лист проверки решения
+    check(example: DBResponse, output: DBResponse): Feedback[] {
+        return [
+            ...this.checkHeaders(example, output),
+            ...this.checkRowsLength(example, output),
+            ...this.checkAllRows(example, output),
+        ];
     }
 
-    checkRowsLength(output: DBResponse, example: DBResponse): Feedback[] {
+    private checkHeaders(example: DBResponse, output: DBResponse): Feedback[] {
+        const exampleKeys = example.fields.map(field => field.name);
+        const outputKeys = output.fields.map(field => field.name);
 
-        const checklist: Feedback[] = [];
-
-        const exampleCount: number = example.rows.length
-        const outputCount: number = output.rows.length
-
-        checklist.push({
-            title: "Количество записей совпадает с образцом",
-            completed: exampleCount == outputCount,
-            details: `${exampleCount} != ${outputCount}`
-        })
-
-        return checklist
-
+        return [this.feedback(
+            "Названия колонок совпадают с образцом",
+            exampleKeys.toString() === outputKeys.toString(),
+            `${JSON.stringify(exampleKeys)} != ${JSON.stringify(outputKeys)}`
+        )];
     }
 
-    checkAllRows(output: DBResponse, example: DBResponse): Feedback[] {
+    private checkRowsLength(example: DBResponse, output: DBResponse): Feedback[] {
+        const exampleCount = example.rows.length;
+        const outputCount = output.rows.length;
 
-        if (example.rows.length != output.rows.length) {return []}
+        return [this.feedback(
+            "Количество записей совпадает с образцом",
+            exampleCount === outputCount,
+            `${exampleCount} != ${outputCount}`
+        )];
+    }
 
-        const checklist: Feedback[] = [];
+    private checkAllRows(example: DBResponse, output: DBResponse): Feedback[] {
+        // Если количество строк разное — по строкам сравнивать нечего,
+        // об этом уже сообщил checkRowsLength.
+        if (example.rows.length !== output.rows.length) return [];
 
-        for (let i = 0; i < example.rows.length; i++) {
+        return example.rows.map((row, i) => {
+            const exampleRow = this.serialize(row);
+            const outputRow = this.serialize(output.rows[i]);
 
-            const exampleRowValues = JSON.stringify(example.rows[i])
-            const outputRowValues = JSON.stringify(output.rows[i])
+            return this.feedback(
+                `Значения в ряду ${i} совпадают`,
+                exampleRow === outputRow,
+                `${exampleRow} != ${outputRow}`
+            );
+        });
+    }
 
-            checklist.push({
-                title: `Значения в ряду ${i} совпадают`,
-                completed: exampleRowValues == outputRowValues,
-                details: `${exampleRowValues} != ${outputRowValues}`
-            })
+    // Каноничный вид строки результата: числа и числовые строки равны (1 === "1")
+    private serialize(row: object): string {
+        return JSON.stringify(this.normalizeRow(row));
+    }
+
+    private normalizeRow(row: object): object {
+        const normalized: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(row)) {
+            normalized[key] = this.normalizeValue(value);
+        }
+        return normalized;
+    }
+
+    private normalizeValue(value: unknown): unknown {
+        if (typeof value === "number") return value;
+
+        if (typeof value === "string") {
+            const trimmed = value.trim();
+            // Только «обычные» десятичные числа, без экспоненты/hex ("1e3", "0x10")
+            if (/^-?\d+(\.\d+)?$/.test(trimmed)) {
+                return Number(trimmed);
+            }
         }
 
-        return checklist
+        return value;
+    }
 
+    // Единая фабрика пункта чек-листа
+    private feedback(title: string, completed: boolean, details: string): Feedback {
+        return {title, completed, details};
     }
 }
