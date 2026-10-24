@@ -37,7 +37,7 @@ export default defineComponent({
 
       window.scrollTo({top: 0})
 
-      const stepID = this.appStore.nextStep(this.userCode)
+      const stepID = this.appStore.nextStep()
       window.location.hash = `#step_${stepID}`;
     },
 

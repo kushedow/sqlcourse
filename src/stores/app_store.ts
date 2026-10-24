@@ -123,7 +123,7 @@ export const useAppStore = defineStore('main', {
             this.currentStepID = Number(key);
             console.log(`current step set to ${key}`);
 
-            if (this.state == "ready"){
+            if (this.status === "ready"){
                 const exStore = useStepStore();
                 exStore.setExercise(this.currentStep)
             }

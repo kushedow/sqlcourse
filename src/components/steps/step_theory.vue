@@ -7,7 +7,7 @@ import {MiniStorage} from "../../classes/storage.class";
 
 export default defineComponent({
 
-  name: 'Practice',
+  name: 'StepTheory',
   components: {},
 
   setup() {
@@ -34,7 +34,7 @@ export default defineComponent({
 
       window.scrollTo({top:0})
 
-      const stepID = this.appStore.nextStep(this.userCode)
+      const stepID = this.appStore.nextStep()
       this.appStore.pushRoute(`step_${stepID}`)
     }
 

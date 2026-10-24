@@ -51,10 +51,10 @@ export default defineComponent({
       <router-link :to="`map`">Открыть карту навыков</router-link>
     </span></div>
 
-    <div v-for="lesson in lessons">
+    <div v-for="lesson in lessons" :key="lesson.title">
       <h3 class="my-3 font-bold">{{lesson.title}}</h3>
       <ul>
-        <li v-for="step in lesson.steps"  class="my-1  rounded" :class="currentID === step.id ? 'bg-black text-white p-2 -ml-2' : ''">
+        <li v-for="step in lesson.steps" :key="step.id" class="my-1  rounded" :class="currentID === step.id ? 'bg-black text-white p-2 -ml-2' : ''">
 
           <span v-if="step.type == 'practice' && !step.isCompleted">✍️ </span>
           <span v-if="step.type == 'theory' && !step.isCompleted">👨‍💻 </span>

@@ -1,5 +1,4 @@
 <script lang="ts">
-import { ref, onMounted } from 'vue';
 import {DBResponse, Feedback, Step} from "../../types";
 import {defineComponent, nextTick} from "vue";
 import {useStepStore} from "../../stores/step_store";
@@ -7,7 +6,6 @@ import {useAppStore} from "../../stores/app_store";
 import ResponseTable from "../practice/response_table.vue";
 import Structuretables from "../practice/structure_tables.vue";
 
-import hljs from 'highlight.js';
 import CodeEditor from "simple-code-editor";
 
 
@@ -175,10 +173,11 @@ export default defineComponent({
 
         <ResponseTable :outputData="output"></ResponseTable>
 
-        <div v-if="output=={}" class="p-4 rounded bg-slate-100">После выполнения запроса, тут будет результат</div>
         <div v-if="output.fields && output.fields.length == 0 " class="p-4 rounded bg-slate-100">Запрос вернул пустой результат</div>
 
       </div>
+
+      <div v-else class="p-4 rounded bg-slate-100">После выполнения запроса, тут будет результат</div>
 
     </div>
     <!-- /.right -->
@@ -234,7 +233,7 @@ export default defineComponent({
   <section class="exercise__feedback">
     <div v-if="!checklist" class="p-4 rounded bg-slate-100">После выполнения проверки, тут будет результат</div>
     <ul v-if="checklist">
-      <li v-for="checkpoint in checklist" >
+      <li v-for="checkpoint in checklist" :key="checkpoint.title">
         <span v-if="checkpoint.completed">✅ {{checkpoint.title}}</span>
         <span v-if="!checkpoint.completed">❌ {{checkpoint.title}}: <small>{{checkpoint.details}}</small></span>
       </li>
