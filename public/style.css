@@ -46,6 +46,7 @@
 .step_instruction td {
     text-align: left;
     padding: 4px 8px;
+    font-size: 14px;
 }
 
 .step_instruction th {
