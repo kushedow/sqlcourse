@@ -81,8 +81,8 @@ export const useStepStore = defineStore('exercise', {
 
             this.runnerStatus = "rendering"
 
-            const runner = new SQLRunner()
-            runner.reset()
+            const runner = SQLRunner.getInstance()
+            await runner.reset()
 
             try {
                 await runner.runAll(this.structure)
@@ -105,48 +105,56 @@ export const useStepStore = defineStore('exercise', {
 
         async run(userCode: string){
 
+            if (this.runnerStatus !== "ready") { return }
+
             this.runnerStatus = "running"
 
-            const runner = new SQLRunner()
+            const runner = SQLRunner.getInstance()
             const checker = new Checker();
             const miniStorage = new MiniStorage();
 
             this.resetOutput()
-            runner.reset()
-
-            await runner.runAll(this.structure + ";" + this.records)
 
             try {
-                const output = await runner.run(userCode)
-                this.setOutput(output)
-            } catch (error){
-                console.log(`Runner: Поймана ошибка во время выполнения ${error}`)
+                await runner.reset()
+                await runner.runAll(this.structure + ";" + this.records)
+
+                let output
+                try {
+                    output = await runner.run(userCode)
+                } catch (error){
+                    console.log(`Runner: Поймана ошибка во время выполнения ${error}`)
+                    this.pushError(error)
+                }
+                if (output) { this.setOutput(output) }
+
+                console.log("Проверяем решение")
+
+                const headersFeedback = checker.checkHeaders(this.example, this.output);
+                const countFeedback = checker.checkRowsLength(this.example, this.output);
+                const rowsFeedback = checker.checkAllRows(this.example, this.output);
+
+                const checklist = [].concat(headersFeedback,countFeedback, rowsFeedback)
+                this.setChecklist(checklist)
+
+                if (this.isCompleted) {
+                    await this.reportEvent("completed", {code: userCode})
+                } else {
+                    await this.reportEvent("failed", {code: userCode})
+                }
+
+                miniStorage.saveStepData(this.id, this.isCompleted, userCode)
+
+                // Синхронизируем статус с основным стором, чтобы навигация сразу показала галочку
+                useAppStore().setStepCompleted(this.id, this.isCompleted)
+
+            } catch (error) {
+                console.log(`Runner: Неожиданная ошибка во время проверки ${error}`)
                 this.pushError(error)
+            } finally {
+                // Переключаем состояние раннера для отображения в UI
                 this.runnerStatus = "ready"
             }
-
-            console.log("Проверяем решение")
-
-            const headersFeedback = checker.checkHeaders(this.example, this.output);
-            const countFeedback = checker.checkRowsLength(this.example, this.output);
-            const rowsFeedback = checker.checkAllRows(this.example, this.output);
-
-            const checklist = [].concat(headersFeedback,countFeedback, rowsFeedback)
-            this.setChecklist(checklist)
-
-            if (this.isCompleted) {
-                await this.reportEvent("completed", {code: userCode})
-            } else {
-                await this.reportEvent("failed", {code: userCode})
-            }
-
-            miniStorage.saveStepData(this.id, this.isCompleted, userCode)
-
-            // Синхронизируем статус с основным стором, чтобы навигация сразу показала галочку
-            useAppStore().setStepCompleted(this.id, this.isCompleted)
-
-            // Переключаем состояние раннера для отображения в UI
-            this.runnerStatus = "ready"
 
         },
 

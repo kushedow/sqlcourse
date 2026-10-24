@@ -3,15 +3,34 @@ import {DBSchemaTable, DBSchemaColumn} from "../types";
 
 export class SQLRunner{
 
+    private static instance: SQLRunner | null = null;
+
     public db: PGlite;
 
     constructor(options={}) {
-        // this.reset()
     }
 
-    public reset(){
+    public static getInstance(): SQLRunner {
+        if (!SQLRunner.instance) {
+            SQLRunner.instance = new SQLRunner();
+        }
+        return SQLRunner.instance;
+    }
+
+    public async reset(){
         console.log(`Runner: База сброшена>`)
-        this.db = new PGlite()
+        if (!this.db) {
+            this.db = new PGlite()
+        } else {
+            await this.dropAllTables()
+        }
+    }
+
+    private async dropAllTables(): Promise<void> {
+        await this.runAll(`
+            DROP SCHEMA IF EXISTS public CASCADE;
+            CREATE SCHEMA public;
+        `)
     }
 
     async run(query: string) {
