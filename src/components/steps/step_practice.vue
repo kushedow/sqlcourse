@@ -1,11 +1,11 @@
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import {DBResponse, Feedback, Step} from "../types";
+import {DBResponse, Feedback, Step} from "../../types";
 import {defineComponent, nextTick} from "vue";
-import {useStepStore} from "../stores/step_store";
-import {useAppStore} from "../stores/app_store";
-import ResponseTable from "./response_table.vue";
-import Structuretables from "./structure_tables.vue";
+import {useStepStore} from "../../stores/step_store";
+import {useAppStore} from "../../stores/app_store";
+import ResponseTable from "../practice/response_table.vue";
+import Structuretables from "../practice/structure_tables.vue";
 
 import hljs from 'highlight.js';
 import CodeEditor from "simple-code-editor";

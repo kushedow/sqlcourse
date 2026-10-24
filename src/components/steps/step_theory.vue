@@ -1,9 +1,9 @@
 <script lang="ts">
 
-import {Step} from "../types";
+import {Step} from "../../types";
 import {defineComponent} from "vue";
-import {useAppStore} from "../stores/app_store";
-import {MiniStorage} from "../classes/storage.class";
+import {useAppStore} from "../../stores/app_store";
+import {MiniStorage} from "../../classes/storage.class";
 
 export default defineComponent({
 

@@ -42,7 +42,7 @@ export interface SavedStep {
 
 }
 
-// Сгруппирванные в уроки шаги (упражнения)
+// Сгруппированные в уроки шаги (упражнения)
 export interface Lesson {
     title: string;
     steps: Step[];

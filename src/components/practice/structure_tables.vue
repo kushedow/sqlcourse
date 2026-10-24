@@ -1,8 +1,8 @@
 <script lang="ts">
 
 import {defineComponent} from "vue";
-import {useStepStore} from "../stores/step_store";
-import {Step} from "../types";
+import {useStepStore} from "../../stores/step_store";
+import {Step} from "../../types";
 
 export default defineComponent({
 

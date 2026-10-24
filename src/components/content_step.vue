@@ -3,10 +3,10 @@
 import {Step} from "../types";
 import {defineComponent} from "vue";
 
-import StepPromo from "./step_promo.vue";
+import StepPromo from "./steps/step_promo.vue";
 import Navigation from "./navigation.vue";
-import StepPractice from "./step_practice.vue";
-import StepTheory from "./step_theory.vue";
+import StepPractice from "./steps/step_practice.vue";
+import StepTheory from "./steps/step_theory.vue";
 
 import {useAppStore} from "../stores/app_store";
 

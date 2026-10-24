@@ -1,9 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import StepPromo from './components/step_promo.vue'
+import StepPromo from './components/steps/step_promo.vue'
 import Roadmap from './components/roadmap.vue'
 import Content_step from './components/content_step.vue'
-import LoginForm from './components/login_form.vue'
+import LoginForm from './components/profile/login_form.vue'
 import {useAppStore} from "./stores/app_store";
 import {useStepStore} from "./stores/step_store";
 
