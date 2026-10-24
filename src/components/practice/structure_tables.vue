@@ -3,6 +3,7 @@
 import {defineComponent} from "vue";
 import {useStepStore} from "../../stores/step_store";
 import {Step} from "../../types";
+import {insertIntoEditor} from "../../classes/editor_snippet";
 
 export default defineComponent({
 
@@ -33,7 +34,7 @@ export default defineComponent({
 
     <figure v-for="table in tables" :key="table.name" class="structure-tables rounded-b-lg mb-4 ml-4  text-left text-sm ">
 
-      <div class="structure-tables__name text-sm font-bold cursor-pointer p-2 bg-[#E1FAF3] rounded-t-md border-[#ddd] border-solid border-1" @click="this.$parent.copyName(table.name)">{{ table.name }}</div>
+      <div class="structure-tables__name text-sm font-bold cursor-pointer p-2 bg-[#E1FAF3] rounded-t-md border-[#ddd] border-solid border-1" @click="insertIntoEditor(table.name)">{{ table.name }}</div>
 
       <div class="structure-tables__columns py-2 bg-white border-[#ddd] border-solid border-1 border-t-0 rounded-b-md">
 
@@ -41,7 +42,7 @@ export default defineComponent({
           <span class="structure-tables__column-name left ">
             <span v-if="column.type == 'integer'" class="structure-tables__column-icon">🔢 </span>
             <span v-if="column.type.includes('char') || column.type.includes('text') " class="structure-tables__column-icon">🔤 </span>
-            <span @click="this.$parent.copyName(column.name)" class="structure-tables__column-title cursor-pointer">{{column.name}}</span>
+            <span @click="insertIntoEditor(column.name)" class="structure-tables__column-title cursor-pointer">{{column.name}}</span>
 
           </span>
           <span class="structure-tables__column-meta right">

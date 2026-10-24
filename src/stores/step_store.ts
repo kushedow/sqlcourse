@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia';
-import {DBResponse, Step, Feedback} from "../types";
+import {DBResponse, Step, Feedback, Highlight} from "../types";
 import {SQLRunner} from "../classes/runner.class";
 import {Checker} from "../classes/checker.class";
 import {MiniStorage} from "../classes/storage.class";
@@ -22,6 +22,7 @@ export const useStepStore = defineStore('exercise', {
         output: {},
         checklist: [],
         errors: [] as string[],
+        highlight: { columns: {}, cells: [] },
 
         runnerStatus: "loading",
         aiStatus: "ready",
@@ -74,6 +75,7 @@ export const useStepStore = defineStore('exercise', {
             this.output = {}
             this.errors = []
             this.checklist = []
+            this.highlight = { columns: {}, cells: [] }
         },
 
         async runExample(): Promise<void>{
@@ -130,6 +132,7 @@ export const useStepStore = defineStore('exercise', {
                 console.log("Проверяем решение")
 
                 this.setChecklist(checker.check(this.example, this.output))
+                this.highlight = checker.compareCells(this.example, this.output)
 
                 if (this.isCompleted) {
                     await this.reportEvent("completed", {code: userCode})

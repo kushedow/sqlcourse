@@ -70,6 +70,14 @@ export interface DBResponse {
     affectedRows: number;
 }
 
+// Подсветка ячеек результата
+export type RowHighlight = Record<string, boolean>;
+
+export interface Highlight {
+    columns: Record<string, boolean>; // колонка есть в образце? (false = лишняя)
+    cells: RowHighlight[];            // cells[ряд][колонка] = верно/неверно
+}
+
 
 export interface AIResponse {
     response: string;

@@ -1,5 +1,5 @@
 <script lang="ts">
-import {DBResponse, Feedback, Step} from "../../types";
+import {DBResponse, Feedback, Step, Highlight} from "../../types";
 import {defineComponent} from "vue";
 import {useStepStore} from "../../stores/step_store";
 import {useAppStore} from "../../stores/app_store";
@@ -45,6 +45,7 @@ export default defineComponent({
 
     isCompleted(): boolean { return this.exStore.isCompleted; },
     checklist(): Feedback { return this.exStore.checklist; },
+    highlight(): Highlight { return this.exStore.highlight; },
 
     textareaRows(): number { return  this.userCode?.split("\n").length || 1; },
 
@@ -146,7 +147,7 @@ export default defineComponent({
 
       <div v-if="output.rows" class="step-practice__output exercise__output" >
 
-        <ResponseTable :outputData="output"></ResponseTable>
+        <ResponseTable :outputData="output" :highlight="highlight"></ResponseTable>
 
         <div v-if="output.fields && output.fields.length == 0 " class="step-practice__output-empty p-4 rounded bg-slate-100">Запрос вернул пустой результат</div>
 

@@ -1,14 +1,59 @@
-import {Feedback, DBResponse} from "../types";
+import {Feedback, DBResponse, Highlight, RowHighlight} from "../types";
 
 export class Checker {
 
     // Единственная точка входа — полный чек-лист проверки решения
     check(example: DBResponse, output: DBResponse): Feedback[] {
+        const headerChecks = this.checkHeaders(example, output);
+
+        // Если названия колонок не совпали — сравнивать данные по строкам бессмысленно
+        if (!headerChecks[0].completed) {
+            return headerChecks;
+        }
+
         return [
-            ...this.checkHeaders(example, output),
+            ...headerChecks,
             ...this.checkRowsLength(example, output),
             ...this.checkAllRows(example, output),
         ];
+    }
+
+    // Матрица подсветки: какие ячейки результата верные, какие — нет.
+    // В отличие от check(), работает и при несовпадении колонок — помечает их красным.
+    compareCells(example: DBResponse, output: DBResponse): Highlight {
+        const exampleColumns = example.fields.map(field => field.name);
+        const outputColumns = output.fields.map(field => field.name);
+
+        const columns: Record<string, boolean> = {};
+        for (let i = 0; i < outputColumns.length; i++) {
+            // Колонка совпадает, только если стоит на том же месте, что и в образце
+            columns[outputColumns[i]] = outputColumns[i] === exampleColumns[i];
+        }
+
+        const cells: RowHighlight[] = [];
+        for (let i = 0; i < output.rows.length; i++) {
+            const exampleRow = example.rows[i] as Record<string, unknown> | undefined;
+            const outputRow = output.rows[i] as Record<string, unknown>;
+            const rowVerdict: RowHighlight = {};
+
+            for (const column of outputColumns) {
+                if (!columns[column]) {
+                    // Несовпадающая колонка (лишняя или не на своём месте)
+                    rowVerdict[column] = false;
+                    continue;
+                }
+                if (!exampleRow) {
+                    // Лишняя строка в результате
+                    rowVerdict[column] = false;
+                    continue;
+                }
+                rowVerdict[column] = this.normalizeValue(outputRow[column]) === this.normalizeValue(exampleRow[column]);
+            }
+
+            cells.push(rowVerdict);
+        }
+
+        return {columns, cells};
     }
 
     private checkHeaders(example: DBResponse, output: DBResponse): Feedback[] {
@@ -43,9 +88,9 @@ export class Checker {
             const outputRow = this.serialize(output.rows[i]);
 
             return this.feedback(
-                `Значения в ряду ${i} совпадают`,
+                `Значения в ряду ${i + 1} совпадают`,
                 exampleRow === outputRow,
-                `${exampleRow} != ${outputRow}`
+                `${this.serializeValues(row)} != ${this.serializeValues(output.rows[i])}`
             );
         });
     }
@@ -53,6 +98,11 @@ export class Checker {
     // Каноничный вид строки результата: числа и числовые строки равны (1 === "1")
     private serialize(row: object): string {
         return JSON.stringify(this.normalizeRow(row));
+    }
+
+    // Читаемые значения строки без ключей: "1, 🍏, Аpple, fruits, 45"
+    private serializeValues(row: object): string {
+        return Object.values(row).map(value => String(value)).join(", ");
     }
 
     private normalizeRow(row: object): object {
