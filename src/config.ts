@@ -1,4 +1,8 @@
 const SERVER_URL = "https://8028296-lg653208.twc1.net"
 const REPORT_URL = SERVER_URL+"/webhook/asql/events"
 
-export {SERVER_URL, REPORT_URL}
+// Новый адрес и токен для загрузки заданий (read-only API)
+const EXERCISES_URL = "https://n8berry.onrender.com/api/db/asql_excerises"
+const EXERCISES_TOKEN = "sYpOm9R9kJJei-9vXkAtOpbFL4uKbafbGwPVsMnpKpo"
+
+export {SERVER_URL, REPORT_URL, EXERCISES_URL, EXERCISES_TOKEN}

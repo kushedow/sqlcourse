@@ -3,7 +3,7 @@ import {Step, Lesson} from "../types";
 import {useStepStore} from "./step_store";
 import {MiniStorage} from "../classes/storage.class";
 import {ExerciseManager} from "../classes/exercise_manager.class";
-import {SERVER_URL} from "../config";
+import {EXERCISES_URL, EXERCISES_TOKEN} from "../config";
 import router from '../router'
 
 
@@ -61,8 +61,7 @@ export const useAppStore = defineStore('main', {
 
                 // загружаем задания, если не выбран продукт - загружаем Basic
 
-                const dataURL =  SERVER_URL + "/webhook/asql-get-content"
-                const allSteps = await manager.load(dataURL)
+                const allSteps = await manager.load(EXERCISES_URL, EXERCISES_TOKEN)
 
                 this.setSteps(allSteps);
 
