@@ -5,4 +5,7 @@ const REPORT_URL = SERVER_URL+"/webhook/asql/events"
 const EXERCISES_URL = "https://n8berry.onrender.com/api/db/asql_excerises"
 const EXERCISES_TOKEN = "sYpOm9R9kJJei-9vXkAtOpbFL4uKbafbGwPVsMnpKpo"
 
-export {SERVER_URL, REPORT_URL, EXERCISES_URL, EXERCISES_TOKEN}
+// Регистрация пользователя
+const SIGNUP_URL = "https://n8berry.onrender.com/server/asql/signup"
+
+export {SERVER_URL, REPORT_URL, EXERCISES_URL, EXERCISES_TOKEN, SIGNUP_URL}

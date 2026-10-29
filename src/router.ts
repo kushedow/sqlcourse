@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import StepPromo from './components/steps/step_promo.vue'
 import Roadmap from './components/roadmap.vue'
 import Content_step from './components/content_step.vue'
+import SignupForm from './components/profile/signup_form.vue'
 import {useAppStore} from "./stores/app_store";
 import {useStepStore} from "./stores/step_store";
 
@@ -23,6 +24,12 @@ const routes = [
         path: '/map',
         name: 'Roadmap',
         component: Roadmap
+    },
+
+    {
+        path: '/signup',
+        name: 'Signup',
+        component: SignupForm
     },
 
 ]
