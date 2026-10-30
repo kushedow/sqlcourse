@@ -56,6 +56,11 @@ export const useProfileStore = defineStore('profile', {
             return state.progress.length;
         },
 
+        // Залогинен ли пользователь (есть токен)
+        isAuthenticated: (state): boolean => {
+            return Boolean(state.auth_token);
+        },
+
     },
 
     actions: {
@@ -107,6 +112,14 @@ export const useProfileStore = defineStore('profile', {
                 this.progress.push(stepID);
                 this.persist();
             }
+        },
+
+        // Применяем токен из диплинка входа: сохраняем и подтверждаем аккаунт
+        applyAuthToken(token: string): void {
+            if (!token) { return; }
+            this.auth_token = token;
+            this.is_confirmed = true;
+            this.persist();
         },
 
         reset(): void {

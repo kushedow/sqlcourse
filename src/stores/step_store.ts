@@ -5,6 +5,7 @@ import {Checker} from "../classes/checker.class";
 import {MiniStorage} from "../classes/storage.class";
 import {AIHelper} from "../classes/ai_helper.class";
 import {useAppStore} from "./app_store";
+import {useProfileStore} from "./profile_store";
 import {REPORT_URL} from "../config"
 
 
@@ -167,7 +168,13 @@ export const useStepStore = defineStore('exercise', {
 
             const url = REPORT_URL
             const data = {event: eventName, id: this.id,  details: details}
-            const headers = {"Content-Type": "application/json" }
+            const headers: Record<string, string> = {"Content-Type": "application/json" }
+
+            // Добавляем токен пользователя, если он уже есть в профиле
+            const profile = useProfileStore()
+            if (profile.auth_token) {
+                headers["Authorization"] = `Bearer ${profile.auth_token}`
+            }
 
             try {
                 const response = await fetch(url, {

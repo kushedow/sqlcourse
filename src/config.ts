@@ -8,4 +8,7 @@ const EXERCISES_TOKEN = "sYpOm9R9kJJei-9vXkAtOpbFL4uKbafbGwPVsMnpKpo"
 // Регистрация пользователя
 const SIGNUP_URL = "https://n8berry.onrender.com/server/asql/signup"
 
-export {SERVER_URL, REPORT_URL, EXERCISES_URL, EXERCISES_TOKEN, SIGNUP_URL}
+// Вход пользователя
+const LOGIN_URL = "https://n8berry.onrender.com/server/asql/login"
+
+export {SERVER_URL, REPORT_URL, EXERCISES_URL, EXERCISES_TOKEN, SIGNUP_URL, LOGIN_URL}
