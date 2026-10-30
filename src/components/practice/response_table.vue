@@ -35,6 +35,8 @@ export default defineComponent({
   },
 
   methods: {
+    insertIntoEditor,
+
     showMoreRows() {
       this.expanded = true;
     },

@@ -23,16 +23,19 @@ export default defineComponent({
   },
 
   data() {
-    return {
-      "userCode" : ""
-    }
+    return {}
   },
 
   computed: {
 
     status(): string { return this.appStore.status;  },
-    // userCode(): string { return this.appStore.currentStep.userCode; },
     runnerStatus(): string {return this.exStore.runnerStatus; },
+
+    // Код в редакторе привязан к текущему шагу, чтобы не переносился между заданиями
+    userCode: {
+      get(): string { return this.currentStep?.userCode || ""; },
+      set(value: string) { if (this.currentStep) { this.currentStep.userCode = value; } },
+    },
 
     currentStep(): Step { return this.appStore.currentStep; },
 
@@ -92,9 +95,8 @@ export default defineComponent({
       // Следующего задания нет — остаёмся на месте
       if (stepID === currentStep.id) return
 
-      // Чистим черновик пройденного шага и редактор
+      // Чистим черновик пройденного шага
       currentStep.userCode = ""
-      this.userCode = ""
       window.scrollTo({top:0})
       this.appStore.pushRoute(`/step_${stepID}`)
     }
@@ -120,11 +122,11 @@ export default defineComponent({
 
   <h1 class="step-practice__title text-3xl mb-3 font-black">{{ currentStep.title }}</h1>
 
-  <article v-html="currentStep.instruction" class="step-practice__instruction step_instruction"></article>
+  <article v-html="currentStep.instruction" v-highlight class="step-practice__instruction step_instruction"></article>
 
   <details class="step-practice__theory step_instruction">
     <summary class="step-practice__theory-summary cursor-pointer mt-2 mb-1 text-emerald-600 text-sm">Напомнить теорию</summary>
-    <article v-html="currentStep.theory[0]" class="step-practice__theory-content"> </article>
+    <article v-html="currentStep.theory[0]" v-highlight class="step-practice__theory-content"> </article>
   </details>
 
   <details class="step-practice__schema">

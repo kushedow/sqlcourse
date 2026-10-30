@@ -2,6 +2,7 @@
 import {defineComponent, PropType} from "vue";
 import CodeEditor from "simple-code-editor";
 import {insertIntoEditor} from "../../classes/editor_snippet";
+import {useStepStore} from "../../stores/step_store";
 
 const DEFAULT_SNIPPETS = ["SELECT", "FROM", "WHERE", "JOIN", "ORDER", "LIMIT", "*", "," , "=", "AND", "OR", "ON"]
 
@@ -10,6 +11,11 @@ export default defineComponent({
   name: 'SqlEditor',
   components: {CodeEditor},
 
+  setup() {
+    const exStore = useStepStore();
+    return { exStore, insertIntoEditor };
+  },
+
   props: {
     modelValue: { type: String, default: "" },
     snippets: { type: Array as PropType<string[]>, default: () => DEFAULT_SNIPPETS },
@@ -17,6 +23,11 @@ export default defineComponent({
   },
 
   emits: ['update:modelValue'],
+
+  computed: {
+    // Таблицы текущего задания — тот же источник, что и «Показать схему таблиц»
+    tables() { return this.exStore.tables; },
+  },
 
 })
 </script>
@@ -31,6 +42,11 @@ export default defineComponent({
           :key="snip"
           class="sql-editor__snippet p-1 bg-[#F2F6F8] text-gray-600 mr-1 rounded cursor-pointer"
           @click="insertIntoEditor(` ${snip} `)">{{snip}}</span>
+
+    <span v-for="table in tables"
+          :key="table.name"
+          class="sql-editor__snippet p-1 bg-[#F2F6F8] text-gray-600 mr-1 rounded cursor-pointer"
+          @click="insertIntoEditor(table.name)">{{table.name}}</span>
   </div>
 
 </template>

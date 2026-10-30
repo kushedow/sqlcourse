@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './components/app.vue'
 import {createPinia, Pinia} from 'pinia'
 import Vuejs3logger  from 'vuejs3-logger'
+import {vHighlight} from "./classes/highlight.directive";
+import "highlight.js/styles/github.css";
 
 import router from './router'
 const pinia: Pinia = createPinia();
@@ -21,4 +23,7 @@ app.use(Vuejs3logger, options);
 
 app.use(pinia)
 app.use(router);
+
+app.directive("highlight", vHighlight);
+
 app.mount('#app');

@@ -22,7 +22,7 @@ export default defineComponent({
     tables(): Step {  return this.exStore.tables ;},
   },
 
-  methods: { },
+  methods: { insertIntoEditor },
 
   async mounted() { }
 

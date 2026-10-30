@@ -56,7 +56,7 @@ export default defineComponent({
 
   <h1 class="step-theory__title text-3xl mb-3 font-black">{{ currentStep.title }}</h1>
 
-  <article v-html="currentStep.instruction" class="step-theory__instruction step_instruction"></article>
+  <article v-html="currentStep.instruction" v-highlight class="step-theory__instruction step_instruction"></article>
 
   <button class="step-theory__next bg-black text-white font-medium rounded p-3 cursor-pointer mr-4" @click="nextStep()">Дальше  &nbsp;→</button>
 
