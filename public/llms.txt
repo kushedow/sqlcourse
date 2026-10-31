@@ -1,0 +1,26 @@
+# Тренажер ASQL
+
+> Интерактивный тренажёр SQL на PostgreSQL прямо в браузере: теория, практические задачи, примеры и проверка решений.
+
+Попробовать: https://sql.kushedow.tech/  — уроки от базового SELECT до оконных функций, JOIN и работы с датами.
+
+## Уроки
+
+- [Интро](https://sql.kushedow.tech/llms/intro.md): вводный экран
+- [SELECT](https://sql.kushedow.tech/llms/select.md): 3 теории, 8 заданий
+- [Условия](https://sql.kushedow.tech/llms/usloviya.md): 2 теории, 12 заданий
+- [Алиасы](https://sql.kushedow.tech/llms/aliasy.md): 1 теория, 3 задания
+- [Арифметика](https://sql.kushedow.tech/llms/arifmetika.md): 1 теория, 9 заданий
+- [Группировка](https://sql.kushedow.tech/llms/gruppirovka.md): 1 теория, 8 заданий
+- [Объединение [Join]](https://sql.kushedow.tech/llms/obedinenie-join.md): 1 теория, 9 заданий
+- [Таблицы Many To Many](https://sql.kushedow.tech/llms/tablitsy-many-to-many.md): 1 теория, 10 заданий
+- [Время и дата](https://sql.kushedow.tech/llms/vremya-i-data.md): 1 теория, 10 заданий
+- [Интервалы](https://sql.kushedow.tech/llms/intervaly.md): 1 теория, 8 заданий
+- [Case When](https://sql.kushedow.tech/llms/case-when.md): 1 теория, 10 заданий
+- [Оконные функции](https://sql.kushedow.tech/llms/okonnye-funktsii.md): 1 теория, 8 заданий
+- [Группировки и фильтрация](https://sql.kushedow.tech/llms/gruppirovki-i-filtratsiya.md): 1 теория, 6 заданий
+- [Завершение](https://sql.kushedow.tech/llms/zavershenie.md): 1 теория, 0 заданий
+
+## Полный текст
+
+- [llms-full.txt](https://sql.kushedow.tech/llms-full.txt): весь курс одним файлом
