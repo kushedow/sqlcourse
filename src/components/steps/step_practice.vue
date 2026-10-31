@@ -124,10 +124,18 @@ export default defineComponent({
 
   <article v-html="currentStep.instruction" v-highlight class="step-practice__instruction step_instruction"></article>
 
-  <details class="step-practice__theory step_instruction">
+  <!-- <1280px: раскрытие теории инлайн -->
+  <details class="step-practice__theory step_instruction xl:hidden">
     <summary class="step-practice__theory-summary cursor-pointer mt-2 mb-1 text-emerald-600 text-sm">Напомнить теорию</summary>
     <article v-html="currentStep.theory[0]" v-highlight class="step-practice__theory-content"> </article>
   </details>
+
+  <!-- ≥1280px: открываем теорию в боковой панели -->
+  <button
+    v-if="currentStep.theory && currentStep.theory[0]"
+    @click="exStore.setTheorySidecarOpen(true)"
+    class="step-practice__theory-trigger hidden xl:inline-block cursor-pointer mt-2 mb-1 text-emerald-600 text-sm"
+  >Напомнить теорию</button>
 
   <details class="step-practice__schema">
     <summary class="step-practice__schema-summary cursor-pointer mb-1 text-emerald-600 text-sm">Показать схему таблиц</summary>

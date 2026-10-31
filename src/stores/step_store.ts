@@ -31,6 +31,7 @@ export const useStepStore = defineStore('exercise', {
 
         tables: [], // Таблицы, которые нужно показать в структуре
         table_names: '', // Имена таблиц, по которым строится структура
+        theorySidecarOpen: false, // Открыта ли боковая панель с теорией (≥1280px)
 
     }),
 
@@ -65,6 +66,7 @@ export const useStepStore = defineStore('exercise', {
             this.solution = step.solution
             this.runnerStatus = "ready"
             this.table_names = step.table_names
+            this.theorySidecarOpen = false
 
             this.aiHelp = ""
             this.aiStatus = "ready"
@@ -77,6 +79,11 @@ export const useStepStore = defineStore('exercise', {
             this.errors = []
             this.checklist = []
             this.highlight = { columns: {}, cells: [] }
+        },
+
+        // Открыть/закрыть боковую панель с теорией
+        setTheorySidecarOpen(value: boolean): void {
+            this.theorySidecarOpen = value;
         },
 
         async runExample(): Promise<void>{
