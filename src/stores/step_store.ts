@@ -32,6 +32,7 @@ export const useStepStore = defineStore('exercise', {
         tables: [], // Таблицы, которые нужно показать в структуре
         table_names: '', // Имена таблиц, по которым строится структура
         theorySidecarOpen: false, // Открыта ли боковая панель с теорией (≥1280px)
+        structureSidecarOpen: false, // Открыта ли боковая панель со схемой таблиц (≥1280px)
 
     }),
 
@@ -67,6 +68,7 @@ export const useStepStore = defineStore('exercise', {
             this.runnerStatus = "ready"
             this.table_names = step.table_names
             this.theorySidecarOpen = false
+            this.structureSidecarOpen = false
 
             this.aiHelp = ""
             this.aiStatus = "ready"
@@ -81,9 +83,16 @@ export const useStepStore = defineStore('exercise', {
             this.highlight = { columns: {}, cells: [] }
         },
 
-        // Открыть/закрыть боковую панель с теорией
+        // Открыть/закрыть боковую панель с теорией (при открытии закрываем схему)
         setTheorySidecarOpen(value: boolean): void {
             this.theorySidecarOpen = value;
+            if (value) { this.structureSidecarOpen = false; }
+        },
+
+        // Открыть/закрыть боковую панель со схемой таблиц (при открытии закрываем теорию)
+        setStructureSidecarOpen(value: boolean): void {
+            this.structureSidecarOpen = value;
+            if (value) { this.theorySidecarOpen = false; }
         },
 
         async runExample(): Promise<void>{
@@ -167,6 +176,17 @@ export const useStepStore = defineStore('exercise', {
 
             const tableNamesList =  this.table_names?.replaceAll(" ", "").split(',') ?? []
             this.tables = await runner.getStructure(tableNamesList)
+
+            // Подгружаем превью-строки (первые 10) для каждой таблицы
+            for (const table of this.tables) {
+                try {
+                    const preview = await runner.run(`SELECT * FROM "${table.name}" LIMIT 10`)
+                    table.rows = preview.rows
+                } catch (error) {
+                    console.log(`Не удалось получить строки таблицы ${table.name}`, error)
+                }
+            }
+
             console.log(this.tables)
 
         },

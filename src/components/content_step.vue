@@ -7,6 +7,7 @@ import StepPromo from "./steps/step_promo.vue";
 import Navigation from "./navigation.vue";
 import StepPractice from "./steps/step_practice.vue";
 import StepTheory from "./steps/step_theory.vue";
+import StructureTables from "./practice/structure_tables.vue";
 
 import {useAppStore} from "../stores/app_store";
 import {useStepStore} from "../stores/step_store";
@@ -14,7 +15,7 @@ import {useStepStore} from "../stores/step_store";
 export default defineComponent({
 
   name: 'ContentStep',
-  components: {Promo: StepPromo, Navigation, Practice: StepPractice, Theory: StepTheory},
+  components: {Promo: StepPromo, Navigation, Practice: StepPractice, Theory: StepTheory, StructureTables},
 
   setup() {
     const store = useAppStore();
@@ -40,6 +41,10 @@ export default defineComponent({
       return this.exStore.theorySidecarOpen;
     },
 
+    structureSidecarOpen(): boolean {
+      return this.exStore.structureSidecarOpen;
+    },
+
   },
 
   methods: {
@@ -47,6 +52,11 @@ export default defineComponent({
     // Закрыть боковую панель с теорией
     closeTheorySidecar(): void {
       this.exStore.setTheorySidecarOpen(false);
+    },
+
+    // Закрыть боковую панель со схемой таблиц
+    closeStructureSidecar(): void {
+      this.exStore.setStructureSidecarOpen(false);
     },
 
   },
@@ -63,7 +73,7 @@ export default defineComponent({
 
 <template>
 
-  <div v-if="status == 'ready' && currentStep" class="content-step" :class="theorySidecarOpen ? 'xl:pr-[480px]' : ''">
+  <div v-if="status == 'ready' && currentStep" class="content-step" :class="[theorySidecarOpen ? 'xl:pr-[480px]' : '', structureSidecarOpen ? 'xl:pl-[480px]' : '']">
 
       <section v-if="currentStep.type=='practice'"
                class="content-step__practice step container mx-auto md:mt-6 p-4 md:p-8 rounded-xl bg-white  2xl:w-1/2 xl:w-2/3 xl:min-w-[760px] ">
@@ -91,6 +101,18 @@ export default defineComponent({
           <button @click="closeTheorySidecar" aria-label="Закрыть" class="content-step__sidecar-close text-2xl leading-none text-gray-500 hover:text-gray-800 cursor-pointer">×</button>
         </div>
         <article v-html="currentStep.theory[0]" v-highlight class="step_instruction"></article>
+      </aside>
+
+      <!-- Боковая панель со схемой таблиц (≥1280px) -->
+      <aside
+        v-if="structureSidecarOpen && currentStep.type == 'practice'"
+        class="content-step__sidecar content-step__sidecar--structure hidden xl:block fixed top-0 left-0 h-screen w-[480px] bg-white shadow-2xl p-6 overflow-y-auto z-40"
+      >
+        <div class="content-step__sidecar-header flex items-center justify-between mb-4">
+          <h2 class="content-step__sidecar-title text-xl font-semibold">Схема таблиц</h2>
+          <button @click="closeStructureSidecar" aria-label="Закрыть" class="content-step__sidecar-close text-2xl leading-none text-gray-500 hover:text-gray-800 cursor-pointer">×</button>
+        </div>
+        <StructureTables/>
       </aside>
 
   </div>

@@ -44,7 +44,8 @@ export interface Lesson {
 
 export interface DBSchemaTable {
     name: string;
-    columns: DBSchemaColumn[]
+    columns: DBSchemaColumn[];
+    rows?: Record<string, unknown>[]; // Превью-строки таблицы (первые 10)
 }
 
 export interface DBSchemaColumn{

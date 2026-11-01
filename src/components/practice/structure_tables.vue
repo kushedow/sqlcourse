@@ -2,7 +2,7 @@
 
 import {defineComponent} from "vue";
 import {useStepStore} from "../../stores/step_store";
-import {Step} from "../../types";
+import {DBSchemaTable} from "../../types";
 import {insertIntoEditor} from "../../classes/editor_snippet";
 
 export default defineComponent({
@@ -16,13 +16,36 @@ export default defineComponent({
 
   },
 
-  data() { return {}},
-
-  computed: {
-    tables(): Step {  return this.exStore.tables ;},
+  data() {
+    return {
+      // Какие таблицы раскрыты (показаны все 10 строк вместо первых 3)
+      expandedTables: {} as Record<string, boolean>,
+    };
   },
 
-  methods: { insertIntoEditor },
+  computed: {
+    tables(): DBSchemaTable[] {  return this.exStore.tables ;},
+  },
+
+  methods: {
+    insertIntoEditor,
+
+    isExpanded(tableName: string): boolean {
+      return Boolean(this.expandedTables[tableName]);
+    },
+
+    // По умолчанию первые 3 строки, после "показать еще" — до 10
+    visibleRows(table: DBSchemaTable): Record<string, unknown>[] {
+      const rows = table.rows || [];
+      const limit = this.isExpanded(table.name) ? 10 : 3;
+      return rows.slice(0, limit);
+    },
+
+    showMore(tableName: string): void {
+      this.expandedTables[tableName] = true;
+    },
+
+  },
 
   async mounted() { }
 
@@ -32,30 +55,44 @@ export default defineComponent({
 
 <template>
 
-    <figure v-for="table in tables" :key="table.name" class="structure-tables rounded-b-lg mb-4 ml-4  text-left text-sm ">
+    <figure v-for="table in tables" :key="table.name" class="structure-tables mb-4 text-left text-sm">
 
       <div class="structure-tables__name text-sm font-bold cursor-pointer p-2 bg-[#E1FAF3] rounded-t-md border-[#ddd] border-solid border-1" @click="insertIntoEditor(table.name)">{{ table.name }}</div>
 
-      <div class="structure-tables__columns py-2 bg-white border-[#ddd] border-solid border-1 border-t-0 rounded-b-md">
+      <div class="structure-tables__body overflow-x-auto bg-white border-[#ddd] border-solid border-1 border-t-0 rounded-b-md">
 
-        <div v-for="column in table.columns" :key="column.name" class="structure-tables__column p-1 text-left px-2 flex gap-2 justify-between">
-          <span class="structure-tables__column-name left ">
-            <span v-if="column.type == 'integer'" class="structure-tables__column-icon">🔢 </span>
-            <span v-if="column.type.includes('char') || column.type.includes('text') " class="structure-tables__column-icon">🔤 </span>
-            <span @click="insertIntoEditor(column.name)" class="structure-tables__column-title cursor-pointer">{{column.name}}</span>
+        <table class="w-full border-collapse text-sm">
 
-          </span>
-          <span class="structure-tables__column-meta right">
-             <span class="structure-tables__column-type text-sm text-gray-400">{{column.type}}</span>
-            <span class="structure-tables__column-comment text-sm text-gray-400">{{column.comment}}</span>
+          <thead>
+            <!-- Строка заголовков (имена колонок) -->
+            <tr>
+              <th v-for="col in table.columns" :key="col.name" class="border border-[#ddd] px-2 py-1 text-left font-semibold bg-[#F2F6F8]">{{ col.name }}</th>
+            </tr>
+            <!-- Строка типов -->
+            <tr>
+              <th v-for="col in table.columns" :key="col.name" class="border border-[#ddd] px-2 py-1 text-left font-normal text-gray-400 bg-[#F2F6F8]">{{ col.type }}</th>
+            </tr>
+          </thead>
 
-          </span>
+          <tbody>
+            <tr v-for="(row, rowIdx) in visibleRows(table)" :key="rowIdx">
+              <td v-for="col in table.columns" :key="col.name" class="border border-[#ddd] px-2 py-1">{{ row[col.name] }}</td>
+            </tr>
+            <tr v-if="!(table.rows || []).length">
+              <td :colspan="table.columns.length" class="border border-[#ddd] px-2 py-1 text-gray-400">Нет данных</td>
+            </tr>
+          </tbody>
 
-        </div>
+        </table>
 
       </div>
 
-    </figure>
+      <button
+        v-if="(table.rows || []).length > 3 && !isExpanded(table.name)"
+        @click="showMore(table.name)"
+        class="structure-tables__more w-full p-2 text-sm text-emerald-600 hover:bg-[#F2F6F8] cursor-pointer text-left"
+      >показать еще</button>
 
+    </figure>
 
 </template>

@@ -77,7 +77,7 @@ export class SQLRunner{
 
                 tables.push({
                     name: tableName,
-                    columns: result.rows.map(f => ({name: f.name, type: f.type, comment: f.comment}))
+                    columns: result.rows.map(f => ({name: f.name, type: this.normalizeType(f.type), comment: f.comment}))
                 })
 
             }
@@ -91,5 +91,9 @@ export class SQLRunner{
 
     }
 
+    // Приводим громоздкие названия типов к коротким (character varying → varchar)
+    private normalizeType(type: string): string {
+        return String(type).replace("character varying", "varchar");
+    }
 
 }

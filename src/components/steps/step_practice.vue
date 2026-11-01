@@ -126,7 +126,7 @@ export default defineComponent({
 
   <!-- <1280px: раскрытие теории инлайн -->
   <details class="step-practice__theory step_instruction xl:hidden">
-    <summary class="step-practice__theory-summary cursor-pointer mt-2 mb-1 text-emerald-600 text-sm">Напомнить теорию</summary>
+    <summary class="step-practice__theory-summary cursor-pointer mt-2 mb-1 mr-1 inline-block rounded bg-[#F2F6F8] px-2 py-1 text-emerald-600 text-sm">Напомнить теорию</summary>
     <article v-html="currentStep.theory[0]" v-highlight class="step-practice__theory-content"> </article>
   </details>
 
@@ -134,15 +134,22 @@ export default defineComponent({
   <button
     v-if="currentStep.theory && currentStep.theory[0]"
     @click="exStore.setTheorySidecarOpen(true)"
-    class="step-practice__theory-trigger hidden xl:inline-block cursor-pointer mt-2 mb-1 text-emerald-600 text-sm"
+    class="step-practice__theory-trigger hidden xl:inline-block cursor-pointer mt-2 mb-1 mr-1 rounded bg-[#F2F6F8] px-2 py-1 text-emerald-600 text-sm"
   >Напомнить теорию</button>
 
-  <details class="step-practice__schema">
-    <summary class="step-practice__schema-summary cursor-pointer mb-1 text-emerald-600 text-sm">Показать схему таблиц</summary>
+  <!-- <1280px: схема таблиц инлайн -->
+  <details class="step-practice__schema xl:hidden">
+    <summary class="step-practice__schema-summary cursor-pointer mb-1 mr-1 inline-block rounded bg-[#F2F6F8] px-2 py-1 text-emerald-600 text-sm">Показать схему таблиц</summary>
       <article class="step-practice__schema-content flex pt-4 bg-[#F2F6F8] ">
         <Structuretables/>
       </article>
   </details>
+
+  <!-- ≥1280px: схема таблиц в боковой панели слева -->
+  <button
+    @click="exStore.setStructureSidecarOpen(true)"
+    class="step-practice__schema-trigger hidden xl:inline-block cursor-pointer mb-1 mr-1 rounded bg-[#F2F6F8] px-2 py-1 text-emerald-600 text-sm"
+  >Показать схему таблиц</button>
 
   <section class="step-practice__example grid grid-cols-2 gap-4 practice__example my-3" v-if="currentStep != null">
 
